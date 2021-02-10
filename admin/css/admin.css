@@ -1,0 +1,918 @@
+.add-element{
+    width: 150px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.freecalc .padding{
+    padding: 10px;
+}
+.freecalc .input-middle{
+    font-size: 18px;
+}
+.freecalc .group{
+    margin-bottom: 20px;
+}
+.freecalc .form-group [type='text']{
+    width: 100%;
+}
+
+.freecalc .btn{
+    cursor: pointer;
+    padding: 4px 5px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 3px;
+    display: inline-block;
+    transition: all .2s linear;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+}
+.freecalc .btn i{
+    transition: all .2s linear;
+}
+.freecalc .btn-light{
+    border: none;
+    padding: 8px 12px;
+}
+
+.freecalc .btn-green{
+    background: #27A444;
+}
+.freecalc .btn-green.add-elem{
+    width: 34px;
+    height: 34px;
+}
+
+.freecalc .btn-green > i{
+    font-size: 20px;
+    color: #fff;
+}
+.freecalc .btn-green:hover{
+    background: #fff;
+    color: #000;
+}
+.freecalc .btn-green:hover i{
+    color: #27A444;
+}
+.freecalc .btn-yellow{
+    background: #40E0D0;
+    width: 34px;
+    height: 34px;
+    border: none;
+    outline: none;
+}
+.freecalc .btn-yellow i{
+    font-size: 20px;
+    color: #fff;
+}
+.freecalc .btn-yellow:hover i{
+    color: #40E0D0;
+}
+.freecalc .btn-yellow:hover{
+    background: #fff;
+}
+
+.freecalc .add-group,
+.freecalc .add-column{
+    display: block;
+    text-align: center;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    transition: all .2s linear;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+}
+.relative{
+    position: relative;
+}
+.freecalc{
+    overflow: hidden;
+}
+.freecalc .add-group:hover,
+.freecalc .add-column:hover{
+    box-shadow: 1px 1px 3px rgba(0,0,0,.1);
+}
+
+.freecalc .add-column > i,
+.freecalc .add-group > i{
+    font-size: 30px;
+    color: #27A444;
+}
+
+.freecalc .wrap{
+    margin: 10px 0 10px 0;
+}
+
+.freecalc .row,
+.tingle-modal .row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.freecalc .row > *,
+.tingle-modal .row > *{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.freecalc .row > *,
+.tingle-modal .row > *{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.freecalc .row .col-1{
+    width: calc(8.3333333% - 20px);
+}
+.freecalc .row .col-2{
+    width: calc(16.6666666% - 20px);
+}
+.freecalc .row .col-3{
+    width: calc(24.99999999% - 20px);
+}
+.freecalc .row .col-4{
+    width: calc(33.33333333% - 20px);
+}
+.freecalc .row .col-5{
+    width: calc(41.66666666% - 20px);
+}
+.freecalc .row .col-6{
+    width: calc(49.999999999% - 20px);
+}
+.freecalc .row .col-7{
+    width: calc(58.333333333% - 20px);
+}
+.freecalc .row .col-8{
+    width: calc(66.666666666% - 20px);
+}
+.freecalc .row .col-9{
+    width: calc(74.999999999% - 20px);
+}
+.freecalc .row .col-10{
+    width: calc(83.333333333% - 20px);
+}
+.freecalc .row .col-11{
+    width: calc(91.666666666% - 20px);
+}
+.freecalc .row .col-12{
+    width: calc(100% - 20px);
+}
+.freecalc .m10{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.freecalc .m0{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.freecalc .mt0{
+    margin-top: 0;
+}
+.freecalc .mb0{
+    margin-bottom: 0;
+}
+.freecalc h2,
+.freecalc h3{
+    margin: 0;
+    margin-bottom: 8px;
+}
+.freecalc .calc-column{
+    margin-top: 10px;
+}
+
+.freecalc .ai-center{
+    align-items: center;
+}
+.freecalc .ai-top{
+    align-items: flex-start;
+}
+.freecalc .textarea{
+    display: inline-block;
+    min-width: 500px;
+    border: none;
+    border-bottom: 2px solid #A1A6AB;
+    padding: 4px;
+    color: #595E63;
+    font-weight: 600;
+    font-size: 18px;
+    outline: none;
+}
+.freecalc .save-calc.absolute{
+    position: fixed;
+    top: 40px;
+    right: 10px;
+    z-index: 10;
+    box-shadow: -2px 2px 8px rgba(0,0,0,.4);
+}
+.freecalc .textarea.name-group{
+    font-size: 19px;
+    color: #000;
+}
+.freecalc .textarea:focus{
+    border-bottom: 2px solid #27A444;
+}
+.freecalc .container-calc{
+
+}
+.freecalc .waiting-load{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: calc(100% - 160px);
+    height: 100%;
+    top: 0;
+    left: 160px;
+    z-index: 101;
+    background-color: rgba(255,255,255,.5);
+    backdrop-filter:blur(8px);
+}
+.freecalc .waiting-load p{
+    font-size: 22px;
+    font-weight: 500;
+}
+.freecalc .calc-settings h2{
+    border-bottom: 1px solid silver;
+    padding-bottom: 8px;
+}
+.freecalc .calc-settings .form-group > *{
+    display: block;
+}
+.freecalc .calc-settings label{
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+.freecalc .component-settings label small,
+.freecalc .calc-settings label small{
+    display: block;
+}
+
+.br-block{
+
+}
+/* ---- */
+.freecalc .emblem{
+    position: absolute;
+    background: #17A2B8;
+    color: #fff;
+    border: 1px solid #0090B4;
+    top: 0;
+    right: 20px;
+    padding: 2px 4px;
+    font-size: 12px;
+}
+
+.freecalc .settings,
+.freecalc .draggable,
+.freecalc .close,
+.freecalc .deleted{
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    cursor: pointer;
+    z-index: 10;
+    color: #AFAFAF;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.freecalc .settings{
+    left: 5px;
+    right: auto;
+    margin: 0;
+}
+.freecalc .column .settings i,
+.freecalc .column .deleted i,
+.freecalc .column .draggable i{
+    font-size: 1.2em;
+}
+.freecalc .deleted i{
+    font-size: 16px;
+}
+.freecalc .close:hover,
+.freecalc .deleted:hover{
+    color: #FF0000;
+}
+.freecalc .settings:hover,
+.freecalc .draggable:hover{
+    color: #86E49E;
+}
+.freecalc .draggable:hover{
+    cursor: grabbing;
+}
+.freecalc .draggable{
+    left: 30px;
+    right: auto;
+    margin: 0;
+}
+.freecalc .group-block > .draggable{
+    top: 30px;
+    left: 2px;
+    font-size: 16px;
+}
+
+.freecalc .adding{
+    position: relative;
+    /*padding-right: 16px;*/
+}
+.freecalc .column-name{
+    border: 2px solid #FF0000;
+    font-size: 18px;
+    display: block;
+    font-weight: 600;
+    width: calc(100% - 20px);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding: 6px 14px 8px 14px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #818181;
+}
+/**/
+
+.freecalc .header-column .row > *{
+    margin-right: 8px;
+}
+.freecalc .btn-green{
+    border: none;
+    outline: none;
+    padding: 6px 8px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,.2);
+    border-radius: 6px;
+    color: #fff;
+}
+.freecalc .ds-block,
+.freecalc .d-block{
+    display: block;
+}
+.freecalc .d-iblock{
+    display: inline-block;
+}
+
+/* Компоненты */
+.freecalc .template{
+    display: none;
+}
+.tingle-modal .popup-template{
+    background: #fff;
+    max-width: 812px;
+    position: relative;
+}
+.tingle-modal .popup-template h2{
+    margin: 0;
+    padding: 10px;
+}
+.tingle-modal .popup-template .close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.tingle-modal .popup-template .close:hover{
+    box-shadow: 0 0 6px rgba(0,0,0,.4);
+}
+
+.tingle-modal .popup-template .col-4{
+    width: 150px;
+    height: 150px;
+    border: 1px solid #c0c0c0;
+    margin: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+    transition: all .2s linear;
+    position: relative;
+}
+.tingle-modal .col-4 span{
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    background: #e0e0e0;
+}
+.tingle-modal .popup-template .col-4:hover{
+    box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+}
+
+.tingle-modal .popup-template .col-4:before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    transition: all .2s linear;
+}
+
+.tingle-modal .popup-template .col-4:hover:before{
+    background-color: rgba(136,255,184,.2);
+}
+.ta-center{
+    text-align: center;
+}
+
+
+.freecalc img{
+    max-width: 100%;
+}
+.freecalc .img-for-input{
+    max-height: 150px;
+    max-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+.freecalc .square-big-with-scale-img{
+    padding-top: 38px !important;
+}
+.trans{
+    transition: all .2s linear;
+}
+
+/* Модальное окно */
+.tingle-modal-box__content{
+    padding-top: 0;
+    padding-bottom: 1rem;
+}
+.tingle-modal{
+    background: rgba(0,0,0,.2) !important;
+}
+.tingle-modal-box{
+    width: auto!important;
+}
+
+.freecalc .custom-styles{
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    margin-bottom: 8px;
+}
+.freecalc .group-block{
+    padding-top: 5px;
+    padding-right: 11px;
+    padding-left: 14px;
+    padding-bottom: 5px;
+    align-items: center;
+    border: 1px solid #c0c0c0;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    margin-left: 0;
+    margin-right: 0;
+    min-height: 60px;
+}
+.freecalc .fd-column > .row{
+    flex-direction: column;
+}
+.freecalc .group-block .group-block{
+    margin-top: 0;
+    margin-right: 10px !important;
+}
+
+.freecalc .row__text{
+    display: block;
+}
+.freecalc .row__text > span{
+    display: block;
+}
+.freecalc .row__text .for-material{
+    font-weight: 400;
+    font-size: 14px;
+}
+.freecalc hr{
+    border-color: #0090B4;
+    border-top: none;
+}
+.freecalc .group-block .row > *{
+    margin-right: 0;
+}
+.freecalc .component-settings .row{
+    margin-right: 0;
+    margin-left: 0;
+}
+.freecalc .component-settings .row > *:first-child{
+    margin-left: 0;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+/* Styles components */
+.freecalc > *{
+    box-sizing: border-box;
+}
+.freecalc .regular-text{
+    width: auto;
+}
+.freecalc .component:not(.group-block){
+    display: inline-flex;
+    box-shadow: 0 0 2px rgba(0,0,0,.2);
+    padding-top: 25px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 6px;
+    min-height: 51px;
+    min-width: 100px;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+.freecalc .no-padding{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.components > div{
+    margin-bottom: 20px;
+}
+.freecalc .group input[type='number']{
+    padding-right: 1px;
+    padding-left: 1px;
+}
+
+/* checkbox "check-text-notice" */
+/*.freecalc .custom-check > *:not(input[type='checkbox']){
+    display: inline-block;
+}*/
+.detailing-block{
+    border: 1px dashed #BABABA;
+}
+.detailing-block .detailing{
+    border-bottom: 1px dashed  #BABABA;
+    font-size: 1.2em;
+    display: flex;
+    padding-right: 36px;
+    padding-left: 36px;
+}
+.freecalc__detailing .ds-none{
+    display: none;
+}
+.freecalc__detailing .detailing__text{
+     width: 50%;
+ }
+.freecalc__detailing .detailing__prop{
+    width: 25%;
+    text-align: center;
+}
+.freecalc__detailing .detailing__price{
+    width: 25%;
+    text-align: right;
+}
+
+.freecalc__detailing .detailing> div{
+    border: 1px solid transparent;
+    border-right: 1px dashed #BABABA;
+    padding: 8px;
+}
+.freecalc__detailing .btn{
+    margin: 8px;
+    display: inline-block;
+}
+.freecalc__detailing .detailing> div:focus{
+    border: 1px solid #000;
+}
+.freecalc__detailing .detailing> div:last-child{
+    border-right: none;
+}
+.freecalc .column-top{
+    display: flex;
+    align-items: center;
+    padding-right: 30px;
+    margin-bottom: 20px;
+}
+.freecalc .column-top .slide > i{
+    font-size: 22px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    line-height: 28px;
+    width: 30px;
+    height: 30px;
+    transition: all .2s linear;
+    background: #F1F1F1;
+    border-radius: 50%;
+    border: 1px solid #444444;
+}
+.freecalc .column-top .slide > i:hover{
+    background: transparent;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+}
+.freecalc .custom-check > *{
+    vertical-align: middle;
+}
+.custom-check input[type='checkbox']{
+    display: none;
+}
+
+.custom-check .checked/*,
+.custom-check .checked + span*/{
+    width: 20px;
+    height: 20px;
+    background: #6B6B6B;
+    display: inline-block;
+    border-radius: 50%;
+}
+.freecalc .square-big-with-img-and-sign .checked{
+    display: none;
+}
+.custom-check .checked:checked + span{
+    background: #FF0000;
+}
+.freecalc .text-mini{
+    width: 80px;
+}
+.freecalc .bd-red{
+    border: 1px solid #FF0000;
+}
+
+.freecalc p{
+    font-size: 16px;
+    margin: 0;
+}
+.check-text-notice > *{
+    display: inline-block;
+}
+
+.freecalc .component{
+    vertical-align: middle;
+    transition: opacity .2s linear;
+}
+.component select,
+.component input{
+    display: inline-block;
+    margin-bottom: 8px;
+    vertical-align: middle;
+}
+.freecalc .check-text .text{
+    padding: 4px 10px;
+}
+
+/* type: check-text */
+.check-text .component-html{
+    border: 1px solid #6B6B6B;
+    border-radius: 10px;
+    padding: 6px 0;
+
+}
+.check-text .custom-check span{
+    display: none;
+}
+/*.custom-check > .custom-check .text{
+    padding: 8px 6px;
+    width: 140px;
+    text-align: center;
+    font-weight: 500;
+    display: inline-block;
+}*/
+.component-html{
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+.component-html .text{
+    text-align: center;
+}
+.component-html [type='checkbox'],
+.component-html [type='radio']{
+    display: none;
+}
+/*
+.custom-check .checked + .text{
+    border: 1px solid #6B6B6B;
+    color: #6B6B6B;
+    border-radius: 8px;
+    font-size: 16px;
+    display: inline-block;
+}
+.custom-check .check-text:checked + .text{
+    border-color: #FF0000;
+    color: #FF0000;
+}*/
+
+/* type: square-small-text */
+.square-small-text .custom-check{
+    width: 150px;
+    height: 38px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    font-size: 18px;
+}
+.in-iblock > *{
+    display: inline-block ;
+}
+
+/* Присваивается форме, когда нужно
+выбрать компонент для связи стоимости */
+.freecalc .is-check-component{
+
+}
+.freecalc .is-check-component .component{
+    opacity: 0.6;
+}
+.freecalc .is-check-component .component:hover{
+    opacity: 1;
+    border-color: red;
+}
+.freecalc .other-price-component{
+    background: #F2F2F2;
+    border: 1px solid #C4C4C4;
+    border-radius: 6px;
+    display: block;
+    height: 40px;
+    flex-grow: 1;
+    transition: background-color .2s linear;
+}
+.freecalc .other-price-component:hover{
+    background: #B0F2BA;
+}
+.freecalc .set{
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    font-size: 16px;
+}
+.freecalc .hred{
+    cursor: pointer;
+    font-size: 22px;
+}
+.freecalc .hred:hover{
+    color: red;
+}
+
+.freecalc .component-settings{
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    border: 1px solid #e0e0e0;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    /*min-width: 180px;*/
+    min-width: 300px;
+    min-height: 80px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 0 9px rgba(0,0,0,.4);
+    box-sizing: border-box;
+    z-index: 100;
+}
+.freecalc .component-settings .fa-sync-alt{
+    font-size: 16px;
+    background: #f0f0f0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    border: 1px solid #c0c0c0;
+    padding: 6px;
+}
+
+/*.freecalc .component-settings .row{
+    align-items: center;
+}*/
+
+.freecalc .nowrap{
+    flex-wrap: nowrap;
+}
+.freecalc .component-settings .close{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+}
+
+.freecalc .component-settings.active{
+    display: block;
+}
+.freecalc .component-settings label{
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+.freecalc .component-settings [type="text"]{
+    width: 100%;
+    display: block;
+}
+
+.freecalc .group .content{
+    /*margin-bottom: 6px;*/
+    margin-top: 6px;
+    margin-left: 0;
+    margin-right: 0;
+}
+.freecalc .group-block .content > div{
+    border: 1px solid #E4E4E4;
+    /*box-shadow: 0 0 2px rgba(0,0,0,.2);*/
+}
+.freecalc .radio-dot-text{
+    padding-top: 22px;
+    padding-bottom: 6px;
+}
+
+/*  */
+.freecalc .check-worktop .checked{
+    display: none;
+}
+/*  */
+
+.freecalc *{
+    box-sizing: border-box !important;
+}
+.ta-center{
+    text-align: center;
+}
+
+/*  */
+.square-big-witht-scale .component-html{
+    display: flex;
+    flex-direction: column;
+
+}
+.square-big-witht-scale i{
+    font-size: 20px;
+}
+
+/*  */
+.freecalc .square-big-with-img-and-sign .btn-question{
+    position: absolute;
+    display: block;
+    color: red;
+    font-weight: 600;
+    top: -7px;
+    right: 20px;
+}
+
+/* */
+.freecalc .component .scale-img__link{
+    display: block;
+    position: absolute;
+    z-index: 20;
+    top: 4px;
+    left: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+    text-decoration: none;
+    color: #393939;
+    transition: color .4s, border-color .4s;
+}
+.freecalc .content .square-big-with-scale{
+    min-width: 160px;
+    max-width: 190px;
+    height: 200px;
+}
+.freecalc .square-big-with-scale span{
+    display: block;
+}
+.freecalc .square-big-with-scale .component-html{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.freecalc .square-big-with-scale .component-html .row__img img{
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+}
+.freecalc .square-big-with-scale .component-html .fal{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/*  */
+.freecalc .content .worktop-comp{
+    min-height: 100px;
+    min-width: 400px;
+}
+.freecalc .worktop-comp img{
+    max-width: 100%;
+}
+.freecalc .worktop-comp .component-html input{
+    display: none;
+}
+.freecalc .worktop-comp .individual-group{
+    display: none;
+}
