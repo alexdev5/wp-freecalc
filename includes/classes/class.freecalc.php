@@ -31,11 +31,7 @@ class Freecalc {
 		$this->includesFiles();
 		$this->shortcode = new Shortcode();
 
-		if (!is_admin()){
-			$this->loadFrontend();
-		}
-
-		//$this->define_public_hooks();
+		$this->loadFrontend();
 	}
 
 
@@ -79,8 +75,10 @@ class Freecalc {
 		require_once FREECALC_PATH . 'includes/controllers/FrontendController.php';
 		$cFornt = new FrontendController($this->get_freecalc());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $cFornt, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $cFornt, 'enqueue_scripts' );
+		if (!is_admin()){
+			$this->loader->add_action( 'wp_enqueue_scripts', $cFornt, 'enqueue_styles' );
+			$this->loader->add_action( 'wp_enqueue_scripts', $cFornt, 'enqueue_scripts' );
+		}
 
 		$cFornt->frontAjax();
 	}
@@ -94,3 +92,4 @@ class Freecalc {
 	}
 
 }
+

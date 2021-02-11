@@ -208,10 +208,26 @@ ul{
 .freecalc .check-text [type='radio']:checked+.checked + .text,
 .freecalc .check-text [type='checkbox']:checked + .checked + .text,
 .freecalc .check-worktop [type='radio']:checked + .text,
+
+.freecalc .check-worktop [type='checkbox']:checked + svg + .text,
+.freecalc .check-worktop [type='radio']:checked + svg +.text,
 .freecalc .check-worktop [type='checkbox']:checked + img + .text,
 .freecalc .check-worktop [type='radio']:checked + img +.text,
 .freecalc .check-worktop [type='checkbox']:checked + .text{
     color: #FF0000;
+}
+
+.freecalc .check-worktop [type='checkbox']:checked + svg .cls-1,
+.freecalc .check-worktop [type='radio']:checked + svg .cls-1,
+.freecalc .check-worktop.active .cls-1,
+.freecalc .check-worktop.active .cls-1{
+    fill: #FF0000;
+}
+
+.freecalc .check-worktop svg,
+.freecalc .check-worktop img{
+    width: 150px;
+    min-height: 100px;
 }
 .freecalc .check-circle{
     margin-right: 20px;

@@ -23,7 +23,13 @@ class Shortcode{
 			$settings = $calc->settings;
 
 
-			return view("front/partials/view-calc-id", ['contents'=>$contents, 'settings'=>$settings, ]);
+			if ($_GET['tmp-pdf'] ==1){
+				return view("includes/view/actions-front/template-pdf");
+			}
+			else{
+				return view("front/partials/view-calc-id", ['contents'=>$contents, 'settings'=>$settings, ]);
+			}
+
 		});
 	}
 }

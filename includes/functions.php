@@ -96,3 +96,15 @@ if (!function_exists('fchangeText')){
 		return '';
 	}
 }
+
+if (!function_exists('get_svg_content')){
+	function get_svg_content($uri)
+	{
+		$dir = FREECALC_PATH . '';
+		$full_url = $dir . $uri;
+		if (!file_exists($full_url))
+			return '';
+
+		return file_get_contents($full_url);
+	}
+}

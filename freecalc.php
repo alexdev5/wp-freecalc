@@ -59,3 +59,5 @@ function run_freecalc() {
 	$plugin->run();
 }
 run_freecalc();
+
+

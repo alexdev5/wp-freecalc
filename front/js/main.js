@@ -151,7 +151,7 @@
 
     if($el.hasClass('check-panel')){
       // Вырез под варочную панель
-      //dvar.prop = 1;
+      dvar.area = 0;
       dvar.type = 'hob-cutout-js';
     }
     else if($el.hasClass('check-washing')){
@@ -212,6 +212,7 @@
         el: $el,
         prop:0,
         price:0,
+        area:0,
         def: 0,
         type: dvar.type
       });
@@ -226,7 +227,6 @@
       setSumDOM(calcTotalSum());
     }
   }
-
 
 
 
@@ -258,13 +258,14 @@
   let manualInputs = $('.calc-area [type=number], .calc-dot-number [type=number], .text-input-text [type=number]');
   manualInputs.on('keyup', function (evt) {
     let $el = $(this);
-    let component = $el.parents('.components').first();
+    let component = $el.parents('.component').first();
     let groupBlock = $el.parents('.group-block').first();
-    let checkComponent = component.find('[type=checkbox]');
+    let checkComponent = component.find('[type="checkbox"]');
     let checkGroup = groupBlock.find('[type=checkbox]');
     let area = eachNumbers(groupBlock);
     let price = $el.data('price');
     let name = $el.attr('name');
+    let pricePOC = false;
     let isCheck = false;
     let dvar = {};
 
@@ -277,6 +278,7 @@
       else
         area = transMeters(area);
     }
+
 
     if(groupBlock.hasClass('next-check-price')){
       // Если цена со следующего блока
@@ -291,13 +293,19 @@
       isCheck = checkComponent.prop('checked');
       name = checkComponent.attr('name');
       price = checkComponent.data('price');
+      area = eachNumbers(component);
+      pricePOC = priceOtherComponent(checkComponent);
     }
     else if(is_elem(checkGroup)){
       // Есть чек в группе
       isCheck = checkGroup.prop('checked');
       name = checkGroup.attr('name');
       price = checkGroup.data('price');
+      pricePOC = priceOtherComponent(checkGroup);
     }
+
+    if (pricePOC !== false)
+      price = pricePOC;
     let amount = area * balrate(price);
 
     // Для детализации
@@ -770,7 +778,8 @@
         data.prop = textElem.text();
       }
 
-      if(!data.prop){
+      console.log(inputParent.find('.text').first().text());
+      if(typeof data.prop != 'string'){
         data.prop2 = inputParent.find('.text').first().text();
       }
 
@@ -794,6 +803,10 @@
     let isChange = false;
     let newPrice = false;
 
+    if (prop === 1 && data.area>0 || !data.prop)
+      prop = data.area;
+
+    console.log(data);
     // Непосредственно запись в таблицу
     if (data.type === 'material-js'){
       // материал
@@ -1025,6 +1038,7 @@ function number_format(_number, _decimal, _separator) {
   r = (rr[1] ? b + '.' + rr[1] : b);
   return r;
 }
+
 
 function is_elem(elem) {
   if (!elem){

@@ -10,18 +10,29 @@ include FREECALC_INC . 'view/partials/component-before.php';
 		 include FREECALC_INC . 'view/partials/btn-del-elem.php';?>
 
     <?= fis_admin('<label class="component-html custom-check">');
-		 $imgSrc = valueIf($compSett['img-src'], '',FREECALC_ADMIN.'img/woocommerce-placeholder-1024x1024.png');
+		$imgSrc = valueIf($compSett['img-src'], '',FREECALC_ADMIN.'img/woocommerce-placeholder-1024x1024.png');
+		preg_match('/(#)(.+)/', $compSett['img-src'], $matches);
+		if ($matches[2]){
+		   $img = get_svg_content($matches[2]);
+      }
+
+
     ?>
 
-			<? /* input, в котором будет выводится цена */ ?>
-			<?= view2('settings/html-input-price', [
-					 'name'=>$name,
-					 'compSett'=>$compSett,
-					 'comp'=>$comp,
-					 'group'=>$group,
-					 'isSpan'=>false,
-			]); ?>
+      <? /* input, в котором будет выводится цена */ ?>
+      <?= view2('settings/html-input-price', [
+             'name'=>$name,
+             'compSett'=>$compSett,
+             'comp'=>$comp,
+             'group'=>$group,
+             'isSpan'=>false,
+      ]); ?>
+   <? if ($img){
+      echo $img;
+   }
+   else{?>
     <img src="<?= $imgSrc ?>" alt="" class="img-for-input">
+   <? } ?>
         <p <?= fchangeText()?> class="text">
           <?= valueIf($adata['text'], '', 'Изменить') ?>
         </p>
