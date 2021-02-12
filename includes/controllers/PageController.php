@@ -43,6 +43,15 @@ class PageController{
 
 		add_submenu_page(
 			$this->freecalcName,
+			'Краткая информация по плагину',
+			'Инфо',
+			'manage_options',
+			$this->getSlug('info'),
+			[$this, 'infoCalc']
+		);
+
+		add_submenu_page(
+			$this->freecalcName,
 			'Редактировать калькулятор',
 			'',
 			'manage_options',
@@ -88,6 +97,11 @@ class PageController{
 	public function settingsCalc()
 	{
 		echo viewComponents('settings', []);
+	}
+
+	public function infoCalc()
+	{
+		echo viewComponents('info', []);
 	}
 
 	public function getSlug($slug = ''){
