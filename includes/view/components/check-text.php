@@ -35,6 +35,12 @@ include FREECALC_INC . 'view/partials/component-before.php';
 					<?= view2('settings/price', ['price'=>$compSett['price'],'priceType'=>$compSett['price-type'], ]); ?>
            <!-- end -->
 
+
+           <!-- $align | Для блока детализации -->
+					<?= view2('settings/for-detailind', [ 'forDetailing'=>$compSett['for-detailing'] ]); ?>
+           <!-- end -->
+
+
             <? include FREECALC_INC . 'view/partials/component-footer.php'; ?>
         </div>
     <? endif; ?>

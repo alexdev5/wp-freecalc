@@ -413,6 +413,9 @@
 
 	});
 
+	// Перетаскивание окна настроек
+	formCalc.find('.component-settings').draggable();
+
 	function emptyDataAttr(el) {
 		if (!is_elem(el))
 			return;

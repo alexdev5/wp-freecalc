@@ -11,9 +11,10 @@ class AdminController {
 
 	public function enqueue_styles()
 	{
-		wp_enqueue_style_version($this->freecalc,'admin/css/admin.css');
 		wp_enqueue_style( $this->freecalc.'-font-awesome',  FREECALC_URL.'admin/plugins/fontawesome-pro-5.15.1-web/css/all.min.css' );
 		wp_enqueue_style( $this->freecalc.'-tingle',  FREECALC_URL.'admin/plugins/tingle-master/tingle.min.css' );
+		wp_enqueue_style( 'jquery-ui',  '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
+		wp_enqueue_style_version($this->freecalc,'admin/css/admin.css');
 	}
 
 	public function enqueue_scripts()
@@ -21,6 +22,7 @@ class AdminController {
 		wp_enqueue_script( $this->freecalc.'-tingle',  FREECALC_URL.'admin/plugins/tingle-master/tingle.min.js' );
 		wp_enqueue_script( $this->freecalc.'-drag',  'https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js' );
 		wp_enqueue_script( $this->freecalc.'-sort',  'https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/sortable.js' );
+		wp_enqueue_script( 'jquery-ui',  '//code.jquery.com/ui/1.12.1/jquery-ui.js' );
 
 		wp_enqueue_script('jquery');
 		wp_enqueue_script_version( $this->freecalc, 'admin/js/main.js', ['jquery'], true);

@@ -759,12 +759,21 @@ input::-webkit-inner-spin-button {
     color: red;
     transition: all .2s linear;
 }
+.calc-actions__tab .calc-action.not-active{
+    background: #D6E1E5;
+    color: #535759;
+    cursor: not-allowed;
+}
+.calc-actions__tab .calc-action.not-active:hover{
+    background: #D6E1E5;
+}
+
 .calc-actions__tab .calc-action i{
     font-size: 20px;
     margin-right: 10px;
 }
 .calc-actions__tab .calc-action:hover{
-    background: rgba(192,104,110,.2);;
+    background: rgba(192,104,110,.2);
 }
 .calc-actions__tab:last-child .calc-action{
     border-right: none;

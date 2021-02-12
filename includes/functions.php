@@ -108,3 +108,17 @@ if (!function_exists('get_svg_content')){
 		return file_get_contents($full_url);
 	}
 }
+
+if (!function_exists('base64_encoded_image')) {
+	function base64_encoded_image($img, $echo = false)
+	{
+		$imageSize = getimagesize($img);
+		$imageData = base64_encode(file_get_contents($img));
+		$imageHTML = "<img src='data:{$imageSize['mime']};base64,{$imageData}' {$imageSize[3]} />";
+		if ($echo == true) {
+			echo $imageHTML;
+		} else {
+			return $imageHTML;
+		}
+	}
+}

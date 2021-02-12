@@ -143,12 +143,12 @@
 				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
 			],
-		/*'tabletop-installation-js'=>
+		'we-installation-tabletop-js'=>
 			[
-				'name'=>'Монтаж столешницы',
-				'def_prop'=>'<span class="num">-</span>',
+				'name'=>'Монтаж',
+				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
-			],*/
+			],
 	]
 
 // detailing-comp - класс

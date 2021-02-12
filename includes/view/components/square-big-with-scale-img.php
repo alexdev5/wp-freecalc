@@ -64,6 +64,10 @@ include FREECALC_INC . 'view/partials/component-before.php';
       <?= view2('settings/input-type', [ 'inputType'=>$compSett['component-type'] ]); ?>
       <!-- end -->
 
+         <!-- $price | Выбрать действие -->
+			 <?= view2('settings/select-actions', ['actions'=>$compSett['select-action'],'compSett'=>$compSett, ]); ?>
+         <!-- end -->
+
 
       <? include FREECALC_INC . 'view/partials/component-footer.php'; ?>
 

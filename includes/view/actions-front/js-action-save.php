@@ -5,10 +5,11 @@ use Dompdf\Dompdf;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-$html = view('includes/view/actions-front/template-pdf', []);
+$html = view('includes/view/actions-front/template-pdf', ['details'=>$_POST['details']]);
 $dompdf->loadHtml($html);
 // (Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4', 'portrait');
+// portrait
+$dompdf->setPaper('A4', 'landscape');
 
 // Render the HTML as PDF
 $dompdf->render();
