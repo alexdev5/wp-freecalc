@@ -1,129 +1,16 @@
 <?
 $mapDetailing = include FREECALC_INC.'view/partials/detailing-classes.php';
 $count = 1;
+
+/* Подключение стилей */
+include FREECALC_INC . 'view/actions-front/template-pdf-styles.php';
+/* ------------------- */
 ?>
-<style>
-   *{
-      font-family: Arial, sans-serif;
-   }
-    table{
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table p{
-       margin: 0;
-    }
-    table h2{
-       font-weight: normal;
-       font-size: 18px;
-       margin: 0;
-    }
-    small{
-       font-size: 60%;
-    }
-    .ib{
-       display: inline-block;
-    }
-    .bdb{
-       border-bottom: 1px solid #393939 !important;
-    }
-    .mb40{
-       margin-bottom: 40px;
-    }
-    .mb20{
-       margin-bottom: 20px;
-    }
-    .tt-upper{
-       text-transform: uppercase;
-    }
-    .c-green{
-       color: #589F14;
-    }
-    .c-red{
-       color: red;
-    }
 
+<?
 
-    /* Шапка документа */
-    .header{
-       margin-bottom: 60px;
-    }
-    .header td{
-       background: #393939;
-       height: 90px;
-       width: 33.33333%;
-       vertical-align: middle;
-       color: #fff;
-       padding: 15px;
-    }
-    .header td:last-child{
-       text-align: right;
-       width: 40%;
-    }
-    .header td p{
-       font-size: 12px;
-    }
-
-
-    /* Шапка калькулятора */
-    .calculation-header{
-       margin-bottom: 40px;
-    }
-    h2{
-       font-weight: normal;
-       font-size: 18px;
-       margin: 0;
-       text-transform: uppercase;
-    }
-
-    /* Расчет */
-    .calculation tr td{
-        width: 20%;
-        border-bottom: 1px solid #393939;
-        padding: 8px 0;
-        margin: 0;
-    }
-    .calculation tr:first-child td:last-child{
-        width: 40%;
-    }
-    .calculation tr td:first-child{
-        width: 60%;
-    }
-    .calculation tr td:last-child{
-        text-align: right;
-    }
-
-   /* Total */
-   .total{
-      text-align: right;
-      margin-top: 30px;
-      display: block;
-   }
-   .total > *{
-      vertical-align: middle;
-   }
-   .total h2{
-      display: inline-block;
-      font-size: 32px;
-      font-weight: 500;
-   }
-   .total .total-sum{
-      font-size: 32px;
-      font-weight: 500;
-      margin-left: 30px;
-   }
-   .to-lower{
-      text-transform: lowercase;
-   }
-   .calculation-img{
-      margin-top: 30px;
-   }
-   .calculation-img img{
-      background: #000;
-     /* width: 900px;*/
-      max-height: 300px;
-   }
-</style>
+$radials = $data['radial'];
+?>
 
 
 <!-- Шапка документа -->
@@ -149,16 +36,43 @@ $count = 1;
 <div class="calculation-header tt-upper">
    <h2>Калькулятор</h2>
    <div>
-      <h2 class="bdb ib"><?= $details['worktop_name'] ?> столешницa</h2>
+      <h2 class="bdb ib"><?= $data['wname'] ?> столешницa</h2>
    </div>
 
-	<? if ($details['worktop_imgname']):
-     $img = FREECALC_PATH.'admin/img/worktop/'.$details['worktop_imgname'].'.jpg'
-     ?>
-     <div class="calculation-img">
-        <img src="<?= $img ?>">
-     </div>
-	<? endif; ?>
+
+   <!-- Тест -->
+   <?
+
+	 /*$radials = [0,0,0,0,5];
+	 $data['cpanel'] = true;
+	 $data['wimg'] = 'worktop-g';
+
+	 $size['w1'] = 1000;
+	 $size['w2'] = 2000;
+	 $size['l1'] = 1000;
+	 $size['l2'] = 2000;*/
+
+	 $img = FREECALC_PATH.'admin/img/worktop/'.$data['wimg'].'.jpg';
+	 //$img = FREECALC_URL.'admin/img/worktop/'.$data['wimg'].'.jpg';
+
+   ?>
+   <!-- Тест -->
+
+    <? if ($data['wimg']): ?>
+       <div class="worktop <?= $data['wimg'] ?>">
+          <img src="<?= $img ?>">
+          <? foreach ($radials as $key=>$is_radial) {
+              $i = $key+1;
+             echo "<span class='check-radial check-mark-{$i} ".valueIf($is_radial>0, 'checked')."'></span>";
+          }?>
+
+           <span class="check-panel <?= valueIf($data['cpanel']==1, 'checked') ?>"></span>
+
+           <? foreach ($size as $sname=>$val){
+               echo "<span class='size {$sname}'>{$val}</span>";
+           } ?>
+       </div>
+    <? endif; ?>
 </div>
 
 
@@ -189,7 +103,7 @@ $count = 1;
 </table>
 
 <?
-$total = htmlspecialchars_decode($details['total_price']);
+$total = htmlspecialchars_decode($data['total_price']);
 ?>
 <div class="total">
    <div class="total-sum">Итого: <?= $total ?></div>

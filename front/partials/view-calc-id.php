@@ -57,6 +57,10 @@
    <!-- footer -->
    <div class="freecalc__footer">
       <h2>Итого: </h2>
+      <div class="total-sum fixed">
+         <span class="sum c-red">0</span>
+         <span class="cur1r">р.</span>
+      </div>
       <div class="total-sum">
          <span class="sum c-red"></span>
          <span class="curr"></span>
@@ -68,7 +72,7 @@
          <button class="calc-action" name="save">Сохранить</button>
       </div>
       <div class="calc-actions__tab">
-         <button class="calc-action" name="save">
+         <button class="calc-action" name="send">
             <i class="fal fa-paper-plane"></i>Отправить нам
          </button>
       </div>
@@ -80,3 +84,21 @@
    </div>
 </div>
 <!-- end freecalc block -->
+
+<!-- modal send -->
+<template class="f-modal-send">
+        <div class="close">x</div>
+        <div class="caption">Отправить нам расчет</div>
+        <form class="content">
+            <input type="text" name="name" value="" placeholder="Имя" required>
+            <input type="text" name="tel" value="" placeholder="Телефон" required>
+            <p class="f-regular">Нажимая «Отправить », вы даете согласие на
+                <br>
+                обработку персональных данных в соответствии с
+                <br>
+                <a href="/politic/">политикой конфиденциальности</a> и принимаете
+                <br>
+                <a href="/polzovatelskoe-soglashenie/">условия пользовательского соглашения</a>. </p>
+            <button type="submit" name="sumbit_request">Отправить</button>
+        </form>
+</template>

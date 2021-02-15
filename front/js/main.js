@@ -94,9 +94,7 @@
           }
 
           // по объекту(area)
-          console.log(_object);
           for(let key in _object){
-            console.log(key);
             if(key && key.indexOf('worktop')!==-1 && _object[key]>0){
               // Это для площади, если ключ площади,
               // то перезаписать в основной обоъект сумму
@@ -124,7 +122,7 @@
   // Вызывпется при изменения checkbox
   // isntWrite - не записывать в объект текущий инпут
   /* ------------------------ */
-  function updatePrice(el, isntWrite){
+  function updatePrice(el){
     let $el = $(el);
     let parent = $el.parents('.component').first();
 
@@ -148,8 +146,11 @@
     }
 
     // price-other-component
-    let pricePOC = balrate(priceOtherComponent(el, isntWrite));
-    if (pricePOC!==false){
+    let pricePOC = balrate(priceOtherComponent(el));
+    if ($el.data('fixed')==='fixed'){
+      // Фиксированая стоимость материала
+    }
+    else if (pricePOC!==false){
       price *= pricePOC;
     }
 
@@ -397,7 +398,7 @@
 
     // записать в объект инпут, что бы потом обновить его,
     // если цена не была найдена
-    if (!isntWrite && inpType !== 'number')
+    if (/*!isntWrite && */inpType !== 'number')
       setPOCCheck(cname, {val:el, type: 'array'});
 
     return price || 0;

@@ -5,7 +5,11 @@ use Dompdf\Dompdf;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-$html = view('includes/view/actions-front/template-pdf', ['details'=>$_POST['details']]);
+$html = view('includes/view/actions-front/template-pdf', [
+	'details'=>$_POST['details'],
+	'data'=>$_POST['data'],
+	'size'=>$_POST['size'],
+]);
 $dompdf->loadHtml($html);
 // (Optional) Setup the paper size and orientation
 // portrait
@@ -29,9 +33,10 @@ if (file_exists($fileFullName)){
 }
 
 $fileURL = FREECALC_URL . 'upload/' . $fileName;
+$filePath = FREECALC_PATH . 'upload/' . $fileName;
 $pdf = $dompdf->output();
 //$text_pdf = $pdf->Output('', 'S');
 
 file_put_contents($fileFullName, $pdf);
-return $fileURL;
+return ['file_url'=>$fileURL, 'file_path'=>$filePath];
 ?>

@@ -16,26 +16,34 @@ include FREECALC_INC . 'view/partials/component-before.php';
 		<img src="<?= FREECALC_ADMIN.'img/worktop/worktop-line.svg' ?>" alt="" class="worktop-line__img">
 
       <!-- углы -->
-		 <? for ($radial = 1; $radial<=4; $radial++): ?>
-        <label class="check-mark check-mark-<?= $radial ?>">
-           <input type="checkbox" class="check-radial reg-calc" data-price="<?= $compSett['wprice-radial'] ?>" name="<?= $nameCheck.':'.$radial ?>">
-           <span></span>
-        </label>
-		 <? endfor; ?>
+      <div class="radial-group">
+          <? for ($radial = 1; $radial<=4; $radial++): ?>
+           <label class="check-mark check-mark-<?= $radial ?>">
+              <input type="checkbox" class="check-radial reg-calc"
+                     data-price="<?= $compSett['wprice-radial'] ?>"
+                    <?= valueIf($compSett['radial-fixed']=='on', 'data-fixed="fixed"') ?>
+                     name="<?= $nameCheck.':'.$radial ?>">
+              <span></span>
+           </label>
+          <? endfor; ?>
+      </div>
 
 
       <label class="check-mark check-mark-5">
-         <input type="checkbox" class="check-panel reg-calc" data-price="<?= $compSett['wprice-panel'] ?>" name="<?= $nameCheck.':5' ?>">
+         <input type="checkbox" class="check-panel reg-calc"
+                data-price="<?= $compSett['wprice-panel'] ?>"
+				<?= valueIf($compSett['panel-fixed']=='on', 'data-fixed="fixed"') ?>
+                name="<?= $nameCheck.':5' ?>">
          <span></span>
       </label>
-      <label class="check-mark check-mark-6">
-         <input type="checkbox" class="check-stone reg-calc" data-price="<?= $compSett['wprice-stone'] ?>" name="<?= $nameCheck.':6' ?>">
+     <!-- <label class="check-mark check-mark-6">
+         <input type="checkbox" class="check-stone reg-calc" data-price="<?/*= $compSett['wprice-stone'] */?>" name="<?/*= $nameCheck.':6' */?>">
          <span></span>
-      </label>
-      <label class="check-mark check-mark-7">
-         <input type="checkbox" class="check-washing reg-calc" data-price="<?= $compSett['wprice-washing'] ?>" name="<?= $nameCheck.':7' ?>">
+      </label>-->
+      <!--<label class="check-mark check-mark-7">
+         <input type="checkbox" class="check-washing reg-calc" data-price="<?/*= $compSett['wprice-washing'] */?>" name="<?/*= $nameCheck.':7' */?>">
          <span></span>
-      </label>
+      </label>-->
 
       <div class="individual-group"
            data-price="<?= $compSett['wprice-area'] ?>"

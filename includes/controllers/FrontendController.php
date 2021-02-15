@@ -12,6 +12,7 @@ class FrontendController{
 	public function enqueue_styles()
 	{
 		wp_enqueue_style( $this->freecalc.'-fancybox', FREECALC_URL.'plugins/fancybox-master/jquery.fancybox.min.css');
+		wp_enqueue_style( 'tingle-master',  FREECALC_URL.'admin/plugins/tingle-master/tingle.min.css' );
 		wp_enqueue_style_version($this->freecalc,'front/css/style.css');
 		wp_enqueue_style( $this->freecalc.'-font-awesome',  FREECALC_URL.'admin/plugins/fontawesome-pro-5.15.1-web/css/all.min.css' );
 	}
@@ -21,7 +22,7 @@ class FrontendController{
 	{
 		wp_enqueue_script('jquery');
 		wp_enqueue_script( $this->freecalc.'-fancybox', FREECALC_URL.'plugins/fancybox-master/jquery.fancybox.min.js', ['jquery'], '1', true);
-		wp_enqueue_script( $this->freecalc.'-tingle',  FREECALC_URL.'admin/plugins/tingle-master/tingle.min.js' );
+		wp_enqueue_script( 'tingle-master',  FREECALC_URL.'admin/plugins/tingle-master/tingle.min.js' );
 		wp_enqueue_script_version( $this->freecalc, 'front/js/main.js', ['jquery'], true);
 
 		//
@@ -55,19 +56,46 @@ class FrontendController{
 			wp_die('','','403');
 		}
 
-		if ($_POST['action_user'] === 'save'){
-			$fileURL = include FREECALC_PATH . "includes/view/actions-front/js-action-save.php";
-		}
-		elseif ($_POST['action_user'] === 'save'){
+		$sendData = [];
+		$dataFront = $_POST['data'];
+		$attach = include FREECALC_PATH . "includes/view/actions-front/js-action-save.php";
+		$attach_url = $attach['file_url'];
+		$attach_path = $attach['file_path'];
 
+		// Загрузка файла
+		if ($_POST['action_user'] === 'save' || $_POST['action_user'] === 'print'){
+			$sendData['url'] = $attach_url;
 		}
-		elseif ($_POST['action_user'] === 'save'){
+		elseif ($_POST['action_user'] === 'send'){
+			// Отправить по почте
+			$toDate = date("Y-m-d H:i:s");
+			$nameUser  = $_POST['data']['user_name'];
+			$telUser  = $_POST['data']['user_tel'];
+			$sectionName  = $_POST['data']['section_name'];
 
+			$subject = "Расчет раздела: \"$sectionName\"";
+			// кому отправить
+			$toSend = 'theproperty71@gmail.com';
+			$message = "<p>Расчет стоимости заказа: <b>\"$sectionName\"</b></p> 
+			<p style='margin: 0;'>Дата: <b>$toDate</b></p> 
+			<p style='margin: 0;'>Имя: <b>$nameUser</b></p> 
+			<p style='margin-top: 0;'>Телефон: <b>$telUser</b></p> 
+			<p>Файл расчета во вложении</p>";
+
+			$headers = [
+				'content-type: text/html',
+			];
+
+			$is_send = wp_mail( $toSend, $subject, $message, $headers, $attach_path );
+			$sendData = [
+				'is_send'=>$is_send,
+				'message'=>$message,
+				'attach_url'=>$attach_url,
+				'attach_path'=>$attach_path,
+			];
 		}
 
-		echo json_encode([
-			'url'=>$fileURL
-		]);
+		echo json_encode($sendData);
 		wp_die();
 	}
 

@@ -42,18 +42,18 @@
 				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
 			],
-		'sink-cutout-js'=>
+		/*'sink-cutout-js'=>
 			[
 				'name'=>'Вырез под мойку',
 				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
-			],
-		'stone-sink-js'=>
+			],*/
+		/*'stone-sink-js'=>
 			[
 				'name'=>'Мойка из камня',
 				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
-			],
+			],*/
 		'tabletop-installation-js'=>
 			[ // type-sink-js
 				'name'=>'Выбраный тип мойки',

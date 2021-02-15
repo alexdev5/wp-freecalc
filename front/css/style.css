@@ -456,10 +456,10 @@ ul{
     display: block;
     width: 20px;
     height: 20px;
-    background: red;
+    border: 1px solid #E6340D;
 }
 .freecalc .check-mark input:checked + span{
-    background: green;
+    background: #9F0E05;
 }
 .freecalc .absolute{
     position: absolute;
@@ -467,30 +467,30 @@ ul{
 
 .freecalc .input-number{
     width: 62px;
-    height: 32px;
+    height: 30px;
     display: block;
 }
 
 /* Прямая столешница */
 .freecalc .worktop-line .check-mark-1{
-    bottom: 57px;
-    left: 190px;
+    bottom: 41px;
+    left: 193px;
 }
 .freecalc .worktop-line .check-mark-2{
-    top: 29px;
-    left: 190px;
+    top: -5px;
+    left: 193px;
 }
 .freecalc .worktop-line .check-mark-3{
-    top: 12%;
-    right: 19%;
+    top: -5px;
+    right: 185px;
 }
 .freecalc .worktop-line .check-mark-4{
-    bottom: 22%;
+    bottom: 41px;
     right: 19.1%;
 }
 /* wprice-panel */
 .freecalc .worktop-line .check-mark-5{
-    top: 41%;
+    top: 33%;
     left: 243px;
 }
 /* check-stone */
@@ -504,18 +504,19 @@ ul{
     right: 287px;
 }
 /* number-width */
+
 .freecalc .worktop-line .w1{
-    top: 78.9%;
-    left: 47%;
+    top: 31.8%;
+    left: 89.5%;
 }
 /*  */
 .freecalc .worktop-line .l1{
-    top: 37.4%;
-    right: 2.5%;
+    top: 83.4%;
+    right: 47.5%;
 }
 
 
-/* Г-образная столешница */
+/* Г - образная столешница */
 .freecalc .worktop-g .check-mark-1{
     top: 42%;
     left: 20%;
@@ -539,8 +540,8 @@ ul{
 }
 /* check-stone */
 .freecalc .worktop-g .check-mark-6{
-    top: 30%;
-    right: 349px;
+    top: 38%;
+    left: 33.2%;
 }
 .freecalc .worktop-g .check-mark-7{
     top: 30.1%;
@@ -667,8 +668,6 @@ input::-webkit-inner-spin-button {
     margin-right: 30px;
 }
 .freecalc__footer .total-sum{
-    position: fixed;
-    border: 3px solid red;
     height: 50px;
     min-width: 200px;
     top: 40px;
@@ -687,6 +686,10 @@ input::-webkit-inner-spin-button {
 .freecalc__footer .total-sum .sum{
     margin-right: 10px;
     color: red;
+}
+.freecalc__footer .total-sum.fixed{
+    position: fixed;
+    border: 3px solid red;
 }
 
 /* Детализация */
@@ -777,6 +780,90 @@ input::-webkit-inner-spin-button {
 }
 .calc-actions__tab:last-child .calc-action{
     border-right: none;
+}
+
+/* Всплыващее окно */
+.freecalc-popup .tingle-modal-box{
+    text-align: left;
+    background: #fff;
+    padding: 32px 50px 32px 50px;
+    border: 4px solid red;
+    border-radius: 10px;
+    width: 400px;
+}
+.freecalc-popup .tingle-modal-box__content{
+    padding: 0;
+}
+.freecalc-popup.tingle-modal{
+    background: rgba(0,0,0,.3);
+}
+.freecalc-popup .tingle-modal-box .close{
+    position: absolute;
+    right: 5px;
+    display: block;
+    width: 25px;
+    line-height: 23px;
+    color: #fff;
+    background: #abcf37;
+    vertical-align: middle;
+    font-size: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 6px;
+    height: 25px;
+    cursor: pointer;
+    top: 5px;
+    z-index: 5;
+    margin: 5px;
+}
+.freecalc-popup .caption{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+.freecalc-popup input[type="text"], .calcpopup input[type="email"] {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #777;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.freecalc-popup .f-regular{
+    font-size: 11px;
+    line-height: 1.2;
+    color: rgb(136, 136, 136);
+}
+.freecalc-popup .tingle-modal-box button {
+    background: #ABCF37;
+    border: medium none currentColor;
+    border-radius: 6px;
+    color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: normal;
+    text-transform: none;
+    padding: 10px 0px;
+    text-align: center;
+    width: 125px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all linear .2s;
+}
+.freecalc-popup .tingle-modal-box.success{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.freecalc-popup .tingle-modal-box.success .caption{
+    margin-bottom: 0;
+}
+
+.freecalc-popup .tingle-modal-box button:hover{
+    opacity: .8;
+    background: #ABCF37;
 }
 
 @media screen and (max-width: 872px) {

@@ -172,6 +172,9 @@
 .freecalc .mb0{
     margin-bottom: 0;
 }
+.freecalc .row .fg-1{
+    flex-grow: 1;
+}
 .freecalc h2,
 .freecalc h3{
     margin: 0;
