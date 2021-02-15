@@ -165,6 +165,9 @@ ul{
     width: 42px;
     height: 24px;
 }
+.freecalc .template{
+    display: none;
+}
 .freecalc .ta-center{
     text-align: center;
 }
@@ -172,8 +175,34 @@ ul{
     box-sizing: border-box;
 }
 
+/* button, компоннет кнопка */
+.freecalc .component.button-one{
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 16px;
+    background: #F3F3F3;
+    transition: opacity .2s linear;
+}
+.freecalc .component.button-one:hover{
+    opacity: .8;
+}
+.freecalc .ai-center{
+    align-items: center;
+}
+.freecalc .button-one.success{
+    background: #ABCF37;
+    color: #fff;
+}
+.freecalc .button-one.remove{
+    margin-top: 3px;
+    background: red;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
 
-/* Groups */
+    /* Groups */
 .freecalc .group{
     margin-bottom: 37px;
 }
@@ -437,6 +466,11 @@ ul{
     cursor: default;
     margin-left: auto;
     margin-right: auto;
+    overflow-x: auto;
+}
+.freecalc .worktop-comp__relative{
+    position: relative;
+    width: 960px;
 }
 .freecalc .worktop-comp [type=number]{
     border: none;
@@ -459,7 +493,7 @@ ul{
     border: 1px solid #E6340D;
 }
 .freecalc .check-mark input:checked + span{
-    background: #9F0E05;
+    background: red;
 }
 .freecalc .absolute{
     position: absolute;
@@ -472,6 +506,10 @@ ul{
 }
 
 /* Прямая столешница */
+.freecalc .worktop-line{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .freecalc .worktop-line .check-mark-1{
     bottom: 41px;
     left: 193px;
@@ -866,18 +904,211 @@ input::-webkit-inner-spin-button {
     background: #ABCF37;
 }
 
-@media screen and (max-width: 872px) {
+@media screen and (max-width: 720px) {
+
+    /* Columns */
+    .freecalc .freecalc-tab__link{
+        border-width: 3px;
+    }
+    .freecalc .freecalc-tab__link .freecalc-tab__arrow{
+        display: none;
+    }
     .freecalc .freecalc-tabs.row{
         flex-wrap: wrap;
         justify-content: center;
     }
+    .freecalc .freecalc-tabs{
+        margin-bottom: 0;
+    }
     .freecalc .freecalc-tab{
-        margin-bottom: 30px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .freecalc .freecalc-tab__link{
+        height: 68px;
+        font-size: 18px;
+        border-radius: 15px;
+    }
+    .freecalc .worktop-comp [type=number]{
+        padding-left: 0;
+    }
+
+    /*  */
+    .freecalc .component{
+        font-size: 16px;
+    }
+    .freecalc .group{
+        margin-bottom: 17px;
+    }
+    .freecalc .name-group{
+        font-size: 18px;
+        margin-bottom: 17px;
+    }
+    /* 1 */
+    .freecalc .check-text{
+        min-width: 94px;
+        padding: 5px 6px;
+    }
+    .freecalc, .freecalc label, .freecalc p{
+        /*font-size: 14px;*/
+        font-size: 16px;
+    }
+    .freecalc .check-text .checked{
+        border-width: 2px;
+    }
+    .freecalc .group-block > .group-block{
+        margin-left: 0!important;
+    }
+    .freecalc .group-block .edge-worktop{
+        margin-left: 0 !important;
+    }
+    .freecalc .check-circle{
+        margin-right: 10px;
+    }
+    .freecalc .check-circle .checked{
+        width: 13px;
+        height: 13px;
+    }
+
+        /* 2 */
+    .freecalc .check-worktop{
+        max-width: 130px;
+        height: auto;
+        padding: 5px;
+    }
+    .freecalc .check-worktop svg,
+    .freecalc .check-worktop img{
+        width: 100px;
+        min-height: 54px;
+    }
+
+    /* столешницы */
+    .freecalc .worktop-comp__relative{
+        position: relative;
+        width: 515px;
+    }
+    .freecalc .worktop-comp{
+        /*max-width: 515px;*/
+        overflow-x: auto;
+    }
+    .freecalc .worktop-comp img{
+        width: 515px;
+        max-width: none;
+    }
+    .freecalc .check-mark input + span {
+        width: 10px;
+        height: 10px;
+    }
+    .freecalc .worktop-line .check-mark-1 {
+        bottom: 23px;
+        left: 104px;
+    }
+    .freecalc .worktop-line .check-mark-2 {
+        top: -2px;
+        left: 104px;
+    }
+    .freecalc .worktop-line .check-mark-3 {
+        top: -2px;
+        right: 100px;
+    }
+    .freecalc .worktop-line .check-mark-4{
+        bottom: 22px;
+        right: 19.3%;
+    }
+    .freecalc .worktop-line .check-mark-5{
+        top: 33%;
+        left: 130px;
+    }
+
+    /**/
+    .freecalc .input-number{
+        width: 45px;
+        height: 19px;
+        font-size: 12px;
+        padding-left: 0;
+    }
+    .freecalc .worktop-line .w1{
+        left: 90%;
+    }
+    .freecalc .worktop-line .l1{
+        right: 44.5%;
+    }
+
+    /* Г-образная */
+    .freecalc .worktop-g .check-mark-2{
+        top: 14.5%;
+        left: 20%;
+    }
+    .freecalc .worktop-g .w1{
+        top: 26.7%;
+        left: 5.6%;
+    }
+    .freecalc .worktop-g .w2{
+        bottom: 0;
+        right: 21%;
+    }
+    .freecalc .worktop-g .l1{
+        top: 0;
+        right: 43%;
+    }
+    .freecalc .worktop-g .l2{
+        right: 0;
+    }
+
+    /* П-образная */
+    .freecalc .worktop-p .check-mark-2{
+        top: 14.5%;
+        left: 20%;
+    }
+    .freecalc .worktop-p .l1{
+        top: 0;
+        right: 43%;
+    }
+    .freecalc .worktop-p .l2{
+        left: 5.6%;
+    }
+    .freecalc .worktop-p .l3{
+        right: 0;
+    }
+    .freecalc .worktop-p .w1{
+        left: 46.2%;
+    }
+    .freecalc .worktop-p .w2{
+        left: 26.2%;
+    }
+    .freecalc .worktop-p .w3{
+        bottom: 0;
+        right: 21%;
+    }
+
+    /* Total */
+    .freecalc__footer h2{
+        font-size: 24px;
+    }
+    .freecalc__footer .total-sum{
+        margin-top: 14px;
+        margin-bottom: 14px;
+    }
+    .calc-actions__tab .calc-action{
+        line-height: normal;
+        font-weight: normal;
+    }
+    .calc-actions__tab .calc-action i{
+        font-size: inherit;
     }
 }
-@media screen and (max-width: 600px){
-    .freecalc .freecalc-tab{
-        width: 100%;
+@media screen and (max-width: 576px){
+    .freecalc .freecalc__title{
+        font-size: 22px;
+        display: block;
+    }
+    .freecalc .freecalc-tab__link{
+        border-width: 2px;
+        font-size: 16px;
+        height: 62px;
+    }
+    .freecalc .freecalc-tab__link small{
+        font-size: 11px;
     }
     .freecalc .check-text:first-child{
         margin-left: 10px;
@@ -885,8 +1116,31 @@ input::-webkit-inner-spin-button {
     .freecalc .check-text:last-child{
         margin-right: 10px;
     }
+    .freecalc .group-block{
+        margin-left: -10px;
+        margin-right: -10px;
+    }
     .freecalc .group-block.row{
         justify-content: center;
+    }
+    .freecalc .check-text{
+        width: calc(50% - 12px);
+        margin: 6px !important;
+    }
+    .freecalc .check-worktop{
+        max-width: 95px;
+    }
+    .freecalc .check-worktop:last-child{
+        margin-right: 0;
+    }
+    .freecalc .check-worktop .text{
+        font-size: 14px;
+        word-wrap: normal;
+    }
+
+    .freecalc .check-worktop svg,
+    .freecalc .check-worktop img{
+        width: 90px;
     }
 
     .freecalc .square-small-text,
@@ -895,14 +1149,14 @@ input::-webkit-inner-spin-button {
     .freecalc .square-big-with-img-and-sign,
     .freecalc .square-big-with-scale{
         width: 33.333333334%;
-        height: 170px;
+        height: 119px;
+    }
+    .freecalc .group> .component{
+        width: 100%;
     }
     .freecalc .name-group{
-        font-size: 21px;
+        font-size: 18px;
         font-weight: 500;
-    }
-    .freecalc .component{
-        font-size: 16px;
     }
     .freecalc .check-circle .checked{
         width: 14px;
@@ -913,6 +1167,77 @@ input::-webkit-inner-spin-button {
         padding-right: 5px;
         line-height: 1;
     }
-    .freecalc .component .text{
+    .freecalc .component .scale-img__link{
+        font-size: 16px;
+    }
+    .freecalc .component .row__img img{
+        max-width: 60%;
+    }
+    .freecalc .row__text .text-name{
+        margin-bottom: 8px;
+    }
+    .freecalc .square-small-text .text-name{
+        font-size: 16px;
+    }
+    .freecalc .square-small-text{
+        height: 68px;
+    }
+    .freecalc .component .row__text{
+        bottom: 3px;
+    }
+    .freecalc .square-small-text .text{
+        font-size: 14px;
+    }
+    .group-block.calc-area > *{
+        width: 100%;
+    }
+    .freecalc__detailing .freecalc__detailing-header{
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    /* Detailing */
+    .admin-bar .freecalc__footer .total-sum.fixed{
+        top: 40px;
+    }
+    .freecalc__footer .total-sum.fixed{
+        top: 10px;
+        border-width: 1px;
+        min-width: 100px;
+        height: 30px;
+        font-size: 18px;
+        background: #fff;
+        box-shadow: -2px 2px 5px rgba(0,0,0,.2);
+    }
+    .freecalc__footer .total-sum{
+        min-width: 90px;
+    }
+    .freecalc__detailing .detailing{
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 16px;
+    }
+    .freecalc__detailing .detailing__text{
+        /*width: 80%;*/
+    }
+
+    .freecalc .calc-actions__tabs{
+        display: block;
+        border: none;
+    }
+
+    .freecalc .calc-actions__tab{
+
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        border: 1px solid red;
+    }
+    .freecalc .calc-actions__tab .calc-action{
+        border: none;
+        height: 50px;
+    }
+    .freecalc .calc-actions__tab:last-child{
+        display: none;
     }
 }

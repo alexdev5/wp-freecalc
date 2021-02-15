@@ -75,7 +75,7 @@ class FrontendController{
 
 			$subject = "Расчет раздела: \"$sectionName\"";
 			// кому отправить
-			$toSend = 'theproperty71@gmail.com';
+			$toSend = 'info@vaskaniya.ru';
 			$message = "<p>Расчет стоимости заказа: <b>\"$sectionName\"</b></p> 
 			<p style='margin: 0;'>Дата: <b>$toDate</b></p> 
 			<p style='margin: 0;'>Имя: <b>$nameUser</b></p> 

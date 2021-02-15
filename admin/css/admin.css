@@ -461,6 +461,30 @@
     min-height: 100px;
     margin-bottom: 8px;
 }
+.freecalc .component.button-one{
+    background: rgba(0,113,161, .2);
+}
+.freecalc .component.button-one .component-html{
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px;
+    margin-top: 8px;
+}
+.freecalc .component.html-one{
+    width: 100%;
+}
+.freecalc .component.html-one textarea{
+    width: 100%;
+    display: block;
+    min-height: 150px;
+    border-radius: 0;
+}
+.freecalc .component.html-one .settings{
+    display: none;
+}
+.freecalc .component.html-one .draggable{
+    left: 4px;
+}
 .freecalc .group-block{
     padding-top: 5px;
     padding-right: 11px;

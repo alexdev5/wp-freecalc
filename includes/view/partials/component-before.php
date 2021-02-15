@@ -15,7 +15,11 @@ $classes = $name
 $dataset = ' data-component="' .$name. '"'
 	// Для детализации
 	. valueIf($compSett['for-detailing'], 'data-for-detailing="' . $compSett['for-detailing'] . '" ')
-	. valueIf($compSett['connection']&&!is_admin(), 'data-connect-group="'.$compSett['connection'].'" ') ;
+	. valueIf($compSett['connection']&&!is_admin(), 'data-connect-group="'.$compSett['connection'].'" ')
+	// Для умножения на цену, если она выбрана у другого компонента
+	. valueIf($toPrice['cid'], 'data-cid="'.$toPrice['cid'].'" ')
+	. valueIf($toPrice['cname'], 'data-cname="'.$toPrice['cname'].'" ')
+	. valueIf($toPrice['cclass'], 'data-cclass="'.$toPrice['cclass'].'" ');
 
 /* группа элементов */
 if ($name == 'group-block'){
@@ -25,7 +29,7 @@ if ($name == 'group-block'){
 		.$comp['group-block-id']
 		.valueIf($comp['id'], ':'.$comp['id']);
 
-	$classes .= ' row'
+	$classes .= valueIf($compSett['type-group'], ' '.$compSett['type-group'], ' row')
 		.fis_admin(' component')
 		. valueIf($compSett['is_area']==='on', ' calc-area')
 		. valueIf($compSett['align-elements']=='fd-column',' fd-column')
@@ -44,12 +48,12 @@ else{
 		.$comp['group-block-id'].':'
 		.$comp['component-id'];
 
-	$styles = valueIf($compSett['custom-style']&&!is_admin(), " style='".$compSett['custom-style']."'");
+	$styles = valueIf($compSett['custom-style']&&!is_admin(), " style='".$compSett['custom-style']."'");/*
 	$dataset .=
 	// Для умножения на цену, если она выбрана у другого компонента
 	valueIf($toPrice['cid'], 'data-cid="'.$toPrice['cid'].'" ')
 	. valueIf($toPrice['cname'], 'data-cname="'.$toPrice['cname'].'" ')
-	. valueIf($toPrice['cclass'], 'data-cclass="'.$toPrice['cclass'].'" ') ;
+	. valueIf($toPrice['cclass'], 'data-cclass="'.$toPrice['cclass'].'" ') ;*/
 
 	//var_dump_pre($toPrice);
 	$classes .= ' component'

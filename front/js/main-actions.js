@@ -13,7 +13,7 @@
   /* ------------------------ */
   // Clicks to: save, print, send
   /* ------------------------ */
-  btnsBlock.on('click', 'button', function (evt) {
+  btnsBlock.on('click touchstart', 'button', function (evt) {
     evt.preventDefault();
     if (!isClick){
       return;
@@ -32,8 +32,8 @@
         if (res.url){
           isClick = true;
           btnsBlock.find('.not-active').removeClass('not-active');
-          window.open(res.url);
-          // window.location.href = res.url;
+          //window.open(res.url);
+          window.location.href = res.url;
         }
       });
     }
@@ -49,7 +49,7 @@
   /* ------------------------ */
   // Popup close
   /* ------------------------ */
-  $('.freecalc-popup .close').on('click', function (evt) {
+  $('.freecalc-popup .close').on('click touchstart', function (evt) {
     modalSend.close();
     isClick = true;
     btnsBlock.find('.not-active').removeClass('not-active');
@@ -258,10 +258,6 @@
   /** modal */
   function startModal() {
     let contentModal = document.querySelector('template.f-modal-send').content;
-
-    console.log(contentModal);
-    /*if (!is_elem(contentModal))
-      return false;*/
 
     var modal = new tingle.modal({
       footer: false,

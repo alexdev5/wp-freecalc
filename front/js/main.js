@@ -53,7 +53,6 @@
   });
 
 
-
   // Переключение типа столешницы
   freecalc.on('click', '.check-worktop input', function () {
     let parent = $(this).parents('.check-worktop').first();
@@ -95,14 +94,18 @@
 
           // по объекту(area)
           for(let key in _object){
+            let _input = $('[data-name="'+key+'"] input[type="number"]').first();
             if(key && key.indexOf('worktop')!==-1 && _object[key]>0){
               // Это для площади, если ключ площади,
               // то перезаписать в основной обоъект сумму
               setKeyCurrentObject(key, price*_object[key]);
-              let _input = $('[data-name="'+key+'"] input[type="number"]').first();
               _input.keyup();
               //console.log(getCurrentKye());
              // break;
+            }
+            else if(is_elem(_input)){
+              setKeyCurrentObject(key, price*_object[key]);
+              _input.keyup();
             }
           }
         }
@@ -278,6 +281,7 @@
     let area = eachNumbers(groupBlock);
     let price = $el.data('price');
     let name = $el.attr('name');
+    let forWorktop = null;
     let pricePOC = false;
     let isCheck = false;
     let dvar = {};
@@ -319,6 +323,15 @@
       pricePOC = priceOtherComponent(checkGroup);
       dvar.el = checkGroup;
     }
+    else{
+      price = groupBlock.data('price');
+      pricePOC = priceOtherComponent(this);
+      name = groupBlock.data('name');
+      let cname = getcNameComponent($el).cname;
+      forWorktop = $el.parents('.for-worktop-js');
+      if (cname)
+        setPOCCheck(cname, {val:{name: name, val: area}, type: 'object'});
+    }
 
     if (pricePOC !== false)
       price = pricePOC;
@@ -332,11 +345,30 @@
     dvar.area = area;
     dvar.price = amount;
 
-    if (!isCheck){
+
+    if (price === false){
       return console.log('Not find name-check | onNumber');
     }
 
-    setPropertyDetail(dvar);
+
+    // Детализация
+    if (is_elem(forWorktop)){
+      // Если есть добавленая столешница
+      let detailTable = $('.detailing.worktop-js');
+      let areaWorktop = getAreaWorktop();
+      let areasNewWorktop = getAddedWorktopArea();
+
+      setPropertyDetail({
+        el: null,
+        type:'worktop-js',
+        prop:areasNewWorktop + areaWorktop,
+        price:(areasNewWorktop + areaWorktop) * price,
+      });
+    }
+    else{
+      setPropertyDetail(dvar);
+    }
+
     setKeyCurrentObject(name, amount);
     let total = calcTotalSum();
     setSumDOM(total);
@@ -389,7 +421,6 @@
       return false;
     }
 
-
     let check = toComp.find('input[type=checkbox]:checked, input[type=radio]:checked');
     if (cclass !== 'group-block'){
       check = $el;
@@ -398,8 +429,10 @@
 
     // записать в объект инпут, что бы потом обновить его,
     // если цена не была найдена
-    if (/*!isntWrite && */inpType !== 'number')
+    if (inpType !== 'number'){
       setPOCCheck(cname, {val:el, type: 'array'});
+    }
+
 
     return price || 0;
   }
@@ -412,7 +445,12 @@
     let $comp = $el.parents('.component').first();
 
     let cname = $comp.data('cname');
+    if (!cname){
+      $comp = $el.parent().parent();
+      cname = $comp.data('cname');
+    }
     let cclass = $comp.data('cclass');
+
 
     return {
       cname: cname,
@@ -429,7 +467,6 @@
         type: Тип сохраняемого значения (array, single, object)
       }
     * */
-
     $param.type = $param.type || 'array';
 
     let _data = getPOCCheck();
@@ -507,6 +544,87 @@
 
 
 
+  /* ------------------------ */
+  // Расчет площади столешниц, ввод данных
+  /* ------------------------ */
+  freecalc.on('keyup', '.worktop-comp [type=number]', function (evt) {
+    let input = $(this);
+    let parent = input.parent();
+    let name = parent.data('name');
+    let component = input.parents('.component').first();
+
+    // прямая, г-образная, п-образная
+    let type = component.data('component');
+    if (!type)
+      return false;
+
+    //let price = parent.data('price');
+    let price = priceOtherComponent(this);
+
+    let s = getAreaWorktop(type) + getAddedWorktopArea();
+    let amount = s * balrate(price);
+
+    // Детализация
+    setPropertyDetail({
+      el: null,
+      type:'worktop-js',
+      prop:s,
+      price:amount,
+    });
+
+    let cname = getcNameComponent(input).cname;
+
+    // Для дальнейшего обновления, если компонент от которого
+    // зависит цена, будет изменятся
+    setPOCCheck(cname, {val:{name: name, val: s}, type: 'object'});
+
+    setKeyCurrentObject(name, amount);
+
+    let total = calcTotalSum();
+    setSumDOM(total);
+  });
+
+
+
+  /** ------------------------ */
+  // Для подгиба кромки, посчитать длинну
+  /** ------------------------ */
+  function lineForEdge(){
+    // type = worktop-line, worktop-g, worktop-p
+    let worktop = $('.worktop-comp.active');
+    let cname = worktop.data('component');
+    let l = 0;
+
+    if (!is_elem(worktop))
+      return false;
+
+    if (cname === 'worktop-g'){
+      let w1 = parseInt(worktop.find('.w1').val()) || 0;
+      let w2 = parseInt(worktop.find('.w2').val()) || 0;
+      let l1 = parseInt(worktop.find('.l1').val()) || 0;
+      let l2 = parseInt(worktop.find('.l1').val()) || 0;
+      l = ((l1-w2) + (l2-w1))/1000;
+    }
+    else if(cname === 'worktop-line'){
+      let w1 = parseInt(worktop.find('.w1').val()) || 0;
+      l = w1/1000;
+    }
+    else if(cname === 'worktop-p'){
+      let w1 = parseInt(worktop.find('.w1').val()) || 0;
+      let w2 = parseInt(worktop.find('.w2').val()) || 0;
+      let w3 = parseInt(worktop.find('.w2').val()) || 0;
+      let l1 = parseInt(worktop.find('.l1').val()) || 0;
+      let l2 = parseInt(worktop.find('.l1').val()) || 0;
+      let l3 = parseInt(worktop.find('.l1').val()) || 0;
+      l = ((l1-w2-w3) + (l2-w1) + (l3-w1))/1000;
+    }
+
+    //
+    return l || 0;
+  }
+
+
+
   /** ------------------------ */
   // Для расчета площади столешниц
   // Если не передавать тип, то определяет активную и считает
@@ -556,213 +674,20 @@
   }
 
 
-
   /** ------------------------ */
-  // Для подгиба кромки, посчитать длинну
+  // Получить сумму площадей всех
+  // добавленных столешниц пользователем
   /** ------------------------ */
-  function lineForEdge(){
-    // type = worktop-line, worktop-g, worktop-p
-    let worktop = $('.worktop-comp.active');
-    let cname = worktop.data('component');
-    let l = 0;
+  function getAddedWorktopArea() {
+    let blocks = $('.for-worktop-js > div');
+    let area = 0;
+    blocks.each(function () {
+      area += eachNumbers($(this));
+    });
 
-    if (!is_elem(worktop))
-      return false;
-
-    if (cname === 'worktop-g'){
-      let w1 = parseInt(worktop.find('.w1').val()) || 0;
-      let w2 = parseInt(worktop.find('.w2').val()) || 0;
-      let l1 = parseInt(worktop.find('.l1').val()) || 0;
-      let l2 = parseInt(worktop.find('.l1').val()) || 0;
-      l = ((l1-w2) + (l2-w1))/1000;
-    }
-    else if(cname === 'worktop-line'){
-      let w1 = parseInt(worktop.find('.w1').val()) || 0;
-      l = w1/1000;
-    }
-    else if(cname === 'worktop-p'){
-      let w1 = parseInt(worktop.find('.w1').val()) || 0;
-      let w2 = parseInt(worktop.find('.w2').val()) || 0;
-      let w3 = parseInt(worktop.find('.w2').val()) || 0;
-      let l1 = parseInt(worktop.find('.l1').val()) || 0;
-      let l2 = parseInt(worktop.find('.l1').val()) || 0;
-      let l3 = parseInt(worktop.find('.l1').val()) || 0;
-      l = ((l1-w2-w3) + (l2-w1) + (l3-w1))/1000;
-    }
-
-    //
-    return l || 0;
+    return transMeters(area);
   }
 
-
-
-  /* ------------------------ */
-  // Расчет плодади столешниц, ввод данных
-  /* ------------------------ */
-  freecalc.on('keyup', '.worktop-comp [type=number]', function (evt) {
-    let input = $(this);
-    let parent = input.parent();
-    let name = parent.data('name');
-    let component = input.parents('.component').first();
-
-    // прямая, г-образная, п-образная
-    let type = component.data('component');
-    if (!type)
-      return false;
-
-    //let price = parent.data('price');
-    let price = priceOtherComponent(this);
-
-    let s = getAreaWorktop(type);
-    let amount = s * balrate(price);
-
-    // Детализация
-    setPropertyDetail({
-      el: null,
-      type:'worktop-js',
-      prop:s,
-      price:amount,
-    });
-
-    let cname = getcNameComponent(input).cname;
-
-    // Для дальнейшего обновления, если компонент от которого
-    // зависит цена, будет изменятся
-    setPOCCheck(cname, {val:{name: name, val: s}, type: 'object'});
-
-    setKeyCurrentObject(name, amount);
-
-    let total = calcTotalSum();
-    setSumDOM(total);
-  });
-
-
-  /* ------------------------ */
-  // Прямая столешница
-  /* ------------------------ */
-  /*freecalc.on('keyup', '.worktop-line [type=number]', function (evt) {
-    // worktop-line
-    let input = $(this);
-    let parent = input.parent();
-    //let price = parent.data('price');
-    let price = priceOtherComponent(this);
-
-
-    let name = parent.data('name');
-    let s = getAreaWorktop('worktop-line');
-    let amount = s * balrate(price);
-
-    // Детализация
-    setPropertyDetail({
-      el: null,
-      type:'worktop-js',
-      prop:s,
-      price:amount,
-    });
-
-    // пересчитать в детализацию: подложка из фанеры
-    // data-for-detailing
-    // solid-plywood-backing-js
-    /!*let checkSolid = $('.detailing-js[data-for-detailing="solid-plywood-backing-js"] input.dot');
-    if (checkSolid.prop('checked')){
-      checkSolid.change();
-    }*!/
-
-    //priceOtherComponent();
-    // setPOCCheck()
-    let cname = getcNameComponent(input).cname;
-
-    // Для дальнейшего обновления, если компонент от которого
-    // зависит цена, будет изменятся
-    setPOCCheck(cname, {val:{name: name, val: s}, type: 'object'});
-
-    setKeyCurrentObject(name, amount);
-
-    let total = calcTotalSum();
-    setSumDOM(total);
-  });
-
-
-  /!* ------------------------ *!/
-  // Г-образаня столешница
-  /!* ------------------------ *!/
-  freecalc.on('keyup', '.worktop-g [type=number]', function (evt) {
-    let input = $(this);
-    let parent = input.parent();
-    //let price = parent.data('price');
-    let name = parent.data('name');
-    let price = priceOtherComponent(this);
-
-    let s = getAreaWorktop('worktop-g');
-    let amount = s * balrate(price);
-
-    // Детализация
-    setPropertyDetail({
-      el: null,
-      type:'worktop-js',
-      prop:s,
-      price:amount,
-    });
-
-    // пересчитать в детализацию: подложка из фанеры
-    // data-for-detailing
-    // solid-plywood-backing-js
-    /!*let checkSolid = $('.detailing-js[data-for-detailing="solid-plywood-backing-js"] input.dot');
-    if (checkSolid.prop('checked')){
-      checkSolid.change();
-    }*!/
-
-    let cname = getcNameComponent(input).cname;
-
-    // Для дальнейшего обновления, если компонент от которого
-    // зависит цена, будет изменятся
-    setPOCCheck(cname, {val:{name: name, val: s}, type: 'object'});
-    setKeyCurrentObject(name, amount);
-    let total = calcTotalSum();
-    setSumDOM(total);
-  });
-
-
-
-  /!* ------------------------ *!/
-  // П-образаня столешница
-  /!* ------------------------ *!/
-  freecalc.on('keyup', '.worktop-p [type=number]', function (evt) {
-    let input = $(this);
-    let parent = input.parent();
-    //let price = parent.data('price');
-    let price = priceOtherComponent(this);
-    let name = parent.data('name');
-
-    let s = getAreaWorktop('worktop-p');
-    let amount = s *balrate(price);
-
-    // Детализация
-    setPropertyDetail({
-      el: null,
-      type:'worktop-js',
-      prop:s,
-      price:amount,
-    });
-
-    // пересчитать в детализацию: подложка из фанеры
-    // data-for-detailing
-    // solid-plywood-backing-js
-    /!*let checkSolid = $('.detailing-js[data-for-detailing="solid-plywood-backing-js"] input.dot');
-    if (checkSolid.prop('checked')){
-      checkSolid.change();
-    }*!/
-
-    let cname = getcNameComponent(input).cname;
-
-    // Для дальнейшего обновления, если компонент от которого
-    // зависит цена, будет изменятся
-    setPOCCheck(cname, {val:{name: name, val: s}, type: 'object'});
-    setKeyCurrentObject(name, amount);
-    let total = calcTotalSum();
-    setSumDOM(total);
-  });
-*/
 
   /* Получить текущий объект для сохранения чисел
   * (исходя из открытых вкладок)
@@ -799,6 +724,55 @@
   }
 
 
+  /* ------------------------ */
+  // Добавить столешницу
+  /* ------------------------ */
+  let forPasteWorktop = $('.group-block.for-worktop-js');
+  freecalc.on('click', '.button-one.add-worktop', function (evt) {
+    let worktopLine = $('.template.add-worktop').clone(true);
+    worktopLine = worktopLine
+      .removeClass('template')
+      .removeClass('add-worktop');
+    let numElems = forPasteWorktop.find('> div').length+1;
+    let name = worktopLine.data('name')+':'+numElems;
+    worktopLine.attr('data-name', name);
+    worktopLine.data('name', name);
+
+    if (!is_elem(forPasteWorktop))
+      return false;
+    if (forPasteWorktop.hasClass('ds-none'))
+      forPasteWorktop.removeClass('ds-none');
+
+    forPasteWorktop.append(worktopLine);
+  });
+
+
+
+  /* ------------------------ */
+  // Удалить столешницу
+  /* ------------------------ */
+  freecalc.on('click', '.button-one.remove', function (evt) {
+    let delWorktop = $(this).parent();
+    let name = delWorktop.data('name');
+
+    delWorktop.remove();
+  });
+
+
+ /* function onClickFirst(){
+    let group = $('.group-block > .component:first-child');
+    group.each(function (idx) {
+      if ($(this).data('connect-group')){
+        let input = $(this).find('input');
+        input.prop('checked', true);
+        input.change();
+        console.log(input);
+        console.log('check');
+      }
+    });
+    console.log(group);
+  }
+  onClickFirst();*/
 
   /* ------------------------ */
   // Добавить в объект детализации
@@ -1059,8 +1033,13 @@
    * */
   function getInputType(input) {
     let type = $(input).attr('type');
-    if (!type)
-      type = input.tagName.toLowerCase();
+    if (!type){
+      if (input instanceof jQuery)
+        type = input.get(0).tagName.toLowerCase();
+      else
+        type = input.tagName.toLowerCase();
+    }
+
     return type;
   }
 

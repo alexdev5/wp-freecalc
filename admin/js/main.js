@@ -167,6 +167,7 @@
 					'nested': null,
 				};
 
+
 				/* Компоненты в гурппах */
 				let componentsForGroups = $(el).find('> .content > .component');
 				// Добавить в массив
@@ -378,7 +379,6 @@
 			cText = c.find('> .component-html .text').first().text();
 			cName = inputComponent.attr('name')
 		}
-		console.log(c);
 
 		lastCheckComponent.attr('data-cid', cID);
 		lastCheckComponent.attr('data-cname', cName);
@@ -575,8 +575,9 @@
 							countText++;
 						}
 						let text = $el.text();
-						if ($el.get(0).tagName.toLowerCase() === 'input'){
-							text = $el.val();
+						let tagName = $el.get(0).tagName.toLowerCase();
+						if (tagName === 'input' || tagName === 'textarea'){
+							text = escapeHtml($el.val());
 						}
 
 						_html[key] = text.trim();
@@ -681,6 +682,17 @@
 
 
 
+	function escapeHtml(text) {
+		var map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#039;'
+		};
+
+		return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+	}
 
 function startModal() {
 	let contentModal = document.querySelector('.template .popup-template');
