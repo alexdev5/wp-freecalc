@@ -39,8 +39,10 @@ class FrontendController{
 
 
 	public function frontAjax(){
-		add_action( 'wp_ajax_nopriv_freecalc_interactive', [&$this, 'userAction'] );
-		add_action( 'wp_ajax_freecalc_interactive', [&$this, 'userAction'] );
+		add_action( 'wp_ajax_nopriv_freecalc_interactive', [$this, 'userAction'] );
+		add_action( 'wp_ajax_freecalc_interactive', [$this, 'userAction'] );
+		add_action( 'wp_ajax_nopriv_freecalc_promocode', [$this, 'checkPromocode'] );
+		add_action( 'wp_ajax_freecalc_promocode', [$this, 'checkPromocode'] );
 	}
 
 	public function userAction(){
@@ -96,6 +98,42 @@ class FrontendController{
 		}
 
 		echo json_encode($sendData);
+		wp_die();
+	}
+
+
+	public function checkPromocode(){
+		if( empty($_POST['nonce']) )
+			wp_die();
+		$nonce_outside = $_POST['nonce'];
+		$nonce_inside = wp_create_nonce('ajax-nonce');
+		// проверяем nonce код, если проверка не пройдена прерываем обработку
+		//check_ajax_referer( 'myajax-nonce', 'nonce_code' );
+
+		if($nonce_outside !== $nonce_inside){
+			echo json_encode(['error'=>'ok']);
+			wp_die('','','403');
+		}
+
+		$cAdmin = new AdminController();
+		$settings = $cAdmin->getSettings();
+		$promo = $settings->promocode;
+		$promoFront = mb_strtolower($_POST['promoText']);
+		$returnCode = [];
+
+		
+		foreach ($promo as $item) {
+			$promo_db = mb_strtolower($item['promo-code']);
+			if ($promo_db == $promoFront){
+				unset($item['promo-description']);
+				$returnCode = $item;
+				break;
+			}
+		}
+		
+
+
+		echo json_encode($returnCode);
 		wp_die();
 	}
 

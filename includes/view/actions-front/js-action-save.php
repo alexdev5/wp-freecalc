@@ -12,8 +12,8 @@ $html = view('includes/view/actions-front/template-pdf', [
 ]);
 $dompdf->loadHtml($html);
 // (Optional) Setup the paper size and orientation
-// portrait
-$dompdf->setPaper('A4', 'landscape');
+// portrait, landscape
+$dompdf->setPaper('A4', 'portrait');
 
 // Render the HTML as PDF
 $dompdf->render();

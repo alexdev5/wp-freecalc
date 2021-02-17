@@ -43,6 +43,7 @@ class AdminController {
 
 		add_action( 'wp_ajax_freecalc_delete_calc', [$this, 'deleteCalc' ]);
 		add_action( 'wp_ajax_freecalc_duplicate_calc', [$this, 'duplicateCalc' ]);
+		add_action( 'wp_ajax_freecalc_update_settings', [$this, 'saveSettings' ]);
 	}
 
 	/* Получить компоненты калькулятора (файлы) */
@@ -67,6 +68,10 @@ class AdminController {
 		return $components;
 	}
 
+
+	/*-------------------------*/
+	// Взаимодействие с записями калькулятора
+	/*-------------------------*/
 	public function getAllCalc(){
 		global $wpdb;
 		$table_name = $this->getTableName();
@@ -167,7 +172,6 @@ class AdminController {
 		return $mess;
 	}
 
-
 	public function editCalc($id, $data)
 	{
 		global $wpdb;
@@ -182,7 +186,7 @@ class AdminController {
 				//'detailing' => maybe_serialize($data['detailing']),
 				'settings' => maybe_serialize($data['settings']),
 			]
-			,
+			,//wp_freecalc_make_settings
 			array('id'=> $id)
 		);
 
@@ -196,10 +200,6 @@ class AdminController {
 			$messages['messages']['db'] = $id_db;
 		}
 		return $messages;
-	}
-
-	public function updateSettings($id){
-
 	}
 
 	public function deleteCalc()
@@ -267,6 +267,90 @@ class AdminController {
 		wp_die();
 	}
 
+
+	/*-------------------------*/
+	// Настройки калькулятора
+	/*-------------------------*/
+	public function saveSettings(){
+		if( empty($_POST['nonce']) )
+			wp_die();
+		$nonce_outside = $_POST['nonce'];
+		$nonce_inside = wp_create_nonce('ajax-nonce');
+		if($nonce_outside !== $nonce_inside){
+			echo 'Not';
+			wp_die('','','403');
+		}
+		$mess = [];
+
+		$data = [
+			'settings'=>$_POST['settings'],
+			'promocode'=>$_POST['promocode'],
+		];
+
+		$id_db = $this->updateSettings($data);
+		if($id_db!==false) {
+			$messages['messages'][] = "Успешно обновлено";
+			$messages['messages']['db'] = $id_db;
+		}
+		else {
+			$messages['error'] = "ok";
+			$messages['messages'][] = "Ошибка обновления";
+			$messages['messages']['db'] = $id_db;
+		}
+		echo json_encode($messages);
+		wp_die();
+	}
+
+	public function updateSettings($data, $id = 1){
+		// FREECALC_TABLE_SETTING
+		global $wpdb;
+		$id = 1;
+		$table = $wpdb->prefix . FREECALC_TABLE_SETTING;
+		$dataSelect = $wpdb->get_row( "SELECT * FROM {$table} WHERE id = $id" );
+
+		// Обновить настройки
+		if ($dataSelect)
+			$id_db = $wpdb->update(
+				$table,
+				[
+					'promocode' => maybe_serialize($data['promocode']),
+					'settings' => maybe_serialize($data['settings']),
+				]
+				,
+				array('id'=> $id)
+			);
+		else{
+			// Создать настройку
+			$id_db = $wpdb->insert(
+			$table,
+			[
+				'promocode' => maybe_serialize($data['promocode']),
+				'settings' => maybe_serialize($data['settings']),
+			]
+			,
+			array('%s','%s')
+		);
+		}
+		return $id_db;
+	}
+
+
+	public function getSettings($id = 1){
+		global $wpdb;
+		$table_name = $wpdb->prefix . FREECALC_TABLE_SETTING;
+
+		$data = $wpdb->get_row( "SELECT * FROM {$table_name} WHERE id = $id" );
+
+		$data->promocode = maybe_unserialize($data->promocode);
+		$data->settings = maybe_unserialize($data->settings);
+
+		return $data;
+	}
+
+
+	/*-------------------------*/
+	//
+	/*-------------------------*/
 	public function getTableName()
 	{
 		global $wpdb;

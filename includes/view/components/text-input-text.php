@@ -19,7 +19,16 @@ include FREECALC_INC . 'view/partials/component-before.php';
       <input type="number" step="0.01" name="<?= $nameCheck ?>" class="bd-red text-mini" data-price="<?= $compSett['price'] ?>">
 
       <label <?= fchangeText()?>>
-				<?= valueIf($adata['text']&&!$adata['text1'], ' ', 'изменить текст') ?>
+         <? if ($adata['text']&&!$adata['text1']){
+            echo ' ';
+         }
+         elseif($adata['text1']){
+            echo $adata['text1'];
+         }
+         else {
+            echo 'Изменить текст';
+         }
+         ?>
       </label>
 
    <? if (is_admin()): ?>

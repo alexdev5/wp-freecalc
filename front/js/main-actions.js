@@ -27,13 +27,16 @@
 
     if (btnAction==='save' || btnAction === 'print'){
       let send = getDataToSend(btnAction);
+      let browser = getBrowser();
 
       sendResponse(send, (res)=>{
         if (res.url){
           isClick = true;
           btnsBlock.find('.not-active').removeClass('not-active');
-          //window.open(res.url);
-          window.location.href = res.url;
+          if (document.documentElement.clientWidth>500 && browser === 'chrome')
+            window.open(res.url);
+          else
+            window.location.href = res.url;
         }
       });
     }
@@ -93,19 +96,23 @@
   });
 
 
+
   /* ------------------------ */
   // Подготовить данные для отправки
   /* ------------------------ */
   function getDataToSend(btnAction) {
 
-    let details = document.querySelectorAll('.freecalc__detailing .detailing');
+    let column = $('.freecalc-column.active');
+    let columnID = column.data('id');
+    let details = document.querySelectorAll('.freecalc__detailing.active .detailing');
 
     // Для отправки на сервер
-    let totalEl = document.querySelector('.freecalc__footer .total-sum');
+    let totalEl = document.querySelector('.freecalc__footer .total-sum .sum');
     let totalText = '';
     if (is_elem(totalEl))
       totalText = escapeHtml(totalEl.innerHTML);
     let obj = {};
+    obj.column_id = columnID;
 
     // Результаты с таблицы детализации
     details.forEach(function (el, idx) {
@@ -130,7 +137,7 @@
     });
 
     // Выбранная столешница
-    let worktop = $('.worktop-comp.active');
+    let worktop = column.find('.worktop-comp.active');
 
     // Размеры столешницы
     let size = {};
@@ -186,14 +193,6 @@
     dataOther.size = size;
     dataOther.cpanel = cpanel;
     dataOther.radial = radial;
-
-    /*obj.data = {};
-    obj.data.total_price = totalText || '0р.';
-    obj.data.wname = checkName;
-    obj.data.wimg = worktopIMG;
-    obj.data.size = size;
-    obj.data.cpanel = cpanel;
-    obj.data.radial = radial;*/
 
     // Для отправки
     return{
@@ -286,5 +285,34 @@
   /** Ожидание при клика на кнопку */
   function whiteSend(flag, el) {
 
+  }
+
+  function getBrowser() {
+    var sBrowser, sUsrAg = navigator.userAgent;
+
+//The order matters here, and this may report false positives for unlisted browsers.
+
+    if (sUsrAg.indexOf("Firefox") > -1) {
+      sBrowser = "firefox";
+      //"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
+    } else if (sUsrAg.indexOf("Opera") > -1) {
+      sBrowser = "Opera";
+    } else if (sUsrAg.indexOf("Trident") > -1) {
+      sBrowser = "IE";
+      //"Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; Zoom 3.6.0; wbx 1.0.0; rv:11.0) like Gecko"
+    } else if (sUsrAg.indexOf("Edge") > -1) {
+      sBrowser = "edge";
+      //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"
+    } else if (sUsrAg.indexOf("Chrome") > -1) {
+      sBrowser = "chrome";
+      //"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36"
+    } else if (sUsrAg.indexOf("Safari") > -1) {
+      sBrowser = "safari";
+      //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
+    } else {
+      sBrowser = "unknown";
+    }
+
+    return sBrowser;
   }
 })(jQuery);

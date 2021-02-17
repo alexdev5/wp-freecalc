@@ -193,6 +193,7 @@ ul{
     background: #ABCF37;
     color: #fff;
 }
+
 .freecalc .button-one.remove{
     margin-top: 3px;
     background: red;
@@ -466,7 +467,6 @@ ul{
     cursor: default;
     margin-left: auto;
     margin-right: auto;
-    overflow-x: auto;
 }
 .freecalc .worktop-comp__relative{
     position: relative;
@@ -680,6 +680,87 @@ ul{
 }
 
 
+/* Столешница в ванную */
+.freecalc .worktop-bathroom{
+
+}
+.freecalc .worktop-bathroom .w1{
+    left: 91%;
+    top: 16%;
+}
+.freecalc .worktop-bathroom .l1{
+    left: 36.5%;
+    top: 77%;
+}
+
+/* Подоконник прямой*/
+.freecalc .windowsill-line{
+
+}
+.freecalc .windowsill-line .w1{
+    left: 91%;
+    top: 45%;
+}
+.freecalc .windowsill-line .l1{
+    left: 36.5%;
+    top: 85.3%;
+}
+
+/* Подоконник угловой*/
+.freecalc .windowsill-line .w1{
+    left: 91%;
+    top: 45%;
+}
+.freecalc .windowsill-line .l1{
+    left: 36.5%;
+    top: 85.3%;
+}
+
+/* Подоконник г-образный*/
+.freecalc .windowsill-g .w1{
+    top: 82%;
+    left: 4.5%;
+}
+.freecalc .windowsill-g .w2{
+    top: 34%;
+    left: 90.5%;
+}
+.freecalc .windowsill-g .l1{
+    top: 25.5%;
+    left: 7%;
+}
+.freecalc .windowsill-g .l2{
+    top: 0%;
+    left: 51.5%;
+}
+
+/* Подоконник зеркальный*/
+.freecalc .windowsill-mirrored .w1{
+    top: 82%;
+    left: 4.5%;
+}
+.freecalc .windowsill-mirrored .w2{
+    top: 34.4%;
+    left: 44%;
+}
+.freecalc .windowsill-mirrored .w3{
+    top: 82%;
+    left: 90.5%;
+}
+.freecalc .windowsill-mirrored .l1{
+    top: 25.5%;
+    left: 6.8%;
+}
+.freecalc .windowsill-mirrored .l2{
+    top: 0.2%;
+    left: 46.5%;
+}
+.freecalc .windowsill-mirrored .l3{
+    top: 25.5%;
+    left: 86.5%;
+}
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -731,6 +812,12 @@ input::-webkit-inner-spin-button {
 }
 
 /* Детализация */
+.freecalc__detailing{
+    display: none;
+}
+.freecalc__detailing.active{
+    display: block;
+}
 .freecalc__detailing .material-js .detailing__prop{
     width: 50%;
     text-align: right;
@@ -800,13 +887,18 @@ input::-webkit-inner-spin-button {
     color: red;
     transition: all .2s linear;
 }
+button.not-active,
 .calc-actions__tab .calc-action.not-active{
-    background: #D6E1E5;
+    background: #D6E1E5 !important;
     color: #535759;
     cursor: not-allowed;
+    transition: all .2s linear;
+    border-color: #333333 !important;
+
 }
+button.not-active:hover,
 .calc-actions__tab .calc-action.not-active:hover{
-    background: #D6E1E5;
+    background: #D6E1E5 !important;;
 }
 
 .calc-actions__tab .calc-action i{
@@ -820,7 +912,50 @@ input::-webkit-inner-spin-button {
     border-right: none;
 }
 
-/* Всплыващее окно */
+/* Задействовать промокод */
+.freecalc__promocode{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.freecalc__promocode p{
+    margin-bottom: 6px;
+}
+.freecalc__promocode .form-group{
+    position: relative;
+}
+.freecalc__promocode .form-control{
+    display: block;
+    width: 100%;
+    background: #E6E6E6;
+    border: none;
+    height: 50px;
+    padding-left: 20px;
+    font-size: 18px;
+    outline: none;
+}
+.freecalc__promocode button{
+    outline: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 240px;
+    transition: all .2s linear;
+    border: 1px solid transparent;
+}
+.freecalc__promocode button:hover{
+    opacity: .8;
+}
+.freecalc__promocode .enabled{
+    background: rgba(102,221,170, .1);
+    border: 1px solid #ABCF37;
+}
+.freecalc__promocode .disabled{
+    background: rgba(255,8,0, .1);
+    border: 1px solid rgba(255,8,0, .8);
+}
+
+    /* Всплыващее окно */
 .freecalc-popup .tingle-modal-box{
     text-align: left;
     background: #fff;
@@ -1239,5 +1374,11 @@ input::-webkit-inner-spin-button {
     }
     .freecalc .calc-actions__tab:last-child{
         display: none;
+    }
+    .freecalc__promocode .form-control{
+        padding-left: 10px;
+    }
+    .freecalc__promocode button{
+        width: 120px;
     }
 }

@@ -1,5 +1,11 @@
 <?
-$map = include FREECALC_INC.'view/partials/detailing-classes.php';
+if ($comp['column-id']==1)
+   $map = include FREECALC_INC.'view/partials/detailing-classes.php';
+elseif($comp['column-id']==2)
+	$map = include FREECALC_INC.'view/partials/detailing-bathroom.php';
+elseif($comp['column-id']==3)
+	$map = include FREECALC_INC.'view/partials/detailing-windowsill.php';
+
 ?>
 <span class="d-block">
 		<label class="d-block">Для детализации

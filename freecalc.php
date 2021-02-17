@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 define('FREECALC_VERSION', '1.0.0');
 define('FREECALC_TABLE', 'freecalc_make');
+define('FREECALC_TABLE_SETTING', 'freecalc_make_settings');
 
 define('FREECALC_URL', plugins_url('', __FILE__) .'/' );
 define('FREECALC_PATH', plugin_dir_path(__FILE__) );

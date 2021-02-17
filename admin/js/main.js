@@ -296,12 +296,13 @@
 	formCalc.on('click', '.component-settings .btn-select__name', function (evt) {
 		evt.preventDefault();
 		let btn = $(this);
+		let column = btn.parents('.freecalc-column').first();
 		// select для имен всех групп
 		let select = btn.parent().find('.connection-group');
 		let option = select.find('option');
 
 		// Инпуты с именем группы (берется с настроек группы)
-		let namesGroup = $('.group-block .component-settings .connection-name-group');
+		let namesGroup = column.find('.group-block .component-settings .connection-name-group');
 		namesGroup.each(function () {
 			let name = $(this).val();
 
@@ -321,7 +322,8 @@
 	/* ------------------------ */
 	function removeSelectedDetail(settings) {
 		let values = [];
-		let selectedOption = $('.for-detailing option:selected');
+		let column = $(settings).parents('.freecalc-column').first();
+		let selectedOption = column.find('.for-detailing option:selected');
 		let thisSelect = $(settings).find('.for-detailing');
 
 		selectedOption.each(function () {
@@ -352,6 +354,7 @@
 
 	/* ------------------------ */
 	// Выбрать компонент для изменения цены
+	// Указать цену с (Умножить на)
 	/* ------------------------ */
 	let lastCheckComponent = null;
 	formCalc.on('click', '.is-check-component .component', function (evt) {
@@ -371,7 +374,7 @@
 		let cText = '';
 		if (c.hasClass('group-block')){
 			cName = c.data('name');
-			cText = c.data('name');
+			cText = c.data('name')+cClass;
 		}
 		else{
 			let inputComponent= c.find('> .component-html .reg-calc');
@@ -425,6 +428,7 @@
 				if (key==='name')
 					continue;
 				el.data(key, '');
+				el.attr('data-'+key, '');
 			}
 		}
 		return el;
@@ -513,6 +517,7 @@
 		return _sett;
 	}
 
+
 	/* Определить тип input, select */
 	function getInputType(element) {
 		let type = $(element).attr('type');
@@ -524,6 +529,7 @@
 			type = element.tagName.toLowerCase();
 		return type;
 	}
+
 
 	/* Получить значение настройки выбраного или активного input, select */
 	function getSettingValue(element, attr) {
@@ -545,6 +551,7 @@
 
 		return element.val();
 	}
+
 
 	/* Данные самого компонента для вывода (backend/frontend)
 	*	 data-attributes
@@ -604,6 +611,7 @@
 		return _html;
 	}
 
+
 	// получить значения data-attribute
 	function getDataKeys($el){
 
@@ -661,6 +669,72 @@
 		}
 	});
 
+
+	/* ------------------------ */
+	// Сохранить промокод
+	/* ------------------------ */
+	let formSettings = $('.freecalc-settings-form');
+	formSettings.on('submit', function (evt) {
+		// action -> update_settings
+		evt.preventDefault();
+		let promoEl = $('#promocode .promocode');
+		if(!is_elem(promoEl))
+			return false;
+
+		let dataToSend = [];
+		promoEl.each(function () {
+			let elems = $(this).find('input, select');
+			// Получить данные полей
+			let dataPromocode = getSetting(elems, true);
+			dataToSend.push(dataPromocode);
+		});
+
+		// Запись в таблицу "promocode"
+		let divLoad = $('<div class="waiting-load"><p>Сохранение...</p></div>');
+		formSettings.append(divLoad);
+		console.log(divLoad);
+
+		sendResponse({promocode: dataToSend}, 'freecalc_update_settings', (res)=>{
+			if( res.hasOwnProperty('error') && res.error==='ok' ){
+				$('.waiting-load').remove();
+				console.log(res);
+				return ;
+			}
+
+			let successText = 'Успешно!';
+			let waitingDiv = $('.waiting-load p');
+			waitingDiv.text(successText);
+			console.log('Сохранено');
+			console.log(res);
+			window.location.reload();
+		});
+	});
+
+
+	// Удалить промокод
+	formSettings.on('click', '.deleted', function () {
+		let parent = $(this).parent();
+		parent.remove();
+	});
+
+	// Добавить промокод
+	$('.add-new.button-success').on('click', function () {
+		let template = $($(this).data('tmp')).clone(true);
+		let to = $($(this).data('to'));
+		to.append(template);
+	});
+
+	// Генерировать промокод
+	let lastActiveInputPromo = null;
+	formSettings.on('click', '.deleted', function () {
+		// characters = %w(A B C D E F G H J K L M P Q R T W X Y Z 1 2 3 4 5 6 7 8 9)
+		getRandom();
+	});
+
+
+
+
+
 	/* Отправить запрос */
 	function sendResponse(data, action, success) {
 		let url = ajaxurl;
@@ -678,8 +752,6 @@
 			dataType: 'JSON',
 		});
 	}
-
-
 
 
 	function escapeHtml(text) {
@@ -757,5 +829,12 @@ function is_elem(elem) {
 	return !!elem;
 }
 
+
+/* Get random */
+	function getRandom(min, max) {
+		// случайное число от min до (max+1)
+		let rand = min + Math.random() * (max + 1 - min);
+		return Math.floor(rand);
+	}
 
 })( jQuery );

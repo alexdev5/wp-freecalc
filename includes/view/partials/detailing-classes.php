@@ -3,7 +3,7 @@
 		'material-js'=>
 			[
 			'name'=>'Материал',
-			'def_prop'=>'<span class="mat">-</span><span class="cat">-</span>',
+			'def_prop'=>'<span class="mat"></span><span class="cat">—</span>',
 			//'def_price'=>'',
 		],
 		'worktop-js'=>
@@ -146,6 +146,12 @@
 		'we-installation-tabletop-js'=>
 			[
 				'name'=>'Монтаж',
+				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
+				'def_price'=>'<span class="num">0</span>р.',
+			],
+		'we-мeasurement-tabletop-js'=>
+			[
+				'name'=>'Замер',
 				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
 			],

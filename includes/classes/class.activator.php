@@ -26,7 +26,7 @@ class FreecalcActivator{
 			(
 				`id` int(11) NOT NULL AUTO_INCREMENT,
 				`settings` TEXT NOT NULL,
-				`promocode` VARCHAR(20) NOT NULL,
+				`promocode` TEXT NOT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=$wpdb->charset AUTO_INCREMENT=1;";
 

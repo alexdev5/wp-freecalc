@@ -96,7 +96,9 @@ class PageController{
 
 	public function settingsCalc()
 	{
-		echo viewComponents('settings', []);
+		$calcs = new AdminController();
+		$data = $calcs->getSettings();
+		echo viewComponents('settings', ['data'=>$data]);
 	}
 
 	public function infoCalc()

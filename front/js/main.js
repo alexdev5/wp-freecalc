@@ -14,15 +14,17 @@
 
   //connect-element
   freecalc.on('click', '.connect-element input', function (evt) {
-    let el = $(this).parent();
-    let elActive = el.parent().find('.connect-element.active');
-    let selectorGroup = el.data('connect-group');
+    let $el = $(this);
+    let parent = $el.parent();
+    let column = $el.parents('.freecalc-column');
+    let elActive = parent.parent().find('.connect-element.active');
+    let selectorGroup = parent.data('connect-group');
 
     // Удалить активный класс
     if (is_elem(elActive))
       elActive.removeClass('active');
 
-    let group = $('.visible__'+selectorGroup);
+    let group = column.find('.visible__'+selectorGroup);
     let groupsElems = group.parent().find('.visible-for-components');
     groupsElems.css('display', 'none');
     group.css('display', 'flex');
@@ -42,10 +44,15 @@
   freecalc.on('click', '.freecalc-tabs .freecalc-tab', function (evt) {
     $(this).parent().find('>.active').removeClass('active');
     $(this).addClass('active');
-    let tab = $('.freecalc-column-'+$(this).data('id'));
+    let tabID = $(this).data('id');
+    let tab = $('.freecalc-column-'+tabID);
     let tabActive = $('.freecalc-column.active');
+    let detailing = $('.detailing-'+tabID);
+    let detailingActive = $('.freecalc__detailing.active');
     tabActive.removeClass('active');
+    detailingActive.removeClass('active');
     tab.addClass('active');
+    detailing.addClass('active');
 
 
     // Посчитать сумму и записать в ДОМ елемент
@@ -56,7 +63,8 @@
   // Переключение типа столешницы
   freecalc.on('click', '.check-worktop input', function () {
     let parent = $(this).parents('.check-worktop').first();
-    $('.check-worktop.active').removeClass('active');
+    let groupBlock = $(this).parents('.group-block').first();
+    groupBlock.find('.check-worktop.active').removeClass('active');
     parent.addClass('active');
   });
 
@@ -530,15 +538,25 @@
     //let thisGroupID = thisGroup.data('id');
 
     let groupNext = thisGroup.next();
+
     let checkedGroupNext = groupNext.find('input:checked');
     let numbers = groupNext.find('input[type=number]');
+    let numberArea = groupNext.find('.visible-for-components');
+
     if (is_elem(checkedGroupNext)){
       checkedGroupNext.prop('checked', false);
       checkedGroupNext.change();
     }
-    if (is_elem(numbers)){
+
+    // Следущий блок, где расчитывается площадь
+    if (is_elem(numberArea)){
+      numbers = numberArea.find('input[type=number]');
       numbers.val('');
-      numbers.first().keyup();
+      numbers.keyup();
+    }
+    else if (is_elem(numbers)){
+      numbers.val('');
+      numbers.keyup();
     }
   }
 
@@ -626,7 +644,7 @@
 
 
   /** ------------------------ */
-  // Для расчета площади столешниц
+  // Для расчета площади столешниц, поддоконников и др
   // Если не передавать тип, то определяет активную и считает
   /** ------------------------ */
   function getAreaWorktop(type){
@@ -649,7 +667,38 @@
     let l2 = parseInt(worktop.find('.l2').val()) || 0;
     let l3 = parseInt(worktop.find('.l3').val()) || 0;
 
-    if (cname === 'worktop-g'){
+    switch (cname) {
+      case 'worktop-line':
+      case 'worktop-bathroom':
+      case 'windowsill-line':
+        s = transMeters(w1*l1);
+        break;
+
+      case 'worktop-g':
+        s = transMeters( (l1*w2)+(l2*w1)-(w1*w2));
+        break;
+
+      case 'worktop-p':
+        let x = transMeters((l2-w1)*w2);
+        let y = transMeters(l1*w1);
+        let z = transMeters((l3-w1)*w3);
+
+        s = (y+x+z);
+        break;
+
+      case 'windowsill-g':
+        // Подоконник г-образный (угловой)
+        s = transMeters( (l1*w1)+(l2*w2));
+        break;
+
+      case 'windowsill-mirrored':
+        // Подоконник зеркальный
+        s = transMeters( (l1*w1)+(l2*w2)+(l3*w3));
+        break;
+    }
+
+
+    /*if (cname === 'worktop-g'){
       s = transMeters( (l1*w2)+(l2*w1)-(w1*w2));
     }
     else if(cname === 'worktop-line'){
@@ -662,7 +711,7 @@
       let z = transMeters((l3-w1)*w3);
 
       s = (y+x+z);
-    }
+    }*/
 
     // Пересчитать "подгиб кромки"
     let check = $('.component.edge-worktop input.dot');
@@ -729,7 +778,7 @@
   /* ------------------------ */
   let forPasteWorktop = $('.group-block.for-worktop-js');
   freecalc.on('click', '.button-one.add-worktop', function (evt) {
-    let worktopLine = $('.template.add-worktop').clone(true);
+    let worktopLine = $(this).parent('.group').find('.template.add-worktop').clone(true);
     worktopLine = worktopLine
       .removeClass('template')
       .removeClass('add-worktop');
@@ -965,6 +1014,19 @@
       total += _obj[key];
     }
 
+    // Скидка по промокоду
+    let promocodeEl = $('.freecalc__promocode .is-promocode');
+    if (is_elem(promocodeEl)){
+      let discount = parseFloat(promocodeEl.val());
+      let type = promocodeEl.data('type');
+      if (type === 'number')
+        total -= discount;
+      else if(type === 'perc'){
+        let _dPerc = total/100 * discount;
+        total -= _dPerc;
+      }
+    }
+
     return total>0 ? total : 0;
   }
 
@@ -1043,6 +1105,55 @@
     return type;
   }
 
+
+  /*------------------------*/
+  // Применить Промокод
+  /*------------------------*/
+  let promocodeBlock = $('.freecalc__promocode');
+  let lastOutPromocode = '';
+  freecalc.on('click', '.freecalc__promocode button', function () {
+    let btn = $(this);
+    let promoText = btn.parent().find('input[type="text"]').val();
+    if (!promoText)
+      return false;
+    let formGroup = btn.parent();
+    let promocodeText = formGroup.find('.promocode-text');
+
+    //
+    btn.addClass('not-active');
+    let data = {promoText: promoText};
+
+    // Отправить запрос
+    sendResponse(data, 'freecalc_promocode', function (res) {
+      btn.removeClass('not-active');
+      let hidden = formGroup.find('[type="hidden"]');
+
+      if(res['promo-code']){
+        // Код найден promo-code
+        if (hidden.hasClass(res['promo-code'])){
+          return;
+        }
+        else if (is_elem(hidden)){
+          hidden.remove();
+        }
+        promocodeText
+          .removeClass('disabled')
+          .addClass('enabled');
+        formGroup.append('<input type="hidden" class="'+res['promo-code']+' is-promocode" value="'+res['promo-number']+'" data-type="'+res['promo-type']+'">');
+      }
+      else {
+        // Не найден код
+        promocodeText
+          .removeClass('enabled')
+          .addClass('disabled');
+        if (is_elem(hidden))
+          hidden.remove();
+      }
+
+      // Пересчитать сумму
+      setSumDOM(calcTotalSum());
+    });
+  });
 
   /* Отправить запрос */
   function sendResponse(data, action, success) {

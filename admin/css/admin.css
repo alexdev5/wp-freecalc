@@ -95,6 +95,15 @@
     box-shadow: 1px 1px 3px rgba(0,0,0,.1);
 }
 
+.freecalc .mr15{
+    margin-right: 15px !important;
+}
+.freecalc .m15{
+    margin: 15px;
+}
+.freecalc .w100{
+    width: 100%;
+}
 .freecalc .add-column > i,
 .freecalc .add-group > i{
     font-size: 30px;
@@ -950,4 +959,58 @@ input::-webkit-inner-spin-button {
 }
 .freecalc .worktop-comp .individual-group{
     display: none;
+}
+
+/* Страница настроек */
+
+.freecalc .ai-bottom{
+    align-items: flex-end;
+}
+.freecalc .freecalc-settings-form label{
+    display: block;
+}
+.freecalc .freecalc-settings-form select{
+    display: block;
+    width: 100%;
+}
+.freecalc .button-success{
+    background: #28A745;
+    border: 1px solid #218C3A;
+    transition: all .2s linear;
+}
+.freecalc .button-success:focus,
+.freecalc .button-success:hover{
+    background: #28A745;
+    opacity: .8;
+}
+.fsetting .promocode{
+    margin-right: 0;
+}
+.fsetting .btn-a{
+    position: static;
+    display: inline-block;
+    border: 2px solid #4A4444;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    text-align: center;
+    padding-top: 5px;
+    background: #F3F3F3;
+    cursor: pointer;
+}
+.fsetting h2{
+    font-size: 26px;
+    font-weight: normal;
+}
+.fsetting .btn-a:hover{
+    opacity: .6;
+}
+.fsetting .deleted{
+    border-color: red;
+    color: red;
+}
+.fsetting .random-block{
+    border: 1px solid #7E8993;
+    padding: 2px;
+    border-radius: 3px;
 }

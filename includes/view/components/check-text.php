@@ -37,7 +37,10 @@ include FREECALC_INC . 'view/partials/component-before.php';
 
 
            <!-- $align | Для блока детализации -->
-					<?= view2('settings/for-detailind', [ 'forDetailing'=>$compSett['for-detailing'] ]); ?>
+					<?= view2('settings/for-detailind', [
+						'forDetailing'=>$compSett['for-detailing'],
+						'comp'=>$comp,
+					]); ?>
            <!-- end -->
 
 
