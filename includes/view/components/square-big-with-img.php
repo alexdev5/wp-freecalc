@@ -38,9 +38,12 @@ include FREECALC_INC . 'view/partials/component-before.php';
           <div class="component-settings delete-save">
               <span class="close"><i class="fal fa-times-circle"></i></span>
 
-              <!-- $price | Цена -->
-						<?= view2('settings/price', ['price'=>$compSett['price'],'priceType'=>$compSett['price-type'], ]); ?>
-              <!-- end -->
+             <!-- $price | Цена -->
+						<?= view2('settings/price', [
+							'price'=>$compSett['price'],
+							'compSett'=>$compSett,
+						]); ?>
+             <!-- end -->
 
 
               <!-- $srcImg | Ссылка на изображение -->

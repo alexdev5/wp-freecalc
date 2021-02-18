@@ -8,19 +8,21 @@
 		</select>
    </span>
 
-   <span class="d-block">
-			<label>Расположение элементов
-            <small></small>
-			</label>
+   <? if($comp['component']==='group-block'): ?>
+      <span class="d-block">
+            <label>Расположение элементов
+               <small></small>
+            </label>
 
-			<select name="type-group">
-            <option value="row" <?= valueIf($compSett['type-group']=='row', 'selected') ?>>Flex (рядом)</option>
-            <option value="ds-block" <?= valueIf($compSett['type-group']=='ds-block', 'selected') ?>>Block</option>
-			</select>
-</span>
+            <select name="type-group">
+               <option value="row" <?= valueIf($compSett['type-group']=='row', 'selected') ?>>Flex (рядом)</option>
+               <option value="ds-block" <?= valueIf($compSett['type-group']=='ds-block', 'selected') ?>>Block</option>
+            </select>
+      </span>
+   <? endif; ?>
 
    <span>
-      <label class="d-block">Не считать стоимость</label>
+      <label class="d-block">Не считать</label>
           <input type="checkbox" name="isnt_add_price" <?=valueIf($compSett['isnt_add_price']=='on', 'checked') ?>>
    </span>
 </span>

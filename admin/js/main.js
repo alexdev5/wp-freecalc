@@ -69,12 +69,31 @@
 	/*-- Click - удалить родительский блок --*/
 	formCalc.on('click', '.deleted', function () {
 		let parent = $(this).parent();
+		if (parent.hasClass('group-action'))
+			parent = parent.parent();
 		let br = parent.next('.delete-save');
 		if (is_elem(br)){
 			br.remove();
 		}
-		parent.remove();
+		parent.fadeOut(300, function () {
+			parent.remove();
+		});
 	});
+
+
+	/*-- Click - скопировать родительский блок --*/
+	formCalc.on('click', '.group-block > .copy, .component >.copy', function () {
+		let parent = $(this).parent();
+		let copyBlock = parent.clone(true);
+		copyBlock.addClass('new-copy');
+
+		parent.after(copyBlock);
+
+		setTimeout(function () {
+			copyBlock.removeClass('new-copy');
+		}, 1000);
+	});
+
 
 	/* Запустить попап */
 	formCalc.on('click', '', function () {
@@ -342,8 +361,8 @@
 	// Сортировка
 	/* ------------------------ */
 	// .group-block > .content, .group > .content
-	const sortable = new Sortable.default(document.querySelectorAll('.group > .content, .group-block > .content'), {
-		draggable: '.component',
+	const sortable = new Sortable.default(document.querySelectorAll('.calc-column > .content, .group > .content, .group-block > .content'), {
+		draggable: '.component, .group',
 		handle : '.draggable',
 		mouse: 300,
 		drag: 300,
@@ -374,7 +393,7 @@
 		let cText = '';
 		if (c.hasClass('group-block')){
 			cName = c.data('name');
-			cText = c.data('name')+cClass;
+			cText = c.data('name');
 		}
 		else{
 			let inputComponent= c.find('> .component-html .reg-calc');
@@ -418,6 +437,34 @@
 
 	// Перетаскивание окна настроек
 	formCalc.find('.component-settings').draggable();
+
+
+	/*------------------------------*/
+	// Тип цены (Дополнительно) в настрйоках
+	/*------------------------------*/
+	formCalc.on('change', '.component-settings .action-price', function (evt) {
+		let parent = $(this).parents('.component-settings').first();
+		let selected = $(this).find('option:selected');
+		let val =selected.val();
+		let mapInput = null;
+
+		// install-windowsill - Монтаж подоконника
+		if (val)
+			mapInput = parent.find('.'+val);
+
+		parent.find('.for-action-price > span').addClass('ds-none');
+
+		if (is_elem(mapInput)){
+			mapInput.removeClass('ds-none');
+		}
+
+
+		/*switch (val) {
+			case 'install-windowsill':
+				break;
+		}*/
+	});
+
 
 	function emptyDataAttr(el) {
 		if (!is_elem(el))
@@ -733,19 +780,22 @@
 
 
 
-
-
 	/* Отправить запрос */
 	function sendResponse(data, action, success) {
 		let url = ajaxurl;
 		data.nonce = wooAjaxScript.nonce;
 		data.action = action;
 
+
+		console.log(data);
 		$.ajax({
 			type: "POST",
 			url: url,
 			success: function (response) {
 				success(response);
+			},
+			error:function(res){
+				//console.log(res);
 			},
 			async: true,
 			data: data,

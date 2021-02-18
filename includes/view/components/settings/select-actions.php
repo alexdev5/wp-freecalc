@@ -1,14 +1,3 @@
-<span class="d-block">
-		<label class="d-block">Какое действие выполнить
-         <small>Привязать к столешнице</small>
-      </label>
-		<select name="select-action">
-			<option value="">-----</option>
-			<option value="mult-area" <?= valueIf($actions==='mult-area', 'selected') ?>>* на площадь столешницы</option>
-			<option value="mult-length" <?= valueIf($actions==='mult-length', 'selected') ?>>* на длинну столешницы</option>
-		</select>
-</span>
-
 <span class="row">
 	<span>
 		<label class="d-block">Какое действие выполнить

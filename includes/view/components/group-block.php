@@ -54,13 +54,13 @@ $is_br = false; ?>
           </span>
 
            <!-- $inputType | Тип компонента и чек-->
-					<?= view2('settings/input-type', [ 'inputType'=>$compSett['component-type'], 'compSett'=>$compSett ]); ?>
+					<?= view2('settings/input-type', [ 'inputType'=>$compSett['component-type'], 'compSett'=>$compSett, 'comp'=>$comp ]); ?>
            <!-- end -->
 
             <!-- имя гурппы(для связи с отдельным блоком) -->
             <span class="d-block">
 		        <label class="d-block">Имя группы
-                    <small>Если указано имя, группа не будет отображаться. Связь с отдельным компонентом</small>
+                    <small>Если указано имя, группа не будет отображаться.</small>
                     <small>Имя должно быть уникальным <b>(css_selector)</b></small>
                 </label>
 		        <input type="text" name="connection-name" class="connection-name-group" value="<?= $compSett['connection-name'] ?>">
@@ -76,6 +76,7 @@ $is_br = false; ?>
            <!-- $align | Дополнительный класс елементу-->
 					<?= view2('settings/add-class', [ 'addClass'=>$compSett['add-class'] ]); ?>
            <!-- end -->
+
 
            <!-- $align | Для блока детализации -->
 					<?= view2('settings/for-detailind', [

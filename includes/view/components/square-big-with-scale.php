@@ -49,7 +49,10 @@ include FREECALC_INC . 'view/partials/component-before.php';
 
 
       <!-- $price | Цена -->
-      <?= view2('settings/price', ['price'=>$compSett['price'],'priceType'=>$compSett['price-type'], ]); ?>
+		 <?= view2('settings/price', [
+			 'price'=>$compSett['price'],
+			 'compSett'=>$compSett,
+		 ]); ?>
       <!-- end -->
 
 

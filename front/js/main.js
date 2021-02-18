@@ -139,14 +139,36 @@
 
     let parentGroupBlock = $el.parents('.group-block').first();
     let price = balrate($el.data('price')) || 0;
+    let priceSet = getValueTypePrice($el, true);
+
+    // Настройка Дополнительно возле цены
+    if (priceSet.priceSet){
+      switch (priceSet.type) {
+        case 'install-windowsill':
+          let countWindowsill = getCountMakeAdded();
+          if (countWindowsill*price < priceSet.priceSet)
+            price = priceSet.priceSet;
+          else
+            price = countWindowsill*price;
+          console.log(countWindowsill);
+
+          break;
+      }
+    }
+
     let name = $el.attr('name');
     // detail object
     // Площадь
     let area = 0;
     let dvar = {};
 
+    // Детализация для 2-й колонки
+    let detailText = getDetailText($el);
     dvar.el = $el;
-    dvar.prop = 1;
+    if (detailText)
+      dvar.prop = detailText;
+    else
+      dvar.prop = 1;
 
 
     // группа, которая отображается при клике на определенный компонент
@@ -206,7 +228,7 @@
     }
     else if(parentGroupBlock.hasClass('calc-area')){
       // checkbox в группе для расчета площади (стеновая панель)
-      area = transMeters(eachNumbers(parentGroupBlock));
+      area = toMeterS(eachNumbers(parentGroupBlock));
       price = area * price;
     }
     else if ( is_elem(parent.find('input[type=number]')) ){
@@ -275,6 +297,50 @@
 
 
   /* ------------------------ */
+  // Если указана настройка "Дополнительно"
+  // Возвращает число
+  // если $isData - вернет объект с именем и числом
+  /* ------------------------ */
+  function getValueTypePrice($el, $isData){
+    let priceType = $el.data('price-type');
+    if (!priceType)
+      return false;
+    let priceTypeSet = $el.data('price-type-set');
+
+    if ($isData){
+      return {
+        type: priceType,
+        priceSet: priceTypeSet,
+      }
+    }
+
+    return priceTypeSet
+  }
+
+
+  function getCountMakeAdded() {
+    let currentColumn = getActiveColumn();
+    let blocksArea = currentColumn.find('.for-worktop-js > div');
+
+    return blocksArea.length + 1;
+  }
+
+  /* ------------------------ */
+  // Текст для детализации, с текущего елемента
+  /* ------------------------ */
+  function getDetailText($el){
+    let currentText = $el.data('detail-this');
+    let customText = $el.data('detail-text');
+    if (currentText)
+      return $el.parent().find('.text').text();
+    else if (customText)
+      return customText;
+    return false;
+  }
+
+
+
+  /* ------------------------ */
   // Подъем на этаж/ расчет площади
   // next-check-price - цену брать со слудеющей группы (this)
   // prev-calc-area - цену выбраного checkbox с группы * на площадь предыдущего
@@ -301,7 +367,7 @@
         area = toMeter(area);
       }
       else
-        area = transMeters(area);
+        area = toMeterS(area);
     }
 
 
@@ -362,9 +428,10 @@
     // Детализация
     if (is_elem(forWorktop)){
       // Если есть добавленая столешница
-      let detailTable = $('.detailing.worktop-js');
+      let activeDetail = getDetailingActive();
+      let detailTable = activeDetail.find('.detailing.worktop-js');
       let areaWorktop = getAreaWorktop();
-      let areasNewWorktop = getAddedWorktopArea();
+      let areasNewWorktop = getAreasMakeAdded();
 
       setPropertyDetail({
         el: null,
@@ -433,7 +500,18 @@
     if (cclass !== 'group-block'){
       check = $el;
     }
+
+    // Цена которая указывается в настройке "Дополнительно"
+    let priceSet = getValueTypePrice($el, true);
     let price = check.data('price');
+    if (priceSet.type === 'is-washing' && check.data('price-type')==='price-washing'){
+      // Текущий компонент мойка
+
+      let priceTypeSet = check.data('price-type-set');
+      if (priceTypeSet>0)
+        price = priceTypeSet;
+    }
+
 
     // записать в объект инпут, что бы потом обновить его,
     // если цена не была найдена
@@ -578,8 +656,7 @@
 
     //let price = parent.data('price');
     let price = priceOtherComponent(this);
-
-    let s = getAreaWorktop(type) + getAddedWorktopArea();
+    let s = getAreaWorktop(type) + getAreasMakeAdded();
     let amount = s * balrate(price);
 
     // Детализация
@@ -606,35 +683,48 @@
 
   /** ------------------------ */
   // Для подгиба кромки, посчитать длинну
+  // Длинна передней части столешницы
   /** ------------------------ */
   function lineForEdge(){
     // type = worktop-line, worktop-g, worktop-p
-    let worktop = $('.worktop-comp.active');
+    let worktop = getActiveWorktop();
     let cname = worktop.data('component');
     let l = 0;
 
     if (!is_elem(worktop))
       return false;
 
-    if (cname === 'worktop-g'){
-      let w1 = parseInt(worktop.find('.w1').val()) || 0;
-      let w2 = parseInt(worktop.find('.w2').val()) || 0;
-      let l1 = parseInt(worktop.find('.l1').val()) || 0;
-      let l2 = parseInt(worktop.find('.l1').val()) || 0;
-      l = ((l1-w2) + (l2-w1))/1000;
-    }
-    else if(cname === 'worktop-line'){
-      let w1 = parseInt(worktop.find('.w1').val()) || 0;
-      l = w1/1000;
-    }
-    else if(cname === 'worktop-p'){
-      let w1 = parseInt(worktop.find('.w1').val()) || 0;
-      let w2 = parseInt(worktop.find('.w2').val()) || 0;
-      let w3 = parseInt(worktop.find('.w2').val()) || 0;
-      let l1 = parseInt(worktop.find('.l1').val()) || 0;
-      let l2 = parseInt(worktop.find('.l1').val()) || 0;
-      let l3 = parseInt(worktop.find('.l1').val()) || 0;
-      l = ((l1-w2-w3) + (l2-w1) + (l3-w1))/1000;
+    let w1 = parseInt(worktop.find('.w1').val()) || 0;
+    let w2 = parseInt(worktop.find('.w2').val()) || 0;
+    let w3 = parseInt(worktop.find('.w3').val()) || 0;
+    let l1 = parseInt(worktop.find('.l1').val()) || 0;
+    let l2 = parseInt(worktop.find('.l2').val()) || 0;
+    let l3 = parseInt(worktop.find('.l3').val()) || 0;
+
+    switch (cname) {
+      case 'worktop-line':
+      case 'worktop-bathroom':
+      case 'windowsill-line':
+        l = toMeter(l1);
+        break;
+
+      case 'worktop-g':
+        l = toMeter( (l1-w2)+(l2-w1));
+        break;
+
+      case 'worktop-p':
+        l = toMeter((l3-w1)+(l1-w2-w3)+(l2-w1));
+        break;
+
+      case 'windowsill-g':
+        // Подоконник г-образный (угловой)
+        l = toMeter( l1+l2);
+        break;
+
+      case 'windowsill-mirrored':
+        // Подоконник зеркальный
+        l = toMeterS(l1+l2+l3);
+        break;
     }
 
     //
@@ -649,7 +739,7 @@
   /** ------------------------ */
   function getAreaWorktop(type){
     // type = worktop-line, worktop-g, worktop-p
-    let worktop = $('.worktop-comp.active');
+    let worktop = getActiveWorktop();
     let cname = worktop.data('component');
     let s = 0;
     if(type){
@@ -671,44 +761,45 @@
       case 'worktop-line':
       case 'worktop-bathroom':
       case 'windowsill-line':
-        s = transMeters(w1*l1);
+        s = toMeterS(w1*l1);
+
         break;
 
       case 'worktop-g':
-        s = transMeters( (l1*w2)+(l2*w1)-(w1*w2));
+        s = toMeterS( (l1*w2)+(l2*w1)-(w1*w2));
         break;
 
       case 'worktop-p':
-        let x = transMeters((l2-w1)*w2);
-        let y = transMeters(l1*w1);
-        let z = transMeters((l3-w1)*w3);
+        let x = toMeterS((l2-w1)*w2);
+        let y = toMeterS(l1*w1);
+        let z = toMeterS((l3-w1)*w3);
 
         s = (y+x+z);
         break;
 
       case 'windowsill-g':
         // Подоконник г-образный (угловой)
-        s = transMeters( (l1*w1)+(l2*w2));
+        s = toMeterS( (l1*w1)+(l2*w2));
         break;
 
       case 'windowsill-mirrored':
         // Подоконник зеркальный
-        s = transMeters( (l1*w1)+(l2*w2)+(l3*w3));
+        s = toMeterS( (l1*w1)+(l2*w2)+(l3*w3));
         break;
     }
 
 
     /*if (cname === 'worktop-g'){
-      s = transMeters( (l1*w2)+(l2*w1)-(w1*w2));
+      s = toMeterS( (l1*w2)+(l2*w1)-(w1*w2));
     }
     else if(cname === 'worktop-line'){
-      s = transMeters(w1*l1);
+      s = toMeterS(w1*l1);
     }
     else if(cname === 'worktop-p'){
 
-      let x = transMeters((l2-w1)*w2);
-      let y = transMeters(l1*w1);
-      let z = transMeters((l3-w1)*w3);
+      let x = toMeterS((l2-w1)*w2);
+      let y = toMeterS(l1*w1);
+      let z = toMeterS((l3-w1)*w3);
 
       s = (y+x+z);
     }*/
@@ -723,18 +814,32 @@
   }
 
 
+  // Активная столшница в текущей группе
+  function getActiveWorktop() {
+    let column = getActiveColumn();
+    return column.find('.worktop-comp.active');
+  }
+
+
+  // Активная колонка
+  function getActiveColumn() {
+    return $('.freecalc-column.active');
+  }
+
+
   /** ------------------------ */
   // Получить сумму площадей всех
-  // добавленных столешниц пользователем
+  // добавленных изделий (столешниц) пользователем
   /** ------------------------ */
-  function getAddedWorktopArea() {
-    let blocks = $('.for-worktop-js > div');
+  function getAreasMakeAdded() {
+    let currentColumn = getActiveColumn();
+    let blocks = currentColumn.find('.for-worktop-js > div');
     let area = 0;
     blocks.each(function () {
       area += eachNumbers($(this));
     });
 
-    return transMeters(area);
+    return toMeterS(area);
   }
 
 
@@ -776,23 +881,30 @@
   /* ------------------------ */
   // Добавить столешницу
   /* ------------------------ */
-  let forPasteWorktop = $('.group-block.for-worktop-js');
   freecalc.on('click', '.button-one.add-worktop', function (evt) {
-    let worktopLine = $(this).parent('.group').find('.template.add-worktop').clone(true);
-    worktopLine = worktopLine
-      .removeClass('template')
-      .removeClass('add-worktop');
+    let $el = $(this);
+    let group = $el.parents('.group').first();
+    let worktopLine = group.find('.template.add-worktop').clone(true);
+    let forPasteWorktop = group.find('.group-block.for-worktop-js');
+    if (!is_elem(forPasteWorktop))
+      return false;
+
+    worktopLine = worktopLine.removeClass('template').removeClass('add-worktop');
     let numElems = forPasteWorktop.find('> div').length+1;
     let name = worktopLine.data('name')+':'+numElems;
     worktopLine.attr('data-name', name);
     worktopLine.data('name', name);
 
-    if (!is_elem(forPasteWorktop))
-      return false;
     if (forPasteWorktop.hasClass('ds-none'))
       forPasteWorktop.removeClass('ds-none');
-
     forPasteWorktop.append(worktopLine);
+
+    // Монтаж подоконника, зависит от количества штук
+    let priceSet = getActiveColumn().find('.component [data-price-type="install-windowsill"]');
+    if (is_elem(priceSet) && priceSet.prop('checked')){
+      priceSet.change();
+      console.log('change');
+    }
   });
 
 
@@ -802,9 +914,11 @@
   /* ------------------------ */
   freecalc.on('click', '.button-one.remove', function (evt) {
     let delWorktop = $(this).parent();
-    let name = delWorktop.data('name');
-
     delWorktop.remove();
+
+    let priceSet = getActiveColumn().find('.component [data-price-type="install-windowsill"]');
+    if (is_elem(priceSet) && priceSet.prop('checked'))
+      priceSet.change();
   });
 
 
@@ -821,7 +935,7 @@
     });
     console.log(group);
   }
-  onClickFirst();*/
+  onClickFirst(); */
 
   /* ------------------------ */
   // Добавить в объект детализации
@@ -875,13 +989,13 @@
         data.prop2 = inputParent.find('.text').first().text();
       }
 
-      toElement = $('.'+data.type);
+      toElement = $('.freecalc__detailing.active').find('.'+data.type);
 
       if (!is_elem(toElement))
         return;
     }
     else{
-      toElement = $('.'+data.type);
+      toElement = $('.freecalc__detailing.active').find('.'+data.type);
     }
 
     // Элементы, куда записывать значения
@@ -948,6 +1062,11 @@
     }
 
     //console.log(data);
+  }
+
+
+  function getDetailingActive() {
+    return $('.freecalc__detailing.active');
   }
 
   function setInDetailing(params) {
@@ -1058,7 +1177,7 @@
    * */
   function balrate(num, isTrans) {
     if (isTrans)
-      num = transMeters(num);
+      num = toMeterS(num);
 
 
     let _sett = getSettings();
@@ -1079,7 +1198,7 @@
   /**
    * Перевести площадь в метры
    * */
-  function transMeters(number){
+  function toMeterS(number){
     const TRANSM = 1000000;
     return number/TRANSM;
   }

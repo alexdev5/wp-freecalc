@@ -10,3 +10,7 @@
 <div class="draggable">
     <i class="fad fa-arrows"></i>
 </div>
+
+<div class="copy">
+   <i class="fad fa-copy"></i>
+</div>

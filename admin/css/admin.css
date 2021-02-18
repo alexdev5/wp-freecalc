@@ -41,6 +41,7 @@
 .freecalc .btn-green.add-elem{
     width: 34px;
     height: 34px;
+    margin-left: 10px;
 }
 
 .freecalc .btn-green > i{
@@ -278,6 +279,7 @@
 .freecalc .settings,
 .freecalc .draggable,
 .freecalc .close,
+.freecalc .copy,
 .freecalc .deleted{
     position: absolute;
     top: 3px;
@@ -289,12 +291,51 @@
     margin-right: 0;
 }
 
+.freecalc .new-copy{
+    background: #8AFCB0;
+}
+/* Кнопки действия в группе */
+.freecalc .group .group-action{
+    background: #CCE3EC;
+    border: 1px solid #0DA6D9;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+.freecalc .group-action > .draggable,
+.freecalc .group-action > .deleted{
+    position: static;
+    display: inline-block;
+    color: #6B6B6B;
+}
+.freecalc .group .draggable{
+    margin-right: 14px;
+}
+
 .freecalc .settings{
     left: 5px;
     right: auto;
     margin: 0;
 }
+.freecalc .copy{
+    left: 56px;
+    right: auto;
+    margin: 0;
+}
+.freecalc .group-block>.copy{
+    left: 5px;
+    right: auto;
+    top: 55px;
+}
+.freecalc .copy:hover{
+    color: #000;
+}
+
+
 .freecalc .column .settings i,
+.freecalc .column .copy i,
 .freecalc .column .deleted i,
 .freecalc .column .draggable i{
     font-size: 1.2em;
@@ -310,6 +351,8 @@
 .freecalc .draggable:hover{
     color: #86E49E;
 }
+
+
 .freecalc .draggable:hover{
     cursor: grabbing;
 }
@@ -497,7 +540,7 @@
 .freecalc .group-block{
     padding-top: 5px;
     padding-right: 11px;
-    padding-left: 14px;
+    padding-left: 16px;
     padding-bottom: 5px;
     align-items: center;
     border: 1px solid #c0c0c0;
@@ -505,7 +548,11 @@
     margin-top: 8px;
     margin-left: 0;
     margin-right: 0;
-    min-height: 60px;
+    min-height: 79px;
+    transition: background-color .2s linear;
+}
+.freecalc .group > .content > .group-block > .content{
+    margin-left: 10px;
 }
 .freecalc .fd-column > .row{
     flex-direction: column;
@@ -534,7 +581,7 @@
     font-size: 14px;
 }
 .freecalc hr{
-    border-color: #0090B4;
+    border: 2px solid #0090B4;
     border-top: none;
 }
 .freecalc .group-block .row > *{
@@ -601,7 +648,8 @@ input::-webkit-inner-spin-button {
     padding-right: 36px;
     padding-left: 36px;
 }
-.freecalc__detailing .ds-none{
+.freecalc__detailing .ds-none,
+.freecalc .ds-none{
     display: none;
 }
 .freecalc__detailing .detailing__text{
@@ -812,6 +860,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 8px;
     /*min-width: 180px;*/
     min-width: 300px;
+    width: 400px;
     min-height: 80px;
     padding: 10px;
     background: #fff;

@@ -17,7 +17,7 @@ class FreecalcActivator{
 				`calcname` VARCHAR(100) NOT NULL,
 				`content` LONGTEXT NOT NULL,
 				`detailing` LONGTEXT NOT NULL,
-				`settings` TEXT NOT NULL,
+				`settings` LONGTEXT NOT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=$wpdb->charset AUTO_INCREMENT=1;";
 
@@ -25,8 +25,8 @@ class FreecalcActivator{
 			$sql2 = "CREATE TABLE IF NOT EXISTS `$table_setting`
 			(
 				`id` int(11) NOT NULL AUTO_INCREMENT,
-				`settings` TEXT NOT NULL,
-				`promocode` TEXT NOT NULL,
+				`settings` LONGTEXT NOT NULL,
+				`promocode` LONGTEXT NOT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=$wpdb->charset AUTO_INCREMENT=1;";
 

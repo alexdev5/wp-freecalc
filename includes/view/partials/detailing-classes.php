@@ -143,6 +143,18 @@
 				'def_prop'=>'<span class="num">0</span><span>шт.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
 			],
+		'separate-delivery-js'=>
+			[
+				'name'=>'Отдельная доставка',
+				'def_prop'=>'<span class="num">0</span><span>км.</span>',
+				'def_price'=>'<span class="num">0</span>р.',
+			],
+		'гrgency-of-order-js'=>
+			[
+				'name'=>'Срочность заказа',
+				'def_prop'=>'<span class="num">0</span>',
+				'def_price'=>'<span class="num">0</span>р.',
+			],
 		'we-installation-tabletop-js'=>
 			[
 				'name'=>'Монтаж',

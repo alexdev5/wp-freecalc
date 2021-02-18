@@ -1,9 +1,16 @@
 <div class="group adding group-id-<?= $comp['group-id'] ?>" data-component="group" data-id="<?= $comp['group-id'] ?>">
 	<? if (is_admin()): ?>
+
    <!-- Удалить блок -->
-   <div class="deleted" title="Удалить группу">
-      <i class="fas fa-trash"></i>
+   <div class="group-action">
+      <div class="draggable">
+         <i class="fad fa-arrows"></i>
+      </div>
+      <div class="deleted" title="Удалить группу">
+         <i class="fas fa-trash"></i>
+      </div>
    </div>
+
    <!-- end deleted block -->
    <!-- $comp - текущий компонент -->
    <!-- $adata - data-attribute.
