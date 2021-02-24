@@ -1,9 +1,24 @@
 
 <style>
-   @page{margin: 0.12in 0.36in 0.1in 0.2in;}
+
 	*{
-		font-family: Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif !important;
+      /*font-family: 'Panton', sans-serif;*/
+      /*font-family: 'Roboto Condensed', sans-serif;*/
+      /*font-family: 'Roboto Condensed', sans-serif;*/
+      /*font-family: 'Oswald', sans-serif;*/
+      /*font-family: 'PT Sans Caption', sans-serif;*/
+      font-weight: 400;
 	}
+   body{
+      margin-left: 0;
+      margin-right: 0;
+   }
+   .footer,
+   footer{
+      margin-left: 0;
+      margin-right: 0;
+   }
 	table{
 		width: 100%;
 		border-collapse: collapse;
@@ -11,14 +26,14 @@
 	table p{
 		margin: 0;
 	}
-	table h2{
-		font-weight: normal;
-		font-size: 18px;
-		margin: 0;
-	}
 	small{
-		font-size: 60%;
+		font-size: 80%;
 	}
+   h2{
+      font-weight: 600;
+      font-size: 22px;
+      margin: 0;
+   }
 	.ib{
 		display: inline-block;
 	}
@@ -40,377 +55,532 @@
 	.c-red{
 		color: red;
 	}
+   .c-grey{
+      color: #7A7F80;
+   }
     .b-red{
         border: 1px solid red;
     }
+   .to-lower{
+      text-transform: lowercase;
+   }
+   .bd-red{
+      border: 1px solid red;
+   }
 
+   .bg-stamp{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 510px;
+      height: 1250px;
+      z-index: 1;
 
-	/* Шапка документа */
+   }
+   .bg-stamp img,
+   .bg-stamp svg{
+      max-width: 100%;
+      position: absolute;
+      top: 0;
+   }
+
+   .bg-stamp.bg-stamp-2{
+      top: 1300px;
+   }
+   .bg-stamp.bg-stamp-2 img,
+   .bg-stamp.bg-stamp-2 svg{
+      top: 0;
+   }
+   /* Страница "поддоконник в ванную" */
+   .body-worktop-bathroom .bg-stamp.bg-stamp-2{
+      top: 1325px;
+   }
+
+   .body-windowsill-line .bg-stamp.bg-stamp-2{
+      top: 1380px;
+   }
+	/* Шапка документа <table>*/
     a{
         text-decoration: none !important;
        color: #000 !important;
     }
-	.header{
-      bottom: 0;
+   .header{
+      margin: 0;
+      margin-bottom: 50px;
+      height: 120px;
       position: relative;
-      z-index: 100;
-	}
-    .header .logo{
-        vertical-align: middle;
-    }
-    .header .logo-img{
-        width: 50px;
-        vertical-align: middle;
-    }
-   .header .logo-img img{
-      width: 50px;
+      z-index: 10;
    }
-    .header .logo-text{
-        font-size: 24px;
-        color: #000;
-        font-weight: 700;
-        vertical-align: middle;
-    }
-    .header .logo small{
-        color: #163CAD;
-        display: block;
-        margin-left: 60px;
-        font-weight: 500;
-    }
-    .logo span{
-        display: inline-block;
-    }
-	.header td{
-		height: 90px;
-		width: 50%;
-		vertical-align: middle;
-		padding: 15px;
-     font-size: 14px;
-	}
-	.header td:last-child{
-		text-align: right;
-	}
-	.header td p{
-	}
+   .header .logo{
+      vertical-align: middle;
+   }
+   .header .logo-img{
+      width: 70px;
+      vertical-align: middle;
+   }
+   .header .logo-img img{
+      max-width: 100%;
+   }
+   .header .logo-text{
+      font-size: 34px;
+      min-width: 200px;
+      color: #000;
+      font-weight: 700;
+      vertical-align: middle;
+      margin-left: 10px;
+   }
+   .header .logo small{
+      color: #163CAD;
+      display: block;
+      font-weight: 500;
+      font-size: 12px;
+      margin-top: 5px;
+      margin-left: 10px;
+   }
+   .logo span{
+      display: inline-block;
+   }
+   .header td{
+      /*height: 60px;*/
+      width: 50%;
+      vertical-align: middle;
+      padding: 25px 30px;
+      font-size: 14px;
+   }
+   .header td:last-child{
+      text-align: right;
+   }
+   .header td p{
+   }
+   .wrapper{
+       padding-left: 10px;
+       padding-right: 10px;
+      position: relative;
+      z-index: 10;
+   }
+   .header-text{
+      text-align: center;
+      margin-bottom: 20px;
+      margin-top: 70px;
+      padding: 0;
+   }
+   .text-after-calc{
+       padding-left: 30px;
+       margin-top: 30px;
+   }
 
+   /* Дополнительная информация деталицации */
+   .detail-add{
+      text-align: center;
+      margin-top: 150px;
+      margin-bottom: 150px;
+   }
+   .body-worktop-bathroom .detail-add,
+   .body-windowsill-line .detail-add{
+      margin-bottom: 170px;
+   }
+   .windowsill-line+.detail-add{
+      margin-top: 200px;
+      margin-bottom: 170px;
+   }
+   .detail-add td{
+      text-align: center;
+   }
+   .detail-add > div:last-child{
+       margin-right: 0;
+   }
+   .detail-add .detail-add__text{
+       text-align: center;
+      font-size: 16px;
+   }
+   .detail-add .detail-add__block{
+      height: 220px;
+      width: 220px;
+      background: #fff;
+      border: 1px solid red;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+   }
+   .detail-add__block img {
+      display: block;
+      position: absolute;
+      top: -30px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      max-width: 90%;
+      max-height: 60%;
+   }
+   .detail-add__block .add-text{
+      width: 100%;
+       position: absolute;
+      bottom: 10px;
+      font-weight: 600;
+       text-align: center;
+      line-height: 1.4;
+   }
 	/* Расчет */
     .detailing-header{
-      font-size: 20px;
-      font-weight: normal;
-      margin-bottom: 10px;
-      margin-left: 40px;
-       text-transform: uppercase;
-       position: relative;
-       z-index: 100;
-       /*background: #fff;*/
-       display: inline-block;
+      margin-bottom: 45px;
+       margin-top: 70px;
+      text-align: center;
     }
 	.detailing{
-      margin-bottom: 10px;
+      margin-bottom: 0;
    }
 	.detailing th{
       text-align: center;
-      font-size: 13px;
-      background: #B59293;
+      font-size: 16px;
+      background: #FFE699;
+      padding: 3px 5px;
       vertical-align: middle;
       text-transform: none;
-      padding: 0;
+      line-height: 1.3;
       font-weight: 500;
     }
 	.detailing td{
 		margin: 0;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 1px 3px;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.14;
+      padding: 5px 5px;
+      vertical-align: middle;
 	}
-    .detailing tr td:first-child{
-        width: 40px;
-       text-align: center;
-    }
-   .detailing tr td:last-child{
-      width: 110px;
+   .detailing td:first-child{
       text-align: center;
    }
-
+   .detailing td:last-child{
+      text-align: center;
+   }
+   .detailing tr:nth-child(odd) td{
+      background: #FFF5D6;
+   }
    .detailing tr:nth-child(even) td{
-      background: #FCDFDE;
-   }
-   .detailing tr td:nth-last-child(3){
-      width: 110px;
-      text-align: center;
+      background: #FFF;
    }
 
         /* Total */
+   .ta-center{
+      text-align: center;
+   }
 	.total{
-		text-align: right;
-		display: block;
-	}
-	.total > *{
-		vertical-align: middle;
-	}
-	.total h2{
-		display: inline-block;
-		font-size: 32px;
-		font-weight: 500;
-	}
+      margin: 0;
+   }
+	.total td{
+      background: #FFE699;
+      vertical-align: middle;
+      padding-left: 10px;
+      padding-right: 10px;
+      height: 50px;
+   }
+   .total td:first-child{
+      padding-left: 20px;
+   }
+   .total td:last-child{
+      padding-right: 20px;
+   }
 	.total .total-sum{
-		font-size: 32px;
+		font-size: 22px;
 		font-weight: 500;
-		margin-left: 30px;
+      text-align: right;
 	}
-	.to-lower{
-		text-transform: lowercase;
-	}
+
+   /* Текст в конце страницы */
+   .text-after-calc{
+
+   }
+   .text-after-calc p+p{
+      font-size: 13px !important;
+      margin-left: 20px;
+      margin-bottom: 8px;
+   }
+
 
     /*-------------- Чеки на столешнице -------------*/
-	.worktop{
-      display: block;
+   .freecalc .worktop-comp{
       position: relative;
-      width: 688px;
-      height: 250px;
+      cursor: default;
       margin-left: auto;
       margin-right: auto;
-		/*border: 1px solid red;*/
-	}
-   .worktop.worktop-g,
-   .worktop.worktop-p{
-      height: 380px;
-      margin-top: -40px;
-      margin-bottom: -50px;
+      height: 500px;
+      margin-top: 36px;
    }
-    .worktop.worktop-line{
-       height: 200px;
-       margin-top: 50px;
-    }
-
-   .worktop.windowsill-mirrored,
-   .worktop.windowsill-g{
-      height: 300px;
+   .freecalc .worktop-comp__relative{
+      width: 960px;
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+   }
+   .freecalc .worktop-comp svg,
+   .freecalc .worktop-comp img{
+      display: block;
+      max-width: 900px;
+      max-height: 460px;
+      margin-left: auto;
+      margin-right: auto;
+   }
+   .freecalc .worktop-p svg,
+   .freecalc .worktop-p img,
+   .freecalc .worktop-g svg,
+   .freecalc .worktop-g img{
+      max-width: 937px;
+      max-height: 527px;
    }
 
-	.worktop img{
-         width: 688px;
-        max-height: 400px;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-	.worktop span{
-		position: absolute;
-		display: block;
-		width: 14px;
-		height: 14px;
-		border: 1px solid #E6340D;
-	}
-	.worktop span.checked{
-		background: red;
-	}
-   .worktop .size{
-        min-width: 50px;
-        height: 23px;
-        border: none;
-    }
+   .freecalc .worktop-comp .size{
+      border: none;
+      position: absolute;
+   }
+   .freecalc .check-mark{
+      display: block;
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      z-index: 10;
+      border: 1px solid #E6340D;
+   }
+   .freecalc .check-mark.checked{
+      background: red;
+   }
+   .freecalc .absolute{
+      position: absolute;
+   }
 
-    /* Прямая столешница */
-    .worktop-line .check-mark-1{
-        top: 98px;
-        left: 139px;
-    }
-    .worktop-line .check-mark-2{
-        top: -3px;
-        left: 139px;
-    }
-    .worktop-line .check-mark-3{
-        top: -3px;
-        left: 541px;
-    }
-    .worktop-line .check-mark-4{
-        top: 98px;;
-        left: 542px;
-    }
-    .worktop-line .check-panel {
-        top: 47px;
-        left: 174px;
-    }
-    /*  */
-    .worktop-line .w1{
-        top: 44px;
-        left: 619px;
-    }
-    .worktop-line .l1{
-        top: 118px;
-        left: 320px;
-    }
+   .freecalc .size{
+      width: 62px;
+      height: 30px;
+      display: block;
+   }
+
+   /* Прямая столешница */
+   .freecalc .worktop-line .worktop-comp__relative{
+      height: 190px;
+      top: 25%;
+   }
+   .freecalc .worktop-line .check-mark-1{
+      top: 67.8%;
+      left: 22.2%;
+   }
+   .freecalc .worktop-line .check-mark-2{
+      top: 0;
+      left: 22.2%;
+   }
+   .freecalc .worktop-line .check-mark-3{
+      top: 0;
+      left: 77%;
+   }
+   .freecalc .worktop-line .check-mark-4{
+      top: 68.5%;
+      left: 77%;
+   }
+   .freecalc .worktop-line .check-panel{
+      top: 33%;
+      left: 27%;
+   }
+
+   /* number-width */
+   .freecalc .worktop-line .w1{
+      top: 34%;
+      left: 87.5%;
+   }
+   /*  */
+   .freecalc .worktop-line .l1{
+      top: 84.5%;
+      left: 46.9%;
+   }
 
 
-    /*--- Г-образная --*/
-    .worktop-g .size{
-        font-size: 12px;
-        height: 19px;
-    }
-    .worktop-g .check-mark-1{
-        top: 158px;
-        left: 138px;
-    }
-    .worktop-g .check-mark-2{
-        top: 57px;
-        left: 138px;
-    }
-    .worktop-g .check-mark-3{
-        top: 57px;
-        left: 541px;
-    }
-    .worktop-g .check-mark-4{
-        top: 311px;
-        left: 541px;
-    }
-    .worktop-g .check-mark-5{
-        top: 311px;
-        left: 441px;
-    }
-    .worktop-g .check-panel{
-        top: 145px;
-        left: 229px;
-    }
-    /* number-width */
-    .worktop-g .w1{
-        top: 102px;
-        left: 36px;
-    }
-    .worktop-g .w2{
-        top: 356px;
-        left: 486px;
-    }
-    .worktop-g .l1{
-        top: 0;
-        left: 332px;
-    }
-    .worktop-g .l2{
-        top: 181px;
-        left: 630px;
-    }
+   /* Г - образная столешница */
+   .freecalc .worktop-g .check-mark-1{
+      top: 41.6%;
+      left: 21.8%;
+   }
+   .freecalc .worktop-g .check-mark-2{
+      top: 15.4%;
+      left: 21.8%;
+   }
+   .freecalc .worktop-g .check-mark-3{
+      top: 15.4%;
+      left: 77.2%;
+   }
+   .freecalc .worktop-g .check-mark-4{
+      top: 82.5%;
+      left: 77.5%;
+   }
+   .freecalc .worktop-g .check-mark-5{
+      top: 82.5%;
+      left: 63.5%;
+   }
+   .freecalc .worktop-g .check-panel{
+      top: 38%;
+      left: 34%;
+   }
 
-    /* p - образная столешница */
-    .worktop-p .check-mark-1{
-        top: 246px;
-        left: 139px;
-    }
-    .worktop-p .check-mark-2{
-        top: 57px;
-        left: 138px;
-    }
-    .worktop-p .check-mark-3{
-        top: 57px;
-        left: 541px;
-    }
-    .worktop-p .check-mark-4{
-        top: 311px;
-        left: 541px;
-    }
-    .worktop-p .check-mark-5{
-        top: 311px;
-        left: 441px;
-    }
-    .worktop-p .check-mark-6{
-        top: 246px;
-        left: 239px;
-    }
-    .worktop-p .check-panel{
-        top: 145px;
-        left: 229px;
-    }
-    /* number-width */
-    .worktop-p .w1{
-        top: 107px;
-        left: 320px;
-    }
-    .worktop-p .w2{
-        top: 289px;
-        left: 182px;
-    }
-    .worktop-p .w3{
-        top: 354px;
-        left: 483px;
-    }
-    .worktop-p .l1{
-        top: 0;
-        left: 331px;
-    }
-    .worktop-p .l2{
-        top: 147px;
-        left: 38px;
-    }
-    .worktop-p .l3{
-        top: 180px;
-        left: 629px;
-    }
+   /* number-width */
+   .freecalc .worktop-g .w1{
+      top: 28.2%;
+      left: 8%;
+   }
+   .freecalc .worktop-g .w2{
+      top: 95%;
+      left: 69.4%;
+   }
+   /*  */
+   .freecalc .worktop-g .l1{
+      top: 0.7%;
+      left: 48%;
+   }
+   .freecalc .worktop-g .l2{
+      top: 48.5%;
+      left: 89.8%;
+   }
 
+   /* П-образная столешница */
+   .freecalc .worktop-p .check-mark-1{
+      top: 65.5%;
+      left: 21.8%;
+   }
+   .freecalc .worktop-p .check-mark-2{
+      top: 15.4%;
+      left: 21.8%;
+   }
+   .freecalc .worktop-p .check-mark-3{
+      top: 15.4%;
+      left: 77.2%;
+   }
+   .freecalc .worktop-p .check-mark-4{
+      top: 82.5%;
+      left: 77.2%;
+   }
+   .freecalc .worktop-p .check-mark-5{
+      top: 82.5%;
+      left: 63.5%;
+   }
+   .freecalc .worktop-p .check-mark-6{
+      top: 65.5%;
+      left: 35.4%;
+   }
+   .freecalc .worktop-p .check-panel{
+      top: 38%;
+      left: 34%;
+   }
+
+   /* number-width */
+   .freecalc .worktop-p .w1{
+      top: 29%;
+      left: 44%;
+   }
+   .freecalc .worktop-p .w2{
+      top: 77%;
+      left: 26.4%;
+   }
+   .freecalc .worktop-p .w3{
+      top: 94%;
+      left: 64.8%;
+   }
+   /*  */
+   .freecalc .worktop-p .l1{
+      top: 0.7%;
+      left: 45.5%;
+   }
+   .freecalc .worktop-p .l2{
+      top: 39.6%;
+      left: 8%;
+   }
+   .freecalc .worktop-p .l3{
+      top: 48.2%;
+      left: 83.2%;
+   }
 
    /* Столешница в ванную */
-   .worktop-bathroom{
+   .freecalc .worktop-bathroom .worktop-comp__relative{
+      height: 197px;
+      top: 25%;
+      padding-left: 20px;
+   }
+   .freecalc .worktop-bathroom{
 
    }
-   .worktop-bathroom .w1{
-      top: 22px;
-      left: 630px;
+   .freecalc .worktop-bathroom .w1{
+      left: 86%;
+      top: 17%;
    }
-   .worktop-bathroom .l1{
-      left: 256px;
-      top: 115px;
+   .freecalc .worktop-bathroom .l1{
+      left: 34.5%;
+      top: 79%;
    }
 
    /* Подоконник прямой*/
-   .windowsill-line .w1{
-      left: 630px;
-      top: 103px;
+   .freecalc .windowsill-line .worktop-comp__relative{
+      height: 301px;
+      top: 25%;
+      padding-left: 60px;
    }
-   .windowsill-line .l1{
-      top: 196px;
-      left: 256px;
+   .freecalc .windowsill-line .w1{
+      left: 89.6%;
+      top: 46%;
+   }
+   .freecalc .windowsill-line .l1{
+      left: 41.8%;
+      top: 86.5%;
    }
 
-   /* Подоконник г-образный (Угловой)*/
-   .windowsill-g .w1{
-      top: 227px;
-      left: 34px;
+   /* Подоконник г-образный*/
+   .freecalc .windowsill-g .worktop-comp__relative{
+      height: 366px;
+      top: 15%;
    }
-   .windowsill-g .w2{
-      top: 95px;
-      left: 625px;
+   .freecalc .windowsill-g .w1{
+      top: 82%;
+      left: 7.5%;
    }
-   .windowsill-g .l1{
-      top: 71px;
-      left: 50px;
+   .freecalc .windowsill-g .w2{
+      top: 34%;
+      left: 88.5%;
    }
-   .windowsill-g .l2{
-      top: 0;
-      left: 358px;
+   .freecalc .windowsill-g .l1{
+      top: 25.5%;
+      left: 10%;
+   }
+   .freecalc .windowsill-g .l2{
+      top: 0%;
+      left: 52%;
    }
 
    /* Подоконник зеркальный*/
-   .windowsill-mirrored .w1{
-      top: 222px;
-      left: 34px;
+   .freecalc .windowsill-mirrored .worktop-comp__relative{
+      height: 356px;
+      top: 25%;
    }
-   .windowsill-mirrored .w2{
-      top: 93px;
-      left: 306px;
+   .freecalc .windowsill-mirrored .w1{
+      top: 82.5%;
+      left: 7.5%;
    }
-   .windowsill-mirrored .w3{
-      top: 222px;
-      left: 625px;
+   .freecalc .windowsill-mirrored .w2{
+      top: 35%;
+      left: 45%;
    }
-   .windowsill-mirrored .l1{
-      top: 70px;
-      left: 50px;
+   .freecalc .windowsill-mirrored .w3{
+      top: 82.5%;
+      left: 88.5%;
    }
-   .windowsill-mirrored .l2{
-      top: 0;
-      left: 322px;
+   .freecalc .windowsill-mirrored .l1{
+      top: 26.5%;
+      left: 9.8%;
    }
-   .windowsill-mirrored .l3{
-      top: 69px;
-      left: 600px;
+   .freecalc .windowsill-mirrored .l2{
+      top: 0.7%;
+      left: 47%;
+   }
+   .freecalc .windowsill-mirrored .l3{
+      top: 26%;
+      left: 85%;
+   }
+
+   .freecalc .freecalc-lasttext{
+      margin-top: 20px;
    }
 </style>

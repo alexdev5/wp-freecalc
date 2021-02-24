@@ -29,10 +29,15 @@
       let send = getDataToSend(btnAction);
       let browser = getBrowser();
 
+      //return;
       sendResponse(send, (res)=>{
-        if (res.url){
-          isClick = true;
-          btnsBlock.find('.not-active').removeClass('not-active');
+        isClick = true;
+        btnsBlock.find('.not-active').removeClass('not-active');
+
+        if (res.error){
+          console.log(res.error);
+        }
+        else if (res.url){
           if (document.documentElement.clientWidth>500 && browser === 'chrome')
             window.open(res.url);
           else
@@ -186,6 +191,55 @@
     let cpanelEl = worktop.find('.check-panel:checked');
     if (is_elem(cpanelEl))
       cpanel = 1;
+
+    // Промокод
+    let promoEl = $('.freecalc__promocode .is-promocode');
+    let promo = '';
+    if (is_elem(promoEl))
+      promo = promoEl.data('promo');
+
+    // Выбраный материал
+    let selectMaterial = getCheckedInData('material-js', column);
+    let selectMaterialURL = '';
+    let selectMaterialText = '';
+    if (is_elem(selectMaterial)){
+      selectMaterialURL = selectMaterial.find('img').attr('src');
+      selectMaterialText = selectMaterial.find('.row__text .text').first().text();
+    }
+
+    // Тип монтажа
+    let selectInstall = getCheckedInData('tabletop-installation-js', column);
+    let selectInstallURL = '';
+    let selectInstallText = '';
+    if (is_elem(selectInstall)){
+      selectInstallURL = selectInstall.find('img').attr('src');
+      selectInstallText = selectInstall.find('.row__text');
+      if (is_elem(selectInstallText))
+        selectInstallText = escapeHtml(selectInstallText.html());
+    }
+
+
+    // Фаска
+    let selectFace = getCheckedInData('worktop-edge-js', column);
+    let selectFaceURL = '';
+    let selectFaceText = '';
+    if (is_elem(selectFace)){
+      selectFaceURL = selectFace.find('img').attr('src');
+      selectFaceText = selectFace.find('.row__text .text').first().text();
+    }
+
+
+    console.log(selectMaterialURL);
+    console.log(selectMaterialText);
+
+    console.log('---------------');
+    console.log(selectInstallURL);
+    console.log(selectInstallText);
+
+    console.log('---------------');
+    console.log(selectFaceURL);
+    console.log(selectFaceText);
+
     let dataOther = {};
     dataOther.total_price = totalText || '0р.';
     dataOther.wname = checkName;
@@ -193,6 +247,17 @@
     dataOther.size = size;
     dataOther.cpanel = cpanel;
     dataOther.radial = radial;
+    //
+    dataOther.material_img_url = selectMaterialURL;
+    dataOther.material_text = selectMaterialText;
+    //
+    dataOther.type_install_img = selectInstallURL;
+    dataOther.type_install_text = selectInstallText;
+    //
+    dataOther.face_img_url = selectFaceURL;
+    dataOther.face_text = selectFaceText;
+    //
+    dataOther.promocode = promo;
 
     // Для отправки
     return{
@@ -314,5 +379,23 @@
     }
 
     return sBrowser;
+  }
+
+  // Возварщает в текущей колонке
+  // выбраный ".component" по "data" атрибуту
+  // data-for-detailing
+  function getCheckedInData(dataValue, activeColumn) {
+    let column = null;
+    if (activeColumn)
+      column = activeColumn;
+    else
+      column = $('.freecalc-column.active');
+
+    let selectInput = column.find('.detailing-js[data-for-detailing="'+dataValue+'"] input:checked');
+    if (!is_elem(selectInput))
+      return false;
+
+    let selectComponent = selectInput.parents('.component');
+    return selectComponent;
   }
 })(jQuery);

@@ -491,6 +491,7 @@
 
     let selector = '.'+cclass+'[data-name="'+cname+'"]';
     let toComp = $(selector);
+
     if (!is_elem(toComp)){
       console.log('priceOtherComponent | component no find');
       return false;
@@ -504,6 +505,7 @@
     // Цена которая указывается в настройке "Дополнительно"
     let priceSet = getValueTypePrice($el, true);
     let price = check.data('price');
+
     if (priceSet.type === 'is-washing' && check.data('price-type')==='price-washing'){
       // Текущий компонент мойка
 
@@ -658,6 +660,7 @@
     let price = priceOtherComponent(this);
     let s = getAreaWorktop(type) + getAreasMakeAdded();
     let amount = s * balrate(price);
+
 
     // Детализация
     setPropertyDetail({
@@ -1258,7 +1261,7 @@
         promocodeText
           .removeClass('disabled')
           .addClass('enabled');
-        formGroup.append('<input type="hidden" class="'+res['promo-code']+' is-promocode" value="'+res['promo-number']+'" data-type="'+res['promo-type']+'">');
+        formGroup.append('<input type="hidden" class="'+res['promo-code']+' is-promocode" value="'+res['promo-number']+'" data-type="'+res['promo-type']+'" data-promo="'+res['promo-code']+'">');
       }
       else {
         // Не найден код

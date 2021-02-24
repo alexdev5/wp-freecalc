@@ -14,17 +14,21 @@ class AdminController {
 		wp_enqueue_style( $this->freecalc.'-font-awesome',  FREECALC_URL.'admin/plugins/fontawesome-pro-5.15.1-web/css/all.min.css' );
 		wp_enqueue_style( $this->freecalc.'-tingle',  FREECALC_URL.'admin/plugins/tingle-master/tingle.min.css' );
 		wp_enqueue_style( 'jquery-ui',  '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
+		wp_enqueue_style( 'trumbowyg',  FREECALC_URL.'plugins/trumbowyg/ui/trumbowyg.min.css' );
+
 		wp_enqueue_style_version($this->freecalc,'admin/css/admin.css');
 	}
 
 	public function enqueue_scripts()
 	{
 		wp_enqueue_script( $this->freecalc.'-tingle',  FREECALC_URL.'admin/plugins/tingle-master/tingle.min.js' );
-		wp_enqueue_script( $this->freecalc.'-drag',  'https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js' );
-		wp_enqueue_script( $this->freecalc.'-sort',  'https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/sortable.js' );
-		wp_enqueue_script( 'jquery-ui',  '//code.jquery.com/ui/1.12.1/jquery-ui.js' );
+		wp_enqueue_script( 'draggable-jq',  'https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js' );
+		wp_enqueue_script( 'sortable-jq',  'https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/sortable.js' );
+		wp_enqueue_script( 'jquery-ui',  '//code.jquery.com/ui/1.12.1/jquery-ui.js', ['jquery'], '', true );
 
 		wp_enqueue_script('jquery');
+		wp_enqueue_script( 'trumbowyg',  FREECALC_URL.'plugins/trumbowyg/trumbowyg.min.js', ['jquery'], '', true );
+
 		wp_enqueue_script_version( $this->freecalc, 'admin/js/main.js', ['jquery'], true);
 
 		wp_localize_script( $this->freecalc, 'wooAjaxScript',
@@ -359,7 +363,6 @@ class AdminController {
 
 	public function getUpdateBalRate()
 	{
-		error_log(print_r('crone_crone_crone_crone_', 1));
 		// inc includes/update-curr.php
 		$arrBalRate = [
 			'balrate_rub'=>'RUB',

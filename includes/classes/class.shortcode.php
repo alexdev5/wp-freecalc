@@ -17,6 +17,7 @@ class Shortcode{
 				return '';
 
 			$calc = $this->cAdmin->getCalc($atts['id']);
+			$commonSettings = $this->cAdmin->getSettings();
 			if(!$calc)
 				return '';
 			$contents = $calc->content;
@@ -27,7 +28,10 @@ class Shortcode{
 				return view("includes/view/actions-front/template-pdf");
 			}
 			else{
-				return view("front/partials/view-calc-id", ['contents'=>$contents, 'settings'=>$settings, ]);
+				return view("front/partials/view-calc-id", [
+					'contents'=>$contents,
+					'settings'=>$settings,
+					'commonSettings'=>$commonSettings->settings, ]);
 			}
 
 		});

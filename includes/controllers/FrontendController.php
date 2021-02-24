@@ -64,6 +64,13 @@ class FrontendController{
 		$attach_url = $attach['file_url'];
 		$attach_path = $attach['file_path'];
 
+		// Ошибка конвертации ПДФ
+
+		if ($attach['error']){
+			echo json_encode($attach);
+			wp_die();
+		}
+
 		// Загрузка файла
 		if ($_POST['action_user'] === 'save' || $_POST['action_user'] === 'print'){
 			$sendData['url'] = $attach_url;

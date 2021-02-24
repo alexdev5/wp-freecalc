@@ -122,3 +122,89 @@ if (!function_exists('base64_encoded_image')) {
 		}
 	}
 }
+
+function getImgBase64($src){
+	$imgtype = pathinfo($src, PATHINFO_EXTENSION);
+	$imgtext = file_get_contents($src);
+	$base64 = base64_encode($imgtext);
+	return "data:image/{$imgtype};base64,{$base64}";
+}
+
+
+
+function createThumbnail($filename, $thname, $width=100, $height=100, $cdn=null)
+{
+	try {
+		$extension = substr($filename, (strrpos($filename, '.')) + 1 - strlen($filename));
+		$fallback_save_path = "images/designs";
+
+		if ($extension == "svg") {
+			$im = new Imagick();
+			$svgdata = file_get_contents($filename);
+			$svgdata = svgScaleHack($svgdata, $width, $height);
+
+			//$im->setBackgroundColor(new ImagickPixel('transparent'));
+			$im->readImageBlob($svgdata);
+
+			$im->setImageFormat("jpg");
+			$im->resizeImage($width, $height, imagick::FILTER_LANCZOS, 1);
+
+			$raw_data = $im->getImageBlob();
+
+			(is_null($cdn)) ? file_put_contents($fallback_save_path . '/' . $thname, $im->getImageBlob()) : '';
+		} else if ($extension == "jpg") {
+			$im = new Imagick($filename);
+			$im->stripImage();
+
+			// Save as progressive JPEG
+			$im->setInterlaceScheme(Imagick::INTERLACE_PLANE);
+			$raw_data = $im->resizeImage($width, $height, imagick::FILTER_LANCZOS, 1);
+
+			// Set quality
+			// $im->setImageCompressionQuality(85);
+
+			(is_null($cdn)) ? $im->writeImage($fallback_save_path . '/' . $thname) : '';
+		}
+
+		if (!is_null($cdn)) {
+			$imageObject = $cdn->DataObject();
+			$imageObject->SetData( $raw_data );
+			$imageObject->name = $thname;
+			$imageObject->content_type = 'image/jpg';
+			$imageObject->Create();
+		}
+
+		$im->clear();
+		$im->destroy();
+		return true;
+	}
+	catch(Exception $e) {
+		return false;
+	}
+}
+
+function svgScaleHack($svg, $minWidth, $minHeight)
+{
+	$reW = '/(.*<svg[^>]* width=")([\d.]+px)(.*)/si';
+	$reH = '/(.*<svg[^>]* height=")([\d.]+px)(.*)/si';
+	preg_match($reW, $svg, $mw);
+	preg_match($reH, $svg, $mh);
+	$width = floatval($mw[2]);
+	$height = floatval($mh[2]);
+	if (!$width || !$height) return false;
+
+	// scale to make width and height big enough
+	$scale = 1;
+	if ($width < $minWidth)
+		$scale = $minWidth/$width;
+	if ($height < $minHeight)
+		$scale = max($scale, ($minHeight/$height));
+
+	$width *= $scale*2;
+	$height *= $scale*2;
+
+	$svg = preg_replace($reW, "\${1}{$width}px\${3}", $svg);
+	$svg = preg_replace($reH, "\${1}{$height}px\${3}", $svg);
+
+	return $svg;
+}

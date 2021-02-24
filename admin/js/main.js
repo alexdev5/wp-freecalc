@@ -75,9 +75,7 @@
 		if (is_elem(br)){
 			br.remove();
 		}
-		parent.fadeOut(300, function () {
-			parent.remove();
-		});
+		parent.remove();
 	});
 
 
@@ -540,7 +538,7 @@
 	 * @component {jQuery} - отдельный елемент, где искать настройки
 	 * "isCustomElem {bool} - собрать массив с переданного елемента
 	 * */
-	function getSetting(component, isCustomElem) {
+	function getSetting(component, isCustomElem, isHTMLEncode) {
 		if (!is_elem(component))
 			return;
 
@@ -558,7 +556,7 @@
 				_sett[$el.data('name')] = getDataKeys($el);
 			}
 			else
-				_sett[$el.attr('name')] = getSettingValue($el);
+				_sett[$el.attr('name')] = getSettingValue($el, '', isHTMLEncode);
 		});
 
 		return _sett;
@@ -579,7 +577,7 @@
 
 
 	/* Получить значение настройки выбраного или активного input, select */
-	function getSettingValue(element, attr) {
+	function getSettingValue(element, attr, isHTMLEncode) {
 		if(!is_elem(element))
 			return;
 
@@ -595,6 +593,11 @@
 
 		if (attr)
 			return element.attr(attr);
+
+		if (isHTMLEncode){
+			console.log('ldldl');
+			return escapeHtml(element.val());
+		}
 
 		return element.val();
 	}
@@ -717,33 +720,39 @@
 	});
 
 
+	/*------------------------------------------------*/
+	// Старница настроек
+	/*------------------------------------------------*/
+
 	/* ------------------------ */
-	// Сохранить промокод
+	// Сохранить промокод и настройки
 	/* ------------------------ */
-	let formSettings = $('.freecalc-settings-form');
-	formSettings.on('submit', function (evt) {
+	let freecalcSettings = $('.freecalc .fsetting');
+	freecalcSettings.on('submit', function (evt) {
 		// action -> update_settings
 		evt.preventDefault();
 		let promoEl = $('#promocode .promocode');
 		if(!is_elem(promoEl))
 			return false;
 
-		let dataToSend = [];
+		// Промокоды
+		let promocodes = [];
 		promoEl.each(function () {
 			let elems = $(this).find('input, select');
 			// Получить данные полей
 			let dataPromocode = getSetting(elems, true);
-			dataToSend.push(dataPromocode);
+			promocodes.push(dataPromocode);
 		});
+		// Другие настройки
+		let settingsBlock = $(this).find('.settings-block input, .settings-block textarea, .settings-block select');
+		let otherSettings = getSetting(settingsBlock, true, true);
 
 		// Запись в таблицу "promocode"
-		let divLoad = $('<div class="waiting-load"><p>Сохранение...</p></div>');
-		formSettings.append(divLoad);
-		console.log(divLoad);
+		showOverlay(freecalcSettings);
 
-		sendResponse({promocode: dataToSend}, 'freecalc_update_settings', (res)=>{
+		sendResponse({promocode: promocodes, settings:otherSettings}, 'freecalc_update_settings', (res)=>{
 			if( res.hasOwnProperty('error') && res.error==='ok' ){
-				$('.waiting-load').remove();
+				showOverlay(freecalcSettings, remove);
 				console.log(res);
 				return ;
 			}
@@ -759,7 +768,7 @@
 
 
 	// Удалить промокод
-	formSettings.on('click', '.deleted', function () {
+	freecalcSettings.on('click', '.deleted', function () {
 		let parent = $(this).parent();
 		parent.remove();
 	});
@@ -773,11 +782,37 @@
 
 	// Генерировать промокод
 	let lastActiveInputPromo = null;
-	formSettings.on('click', '.deleted', function () {
+	freecalcSettings.on('click', '.random', function () {
 		// characters = %w(A B C D E F G H J K L M P Q R T W X Y Z 1 2 3 4 5 6 7 8 9)
 		getRandom();
 	});
 
+	
+	/*----------------------------*/
+	// едактор текста в настройках
+	/*----------------------------*/
+	freecalcSettings.find('.freecalc-settings #free-editor').trumbowyg({
+		autogrow: false
+	});
+
+	
+	// Показывать при сохранении
+	// toAppend - Куда вставить
+	function showOverlay(toAppend, isDelete, text) {
+		if (text){
+			$('.waiting-load p').text(text);
+			return true;
+		}
+		else if (isDelete){
+			$('.waiting-load').remove();
+			return 'deleted';
+		}
+		else{
+			let divLoad = $('<div class="waiting-load"><p>Сохранение...</p></div>');
+			toAppend.append(divLoad);
+			return divLoad;
+		}
+	}
 
 
 	/* Отправить запрос */

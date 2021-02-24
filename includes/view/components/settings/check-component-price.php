@@ -13,9 +13,9 @@
             data-cid="<?= $otherPrice['cid'] ?>"
             data-cclass="<?= $otherPrice['cclass'] ?>"
             data-text
-            class="set other-price-component"
+            class="set other-price-component <?= valueIf($otherPrice['cname'], '', 'bd-red') ?>"
             title="Будет умножаться на цену этого компонента">
-         <?= $otherPrice['text'] ?>
+         <?= valueIf($otherPrice['cname'], $otherPrice['text']) ?>
       </span>
       <span class="empty-up">
          <i class="hred far fa-minus-octagon" title="Удалить связь"></i>

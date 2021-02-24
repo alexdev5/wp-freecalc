@@ -760,6 +760,9 @@ ul{
     left: 86.5%;
 }
 
+.freecalc .freecalc-lasttext{
+    margin-top: 20px;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -1038,6 +1041,10 @@ button.not-active:hover,
     opacity: .8;
     background: #ABCF37;
 }
+.freecalc .group-block.ds-block > *{
+    margin-bottom: 10px;
+}
+
 
 @media screen and (max-width: 720px) {
 

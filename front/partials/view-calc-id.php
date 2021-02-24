@@ -124,6 +124,12 @@
          </button>
       </div>
    </div>
+
+   <!-- Text -->
+   <div class="freecalc-lasttext">
+		 <?= htmlspecialchars_decode($commonSettings['text-editor']) ?>
+   </div>
+
 </div>
 <!-- end freecalc block -->
 

@@ -18,7 +18,7 @@ $is_br = false; ?>
         Значение дата отрибута, все == значениям data, кроме data-text -->
    <? endif; ?>
 
-	<?= fis_admin('<div class="content row">') ?>
+	<?= fis_admin('<div class="content '.valueIf($compSett['type-group'], ' '.$compSett['type-group'], ' row').'">') ?>
 		 <? if ($compsNext){
 		     $count = 1;
 			 foreach ($compsNext as $item) {

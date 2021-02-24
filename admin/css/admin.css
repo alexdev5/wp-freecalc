@@ -44,6 +44,11 @@
     margin-left: 10px;
 }
 
+.freecalc .text-editor textarea{
+    /*width: 100%;
+    min-height: 300px;
+    border-radius: 0;*/
+}
 .freecalc .btn-green > i{
     font-size: 20px;
     color: #fff;
@@ -400,6 +405,9 @@
 }
 .freecalc .ds-block,
 .freecalc .d-block{
+    display: block;
+}
+.freecalc .content.ds-block > .component{
     display: block;
 }
 .freecalc .d-iblock{
@@ -1012,13 +1020,26 @@ input::-webkit-inner-spin-button {
 
 /* Страница настроек */
 
+.freecalc .fz14{
+    font-size: 14px;
+}
+.freecalc .fz16{
+    font-size: 16px;
+}
+.freecalc .bold{
+    font-weight: 500;
+}
+.freecalc .bold span{
+    margin-bottom: 8px;
+    display: block;
+}
 .freecalc .ai-bottom{
     align-items: flex-end;
 }
-.freecalc .freecalc-settings-form label{
+.freecalc.fsetting form label{
     display: block;
 }
-.freecalc .freecalc-settings-form select{
+.freecalc.fsetting form select{
     display: block;
     width: 100%;
 }
@@ -1062,4 +1083,28 @@ input::-webkit-inner-spin-button {
     border: 1px solid #7E8993;
     padding: 2px;
     border-radius: 3px;
+}
+
+.freecalc .settings-block .label{
+    margin-bottom: 10px;
+    display: block;
+}
+.freecalc .settings-block{
+    border-bottom: 1px solid #ECF0F1;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+.freecalc .settings-block [type="text"]{
+    display: block;
+    width: 100%;
+}
+.freecalc .settings-block{
+
+}
+.freecalc-promocode label{
+    display: block;
+}
+.freecalc-promocode select{
+    display: block;
+    width: 100%;
 }
