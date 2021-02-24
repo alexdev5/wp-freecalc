@@ -23,9 +23,22 @@
       float: right;
       vertical-align: middle;
    }
+   .footer-left > *,
+   .footer-right > *{
+      vertical-align: middle;
+   }
+   b{
+      font-weight: 600;
+   }
 </style>
 <div class="footer">
-	<div class="footer-left">+7 (343) <b>346-76-55</b></div>
-	<div class="footer-right">info@vaskaniya.ru</div>
+	<div class="footer-left">
+      <img src="<?= FREECALC_URL.'admin/img/pdf/phone.png' ?>">
+      <span><?= htmlspecialchars_decode($setting['telephone-company']) ?></span>
+   </div>
+	<div class="footer-right">
+      <img src="<?= FREECALC_URL.'admin/img/pdf/mail.png' ?>">
+      <span><?= $setting['email-company'] ?></span>
+   </div>
 </div>
 

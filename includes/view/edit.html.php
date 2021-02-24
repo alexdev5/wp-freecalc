@@ -84,6 +84,6 @@ if ($data){
          <p><b>prev-calc-area</b>: Указать текущей группе, если нужно посичать площадь с вышележащей группы и умножить на текущюю стоимость </p>
         <?
 	 /* $mapDetailing */
-	 print_r(include FREECALC_INC.'view/partials/detailing-classes.php') ?></code>
+	 print_r(include FREECALC_INC.'view/detailing-array/detailing-classes.php') ?></code>
    </pre>
 </div>

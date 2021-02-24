@@ -1,10 +1,10 @@
 <?
 if ($comp['column-id']==1)
-   $map = include FREECALC_INC.'view/partials/detailing-classes.php';
+   $map = include FREECALC_INC.'view/detailing-array/detailing-classes.php';
 elseif($comp['column-id']==2)
-	$map = include FREECALC_INC.'view/partials/detailing-bathroom.php';
+	$map = include FREECALC_INC.'view/detailing-array/detailing-bathroom.php';
 elseif($comp['column-id']==3)
-	$map = include FREECALC_INC.'view/partials/detailing-windowsill.php';
+	$map = include FREECALC_INC.'view/detailing-array/detailing-windowsill.php';
 
 ?>
 <span class="d-block">

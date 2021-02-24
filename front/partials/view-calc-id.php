@@ -40,7 +40,7 @@
 
    <!-- Столешницы -->
    <div class="freecalc__detailing detailing-1 active">
-		 <? $detailing_worktop = include FREECALC_INC.'view/partials/detailing-classes.php' ?>
+		 <? $detailing_worktop = include FREECALC_INC.'view/detailing-array/detailing-classes.php' ?>
       <? foreach ($detailing_worktop as $key=>$item):
         if($item['display']==='none')
            continue; ?>
@@ -56,7 +56,7 @@
 
    <!-- В ванную -->
    <div class="freecalc__detailing detailing-2">
-		 <? $detailing_worktop = include FREECALC_INC.'view/partials/detailing-bathroom.php' ?>
+		 <? $detailing_worktop = include FREECALC_INC.'view/detailing-array/detailing-bathroom.php' ?>
 		 <? foreach ($detailing_worktop as $key=>$item):
 			 if($item['display']==='none')
 				 continue; ?>
@@ -73,7 +73,7 @@
 
    <!-- Подоконники -->
    <div class="freecalc__detailing detailing-3">
-		 <? $detailing_worktop = include FREECALC_INC.'view/partials/detailing-windowsill.php' ?>
+		 <? $detailing_worktop = include FREECALC_INC.'view/detailing-array/detailing-windowsill.php' ?>
 		 <? foreach ($detailing_worktop as $key=>$item):
 			 if($item['display']==='none')
 				 continue; ?>
@@ -89,7 +89,7 @@
 
 
    <div class="freecalc__promocode">
-      <p class="ta-center">Если вы являетесь нашим партнером, введите Ваш персональный промокод</p>
+      <p class="ta-center">Если Вы являетесь нашим партнером, введите Ваш персональный промокод</p>
       <div class="form-group">
          <input type="text" class="form-control promocode-text">
          <button class="button-one success">Применить</button>

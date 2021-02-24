@@ -471,20 +471,20 @@
    /* number-width */
    .freecalc .worktop-p .w1{
       top: 29%;
-      left: 44%;
+       left: 47%;
    }
    .freecalc .worktop-p .w2{
-      top: 77%;
-      left: 26.4%;
+      top: 77.5%;
+      left: 27.8%;
    }
    .freecalc .worktop-p .w3{
-      top: 94%;
-      left: 64.8%;
+      top: 94.5%;
+       left: 69.3%;
    }
    /*  */
    .freecalc .worktop-p .l1{
       top: 0.7%;
-      left: 45.5%;
+       left: 48.5%;
    }
    .freecalc .worktop-p .l2{
       top: 39.6%;
@@ -492,25 +492,25 @@
    }
    .freecalc .worktop-p .l3{
       top: 48.2%;
-      left: 83.2%;
+       left: 89.5%;
    }
 
    /* Столешница в ванную */
+   b{
+      font-weight: 600 !important;
+   }
    .freecalc .worktop-bathroom .worktop-comp__relative{
       height: 197px;
       top: 25%;
       padding-left: 20px;
    }
-   .freecalc .worktop-bathroom{
-
-   }
    .freecalc .worktop-bathroom .w1{
-      left: 86%;
       top: 17%;
+      left: 89%;
    }
    .freecalc .worktop-bathroom .l1{
-      left: 34.5%;
       top: 79%;
+      left: 39.1%;
    }
 
    /* Подоконник прямой*/

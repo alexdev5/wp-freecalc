@@ -26,6 +26,7 @@
 			],
 		'class-stone-js'=>
 			[ // ds-none
+				'display'=>'none',
 			'name'=>'Тип камня',
 			'def_prop'=>'0мм',
 			'def_price'=>'0р.',
@@ -145,7 +146,7 @@
 			],
 		'separate-delivery-js'=>
 			[
-				'name'=>'Отдельная доставка',
+				'name'=>'Отдалённая доставка',
 				'def_prop'=>'<span class="num">0</span><span>км.</span>',
 				'def_price'=>'<span class="num">0</span>р.',
 			],

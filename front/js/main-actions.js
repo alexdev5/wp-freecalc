@@ -34,7 +34,7 @@
         isClick = true;
         btnsBlock.find('.not-active').removeClass('not-active');
 
-        if (res.error){
+        if (res.error && res.error !== 'ok'){
           console.log(res.error);
         }
         else if (res.url){
@@ -227,18 +227,6 @@
       selectFaceURL = selectFace.find('img').attr('src');
       selectFaceText = selectFace.find('.row__text .text').first().text();
     }
-
-
-    console.log(selectMaterialURL);
-    console.log(selectMaterialText);
-
-    console.log('---------------');
-    console.log(selectInstallURL);
-    console.log(selectInstallText);
-
-    console.log('---------------');
-    console.log(selectFaceURL);
-    console.log(selectFaceText);
 
     let dataOther = {};
     dataOther.total_price = totalText || '0р.';

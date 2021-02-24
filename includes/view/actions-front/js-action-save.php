@@ -3,15 +3,17 @@ require_once FREECALC_PATH.'plugins/pdflayer.class.php';
 $cAdmin = new AdminController();
 $calcSettings = $cAdmin->getSettings();
 
-$html = view('includes/view/actions-front/template-pdf', [
+$html = view('includes/view/pdf/template-pdf', [
 	'details'=>$_POST['details'],
 	'data'=>$_POST['data'],
 	'size'=>$_POST['size'],
 	'calcSetting'=>$calcSettings->settings
 ]);
-$header = view('includes/view/actions-front/template-pdf-header', []);
+$header = view('includes/view/pdf/template-pdf-header', []);
 
-$footer = view('includes/view/actions-front/template-pdf-footer', []);
+$footer = view('includes/view/pdf/template-pdf-footer', [
+	'setting'=>$calcSettings->settings
+]);
 
 //Instantiate the class
 $html2pdf = new pdflayer();
@@ -22,6 +24,10 @@ if (!$apiKey)
 $html2pdf->set_param('access_key', $apiKey);
 //set the URL to convert
 //$html2pdf->set_param('page_size', 'A4');
+if ($calcSettings->settings['pdflayer-test']=='on'){
+	$html2pdf->set_param('test', 1);
+}
+
 $html2pdf->set_param('margin_top', 0);
 $html2pdf->set_param('margin_bottom', 60);
 $html2pdf->set_param('margin_left', 0);

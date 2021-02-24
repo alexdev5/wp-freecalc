@@ -33,13 +33,13 @@ $size['l3'] = 2000;
 
 <?
 if ($details['column_id']==1)
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-classes.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-classes.php';
 elseif ($details['column_id']==2)
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-bathroom.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-bathroom.php';
 elseif ($details['column_id']==3)
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-windowsill.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-windowsill.php';
 elseif ($details['column_id']=='test')
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-test.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-test.php';
 
 $radials = $data['radial'];
 // $data['wname'] - имя столешницы

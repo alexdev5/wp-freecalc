@@ -10,7 +10,7 @@
 
     <?
 		/* Подключение стилей */
-		include FREECALC_INC . 'view/actions-front/template-pdf-styles.php';
+		include FREECALC_INC . 'view/pdf/template-pdf-styles.php';
 		/* ------------------- */
     ?>
 </head>
@@ -19,7 +19,7 @@
 <?
 
 //var_dump_pre($_SERVER);
-$details['column_id'] = 'test';
+/*$details['column_id'] = 'test';
 $details['column_id'] = 1;
 $radials = [0,0,0,0,5,0];
 $data['cpanel'] = true;
@@ -32,61 +32,29 @@ $size['w3'] = 2000;
 $size['l1'] = 1000;
 $size['l2'] = 2000;
 $size['l3'] = 2000;
-$data['promocode'] = 'WERWER';
+$data['promocode'] = 'WERWER';*/
 
 
+/* variables */
 $root_url = $_SERVER['DOCUMENT_ROOT'];
 $domainName = get_site_url();
 $hostName = $_SERVER['HTTP_HOST'];
+$radials = $data['radial'];
+$total = htmlspecialchars_decode($data['total_price']);
+/* end var */
 
 /*$img = FREECALC_URL.'admin/img/worktop/'.$data['wimg'].'.jpg';*/
 
 if ($details['column_id']==1)
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-classes.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-classes.php';
 elseif ($details['column_id']==2)
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-bathroom.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-bathroom.php';
 elseif ($details['column_id']==3)
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-windowsill.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-windowsill.php';
 elseif ($details['column_id']=='test')
-	$mapDetailing = include FREECALC_INC.'view/partials/detailing-test.php';
+	$mapDetailing = include FREECALC_INC.'view/detailing-array/detailing-test.php';
 
-/* variables */
-//$radials = $data['radial'];
-$total = htmlspecialchars_decode($data['total_price']);
 
-// Материал
-//$detailMaterialImg = $data['material_img_url'];
-//$detailMaterialText = $data['material_text'];
-// Тип монтажа
-//$detailInstallImg = $data['type_install_img'];
-//$detailInstallText = $data['type_install_text'];
-// Фаска
-//$detailFaceImg = $data['face_img_url'];
-//$detailFaceText = $data['face_text'];
-
-/* test */
-// Материал
-//$detailMaterialImg = 'http://wp.yooh.tech/wp-content/uploads/2021/01/granistone.svg';
-
-//$detailMaterialText = '';
-
-// Монтаж
-//$detailInstallImg = 'http://wp.yooh.tech/wp-content/uploads/2021/01/vroven-so-stoleshnitsey.svg';
-/*$detailInstallText = '<span class="row__text">
-            <p class="text text-name">Врезной монтаж</p>
-                    <p class="text">1 000р.</p>
-				        </span>';*/
-
-// Фаска
-//$detailFaceImg = 'http://wp.yooh.tech/wp-content/uploads/2021/01/3.jpg';
-/*$detailFaceText = '<div class="row__text">
-          <p class="text">№3 (0р.)</p>
-          <p class="text-name ds-none">№3</p>
-       </div>';*/
-/* test */
-
-// $data['wname'] - имя столешницы
-/*print_r_pre($_SERVER);*/
 ?>
 
 
@@ -104,8 +72,8 @@ $total = htmlspecialchars_decode($data['total_price']);
       </td>
       <td>
          <!--<p>e-mail: info@vaskaniya.ru</p>-->
-         <p>г. Екатеринбург, ул. Толедова 43Б</p>
-         <p>tel: <b>+7</b>(343) 346-76-55</p>
+         <p><?= $calcSetting['address-company'] ?></p>
+         <p><?= htmlspecialchars_decode($calcSetting['telephone-company']) ?></p>
          <p><a href="<?= get_home_url() ?>"><?= $_SERVER['HTTP_HOST'] ?></a></p>
       </td>
    </tr>
@@ -114,13 +82,13 @@ $total = htmlspecialchars_decode($data['total_price']);
 
 <!-- 1 -->
 <div class="bg-stamp">
-   <img src="<?= FREECALC_URL.'admin/img/bg-stamp.svg' ?>" alt="">
+   <img src="<?= FREECALC_URL.'admin/img/pdf/bg-stamp.svg' ?>" alt="">
 	<?/*= file_get_contents(FREECALC_PATH.'admin/img/bg-stamp.svg') */?>
 </div>
 
 <!-- 1 -->
 <div class="bg-stamp bg-stamp-2">
-   <img src="<?= FREECALC_URL.'admin/img/bg-stamp.svg' ?>" alt="">
+   <img src="<?= FREECALC_URL.'admin/img/pdf/bg-stamp.svg' ?>" alt="">
 	<?/*= file_get_contents(FREECALC_PATH.'admin/img/bg-stamp.svg') */?>
 </div>
 

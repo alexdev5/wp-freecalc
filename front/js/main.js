@@ -792,26 +792,12 @@
     }
 
 
-    /*if (cname === 'worktop-g'){
-      s = toMeterS( (l1*w2)+(l2*w1)-(w1*w2));
-    }
-    else if(cname === 'worktop-line'){
-      s = toMeterS(w1*l1);
-    }
-    else if(cname === 'worktop-p'){
-
-      let x = toMeterS((l2-w1)*w2);
-      let y = toMeterS(l1*w1);
-      let z = toMeterS((l3-w1)*w3);
-
-      s = (y+x+z);
-    }*/
-
     // Пересчитать "подгиб кромки"
     let check = $('.component.edge-worktop input.dot');
     if (check.prop('checked'))
       check.change();
 
+    s = parseInt(s*100)/100;
 
     return s>0 ? s : 0;
   }
@@ -872,11 +858,9 @@
       //console.log('del');
       return key;
     }
-    //
     //if (!_obj.hasOwnProperty(key)){
       _obj[key] = value;
     //}
-
     return value;
   }
 
@@ -906,7 +890,6 @@
     let priceSet = getActiveColumn().find('.component [data-price-type="install-windowsill"]');
     if (is_elem(priceSet) && priceSet.prop('checked')){
       priceSet.change();
-      console.log('change');
     }
   });
 
@@ -916,29 +899,21 @@
   // Удалить столешницу
   /* ------------------------ */
   freecalc.on('click', '.button-one.remove', function (evt) {
-    let delWorktop = $(this).parent();
-    delWorktop.remove();
+    let worktopAdded = $(this).parent();
+    worktopAdded.remove();
 
     let priceSet = getActiveColumn().find('.component [data-price-type="install-windowsill"]');
     if (is_elem(priceSet) && priceSet.prop('checked'))
       priceSet.change();
+
+    // обновить площадь
+    let name = worktopAdded.data('name');
+    setKeyCurrentObject(name, '', true);
+    setSumDOM(calcTotalSum());
+    let input = getActiveWorktop().find('input[type="number"]').first();
+    input.keyup();
   });
 
-
- /* function onClickFirst(){
-    let group = $('.group-block > .component:first-child');
-    group.each(function (idx) {
-      if ($(this).data('connect-group')){
-        let input = $(this).find('input');
-        input.prop('checked', true);
-        input.change();
-        console.log(input);
-        console.log('check');
-      }
-    });
-    console.log(group);
-  }
-  onClickFirst(); */
 
   /* ------------------------ */
   // Добавить в объект детализации
@@ -1235,6 +1210,10 @@
   let lastOutPromocode = '';
   freecalc.on('click', '.freecalc__promocode button', function () {
     let btn = $(this);
+    if (btn.hasClass('not-active')){
+      return false;
+    }
+
     let promoText = btn.parent().find('input[type="text"]').val();
     if (!promoText)
       return false;
