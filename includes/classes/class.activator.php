@@ -8,9 +8,7 @@ class FreecalcActivator{
 		$table_name = $wpdb->prefix . self::$table_slug;
 		$table_setting = $table_name.'_settings';
 
-		if ( $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" ) !=  $table_name ) {
-
-			/* Таблица калькуляторов */
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) !=  $table_name ) {
 			$sql = "CREATE TABLE IF NOT EXISTS `$table_name`
 			(
 				`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,6 +20,14 @@ class FreecalcActivator{
 			) ENGINE=MyISAM DEFAULT CHARSET=$wpdb->charset AUTO_INCREMENT=1;";
 
 			/* Таблица настроек */
+
+			$wpdb->query( $sql );
+
+		}
+
+
+		/* Таблица калькуляторов */
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_setting'" ) !=  $table_setting ){
 			$sql2 = "CREATE TABLE IF NOT EXISTS `$table_setting`
 			(
 				`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -30,9 +36,8 @@ class FreecalcActivator{
 				PRIMARY KEY (`id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=$wpdb->charset AUTO_INCREMENT=1;";
 
-			$wpdb->query( $sql );
 			$wpdb->query( $sql2 );
-
 		}
+
 	}
 }

@@ -658,16 +658,18 @@
 
     //let price = parent.data('price');
     let price = priceOtherComponent(this);
-    let s = getAreaWorktop(type) + getAreasMakeAdded();
+    let s = getAreaWorktop(type);
     let amount = s * balrate(price);
 
+    let areaWorktop = getAreaWorktop(type);
+    let areasNewWorktop = getAreasMakeAdded();
 
     // Детализация
     setPropertyDetail({
       el: null,
       type:'worktop-js',
-      prop:s,
-      price:amount,
+      prop:areasNewWorktop + areaWorktop,
+      price:(areasNewWorktop + areaWorktop) * price,
     });
 
     let cname = getcNameComponent(input).cname;
@@ -796,8 +798,6 @@
     let check = $('.component.edge-worktop input.dot');
     if (check.prop('checked'))
       check.change();
-
-    s = parseInt(s*100)/100;
 
     return s>0 ? s : 0;
   }
@@ -1035,9 +1035,9 @@
 
     //
 
-    if (isChange){
+    /*if (isChange){
       toElement.css('background', '#F29B68');
-    }
+    }*/
 
     //console.log(data);
   }
@@ -1104,6 +1104,7 @@
   * */
   function calcTotalSum() {
     let _obj = getCurrentKye();
+    
     let total = 0;
     for(let key in _obj){
       if (!_obj.hasOwnProperty(key))
@@ -1178,7 +1179,8 @@
    * */
   function toMeterS(number){
     const TRANSM = 1000000;
-    return number/TRANSM;
+    let res = (number/TRANSM) * 100;
+    return parseInt(res)/100;
   }
 
   function toMeter(number){

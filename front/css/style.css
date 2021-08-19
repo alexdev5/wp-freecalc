@@ -453,12 +453,17 @@ ul{
 .freecalc .text-input-text > *{
     vertical-align: middle;
 }
+.freecalc h3.text-name{
+    font-size: 18px;
+    font-weight: 500;
+}
 .freecalc .input-red input,
 .freecalc .text-input-text input{
     width: 60px;
     border: 1px solid #FF0000;
     margin-left: 5px;
     margin-right: 5px;
+    padding: 4px 2px;
 }
 
 /*  */
@@ -879,7 +884,7 @@ input::-webkit-inner-spin-button {
 .calc-actions__tab .calc-action{
     height: 70px;
     width: 100%;
-    line-height: 70px;
+    /*line-height: 70px;*/
     display: block;
     border: none;
     outline: none;
@@ -935,6 +940,9 @@ button.not-active:hover,
     padding-left: 20px;
     font-size: 18px;
     outline: none;
+}
+.freecalc__promocode .form-control:focus{
+    background: #E6E6E6;
 }
 .freecalc__promocode button{
     outline: none;
@@ -1387,5 +1395,6 @@ button.not-active:hover,
     }
     .freecalc__promocode button{
         width: 120px;
+        padding: 0;
     }
 }

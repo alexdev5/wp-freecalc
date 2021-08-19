@@ -68,7 +68,7 @@ include FREECALC_INC . 'view/partials/component-before.php';
 
 
            <!-- $tableType | Выбрать тип столешницы -->
-           <?= view2('settings/worktop-type', [ 'worktop'=>$compSett['component-type__worktop'] ]); ?>
+           <?/*= view2('settings/worktop-type', [ 'worktop'=>$compSett['component-type__worktop'] ]); */?>
            <!-- end -->
 
 

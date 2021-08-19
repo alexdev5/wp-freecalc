@@ -74,7 +74,7 @@ elseif ($details['column_id']=='test')
          <!--<p>e-mail: info@vaskaniya.ru</p>-->
          <p><?= $calcSetting['address-company'] ?></p>
          <p><?= htmlspecialchars_decode($calcSetting['telephone-company']) ?></p>
-         <p><a href="<?= get_home_url() ?>"><?= $_SERVER['HTTP_HOST'] ?></a></p>
+         <p><a href="<?= get_home_url() ?>">столешница96.рф</a></p>
       </td>
    </tr>
 </table>
@@ -176,7 +176,7 @@ elseif ($details['column_id']=='test')
          <!--<p>e-mail: info@vaskaniya.ru</p>-->
          <p>г. Екатеринбург, ул. Толедова 43Б</p>
          <p>tel: <b>+7</b>(343) 346-76-55</p>
-         <p><a href="<?= get_home_url() ?>"><?= $_SERVER['HTTP_HOST'] ?></a></p>
+         <p><a href="<?= get_home_url() ?>">столешница96.рф</a></p>
       </td>
    </tr>
 </table>
@@ -186,7 +186,6 @@ elseif ($details['column_id']=='test')
     <!-- Калькулятор -->
     <h2 class="detailing-header">Детализация</h2>
     <table class="detailing">
-
         <tr>
             <th>№ <br>п/п</th>
             <th>Наименование работ</th>

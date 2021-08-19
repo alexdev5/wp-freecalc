@@ -821,8 +821,10 @@
 		data.nonce = wooAjaxScript.nonce;
 		data.action = action;
 
+		console.log(url);
+		console.log(data.nonce);
+		console.log(data.action);
 
-		console.log(data);
 		$.ajax({
 			type: "POST",
 			url: url,
